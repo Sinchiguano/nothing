@@ -1,0 +1,17 @@
+
+<launch>
+
+   <!-- camera realsense 1-->
+
+   <group ns="astra_tf">
+      <param name="tf_prefix" value="astra_link" />
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="1 0 0.75 3.14159 0.785398 0 /world /astra_link 100" />
+   </group>-->
+
+   <!-- camera astra 2-->
+   <group ns="realsense_tf">
+      <param name="tf_prefix" value="camera_link" />
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="1 0 0.35 3.14159 0.785398 0 /world /camera_link 100" />
+   </group>-->
+
+</launch>

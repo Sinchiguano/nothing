@@ -1,0 +1,8 @@
+prefix=/home/sinchiguano/yumi_depends_ws/devel
+
+Name: image_publisher
+Description: Description of image_publisher
+Version: 1.12.23
+Cflags: -I/home/sinchiguano/yumi_depends_ws/devel/include
+Libs: -L/home/sinchiguano/yumi_depends_ws/devel/lib 
+Requires: 

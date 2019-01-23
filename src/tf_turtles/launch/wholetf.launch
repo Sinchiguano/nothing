@@ -1,0 +1,60 @@
+
+<launch>
+
+
+
+  <!--   the orientation is in euler convetion!!!!  -->
+  <group ns="world_yumi">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0 0 0 0 0 0 /world /yumi_base_link 100" />
+  </group>
+
+  <!--   safe pose position -->
+  <group ns="left_world">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.406863121810536, 0.21032339328521343, 0.30015694599667025 1.5905714098841688, -0.012566452811557768, 1.5769400632943125 /world /l_home 100" />
+  </group>
+
+  <group ns="right_world">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.4626951148953401, -0.21178809737334905, 0.2964952143392684 1.5641698885379043, -0.05120930681286328, 1.6417374580803308 /world /r_home 100" />
+  </group>
+
+
+  <!--safe joint position -->
+  <group ns="l_home_">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.35280295120276717, 0.4245205120529503, 0.9020079978331033 -0.13350328204569098, -0.36780034234943537, -1.6971219323041686 /world /safe_l_home 100" />
+  </group>
+
+  <group ns="r_home">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.3075490720071894, -0.3563946156460407, 0.87235146438 0.9371021111504254, -0.2963303671321399, -0.8463762801908741 /world /safe_r_home 100" />
+  </group>
+
+  <!--   0.094m or 9.4cm  -->
+  <group ns="world_target">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.4 0 0 0 0 0 /world /target 100" />
+  </group>
+  <!-- 0.5 cm 0.094cm-->
+  <group ns="target_camera">
+    <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="1 0 0.494 3.14159 0.785398 0 /target /camera_link  100" />
+  </group>
+
+
+
+
+  <!--  x=0.274m  -->
+  <group ns="x_axis">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.274 0 0 0 0 0 /world /x 100" />
+  </group>
+
+  <!--  x=0.664m  -->
+  <group ns="yl_axis">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0 0.664 0 0 0 0 /world /yl 100" />
+  </group>
+
+  <!--  x=0.664m  -->
+  <group ns="yr_axis">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0 -0.664 0 0 0 0 /world /yr 100" />
+  </group>
+
+
+
+
+</launch>

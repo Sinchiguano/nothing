@@ -1,0 +1,17 @@
+
+<launch>
+
+   <!-- camera astra1-->
+
+   <group ns="astra1_tf">
+      <param name="tf_prefix" value="astra_link" />
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="1 0 0.75 3.14159 0.785398 0 /world astra1/astra1_link 100" />
+   </group>-->
+
+   <!-- camera astra2-->
+   <group ns="astra2_tf">
+      <param name="tf_prefix" value="camera_link" />
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="1 0 0.35 3.14159 0.785398 0 /world astra2/astra2_link 100" />
+   </group>-->
+
+</launch>

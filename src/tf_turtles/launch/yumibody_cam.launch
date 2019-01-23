@@ -1,0 +1,17 @@
+
+<launch>
+
+  <!--   0.094cm  -->
+  <group ns="baselink_world">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0 0 0 0 0 0 /world /yumi_base_link 100" />
+  </group>
+
+  <!--   0.094cm  -->
+  <group ns="world_target">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.4 0 0 0 0 0 /world /target 100" />
+  </group>
+  <!-- 0.5 cm 0.094cm-->
+  <group ns="target_world">
+    <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="1 0 0.494 3.14159 0.785398 0 /target /camera_link  100" />
+  </group>
+</launch>

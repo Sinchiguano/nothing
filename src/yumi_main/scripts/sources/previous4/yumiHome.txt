@@ -1,0 +1,46 @@
+
+============ Enter #1 to execute or any number to skip the execution!
+^Z
+[1]+  Stopped                 rosrun yumi_main yumi_main01.py
+cesar@yumi-T430:~/yumi_depends_ws$ 
+cesar@yumi-T430:~/yumi_depends_ws$ rosrun yumi_main yumi_main01.py 
+============ Press `Enter` to start (press ctrl-d to exit) ......
+
+[ INFO] [1547315313.771822919]: Loading robot model 'yumi'...
+[ INFO] [1547315313.772008627]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[ INFO] [1547315314.225555537]: Loading robot model 'yumi'...
+[ INFO] [1547315314.225603897]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[ INFO] [1547315314.465421250]: Loading robot model 'yumi'...
+[ INFO] [1547315314.467091771]: No root/virtual joint specified in SRDF. Assuming fixed joint
+[ INFO] [1547315315.907528659]: Ready to take commands for planning group right_arm.
+[ INFO] [1547315316.585771411]: Ready to take commands for planning group left_arm.
+current joints values left_arm
+[0.07728819815353496, -0.4448587931969669, -2.526463099242281, -0.6204880975470413, 1.01799925331315, -0.1680600294438192, -1.056974554832792]
+
+current pose of the end-effector left_arm
+
+Position x, y and z!!!
+(0.17452504793232265, 0.3299045615094185, 0.940933520239665)
+
+Rotation in Euler convention (rpy)!!!
+[-0.48883636856878154, -0.11398434326628687, 0.49748016105310644]
+
+Rotation in quaternion convention (x,y,z,w)!!!
+(-0.22055721268782238, -0.1130449169290548, 0.2251182585699438, 0.9422829364613995)
+
+current joints values right_arm
+[-2.752218380978424, 0.5915853067906107, -1.5499846300516278, -0.8167864749163855, -4.033597271041247, 0.3837469685061368, -2.8660877422255]
+
+current pose of the end-effector right_arm
+
+Position x, y and z!!!
+(0.24782777787129276, -0.3953053980948545, 0.8955554164884502)
+
+Rotation in Euler convention (rpy)!!!
+[0.014378755949533532, 0.6378159171843661, -1.6565989894476663]
+
+Rotation in quaternion convention (x,y,z,w)!!!
+(0.23561314653820642, 0.20695140926650893, -0.7011388517117871, 0.640360734275024)
+
+[INFO] [1547315317.452715]: counter: 1
+

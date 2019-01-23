@@ -1,0 +1,8 @@
+prefix=/home/sinchiguano/yumi_depends_ws/install
+
+Name: depth_image_proc
+Description: Description of depth_image_proc
+Version: 1.12.23
+Cflags: -I/home/sinchiguano/yumi_depends_ws/install/include
+Libs: -L/home/sinchiguano/yumi_depends_ws/install/lib -ldepth_image_proc
+Requires: 
