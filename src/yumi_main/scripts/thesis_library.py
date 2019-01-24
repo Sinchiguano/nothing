@@ -40,15 +40,18 @@ from math import pi
 from std_msgs.msg import String
 from moveit_commander.conversions import pose_to_list
 
-
-
 #for mesh and pcd
 import copy
 import numpy as np
 import time
 
+#for the 3d data manipulation!!!!!!!!!!!!!
 from open3d import read_point_cloud, draw_geometries, KDTreeSearchParamHybrid
 from open3d import voxel_down_sample, estimate_normals, compute_fpfh_feature
 from open3d import registration_ransac_based_on_feature_matching, TransformationEstimationPointToPoint
 from open3d import CorrespondenceCheckerBasedOnEdgeLength,RANSACConvergenceCriteria
-from open3d import CorrespondenceCheckerBasedOnDistance
+from open3d import CorrespondenceCheckerBasedOnDistance, statistical_outlier_removal
+
+import open3d
+from open3d import PointCloud, Vector3dVector, write_point_cloud,read_triangle_mesh
+import pcl
