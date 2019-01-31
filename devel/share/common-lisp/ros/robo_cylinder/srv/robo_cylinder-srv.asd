@@ -1,0 +1,21 @@
+
+(cl:in-package :asdf)
+
+(defsystem "robo_cylinder-srv"
+  :depends-on (:roslisp-msg-protocol :roslisp-utils )
+  :components ((:file "_package")
+    (:file "HomeCmd" :depends-on ("_package_HomeCmd"))
+    (:file "_package_HomeCmd" :depends-on ("_package"))
+    (:file "MoveMeters" :depends-on ("_package_MoveMeters"))
+    (:file "_package_MoveMeters" :depends-on ("_package"))
+    (:file "MovePulses" :depends-on ("_package_MovePulses"))
+    (:file "_package_MovePulses" :depends-on ("_package"))
+    (:file "PowerIO" :depends-on ("_package_PowerIO"))
+    (:file "_package_PowerIO" :depends-on ("_package"))
+    (:file "StatusUpdate" :depends-on ("_package_StatusUpdate"))
+    (:file "_package_StatusUpdate" :depends-on ("_package"))
+    (:file "StringCmd" :depends-on ("_package_StringCmd"))
+    (:file "_package_StringCmd" :depends-on ("_package"))
+    (:file "VelAcc" :depends-on ("_package_VelAcc"))
+    (:file "_package_VelAcc" :depends-on ("_package"))
+  ))

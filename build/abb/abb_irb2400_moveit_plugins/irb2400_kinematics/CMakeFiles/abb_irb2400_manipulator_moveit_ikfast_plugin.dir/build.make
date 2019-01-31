@@ -162,7 +162,8 @@ abb_irb2400_manipulator_moveit_ikfast_plugin_EXTERNAL_OBJECTS =
 /home/sinchiguano/yumi_depends_ws/devel/lib/libabb_irb2400_manipulator_moveit_ikfast_plugin.so: /usr/lib/x86_64-linux-gnu/libpthread.so
 /home/sinchiguano/yumi_depends_ws/devel/lib/libabb_irb2400_manipulator_moveit_ikfast_plugin.so: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so
 /home/sinchiguano/yumi_depends_ws/devel/lib/libabb_irb2400_manipulator_moveit_ikfast_plugin.so: /usr/lib/liblapack.so
-/home/sinchiguano/yumi_depends_ws/devel/lib/libabb_irb2400_manipulator_moveit_ikfast_plugin.so: /usr/lib/libblas.so
+/home/sinchiguano/yumi_depends_ws/devel/lib/libabb_irb2400_manipulator_moveit_ikfast_plugin.so: /usr/lib/libf77blas.so
+/home/sinchiguano/yumi_depends_ws/devel/lib/libabb_irb2400_manipulator_moveit_ikfast_plugin.so: /usr/lib/libatlas.so
 /home/sinchiguano/yumi_depends_ws/devel/lib/libabb_irb2400_manipulator_moveit_ikfast_plugin.so: abb/abb_irb2400_moveit_plugins/irb2400_kinematics/CMakeFiles/abb_irb2400_manipulator_moveit_ikfast_plugin.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sinchiguano/yumi_depends_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library /home/sinchiguano/yumi_depends_ws/devel/lib/libabb_irb2400_manipulator_moveit_ikfast_plugin.so"
 	cd /home/sinchiguano/yumi_depends_ws/build/abb/abb_irb2400_moveit_plugins/irb2400_kinematics && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/abb_irb2400_manipulator_moveit_ikfast_plugin.dir/link.txt --verbose=$(VERBOSE)

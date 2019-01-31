@@ -30,8 +30,8 @@ def preprocess_point_cloud(pcd, voxel_size):
 
 def prepare_dataset(voxel_size):
     print(":: Load two point clouds and disturb initial pose.")
-    source = read_point_cloud("dataset/sync4.pcd")
-    target = read_point_cloud("dataset/sync3.pcd")
+    source = read_point_cloud("objects.pcd")
+    target = read_point_cloud("pcbottom.pcd")
 
 
     # Flip it, otherwise the pointcloud will be upside down
@@ -50,14 +50,12 @@ def prepare_dataset(voxel_size):
     target_down, target_fpfh = preprocess_point_cloud(target, voxel_size)
     return source, target, source_down, target_down, source_fpfh, target_fpfh
 
-def execute_global_registration(
-        source_down, target_down, source_fpfh, target_fpfh, voxel_size):
+def execute_global_registration(source_down, target_down, source_fpfh, target_fpfh, voxel_size):
     distance_threshold = voxel_size * 1.5
     print(":: RANSAC registration on downsampled point clouds.")
     print("   Since the downsampling voxel size is %.3f," % voxel_size)
     print("   we use a liberal distance threshold %.3f." % distance_threshold)
-    result = registration_ransac_based_on_feature_matching(
-            source_down, target_down, source_fpfh, target_fpfh,
+    result = registration_ransac_based_on_feature_matching(source_down, target_down, source_fpfh, target_fpfh,
             distance_threshold,
             TransformationEstimationPointToPoint(False), 4,
             [CorrespondenceCheckerBasedOnEdgeLength(0.9),
@@ -77,14 +75,12 @@ def refine_registration(source, target, source_fpfh, target_fpfh, voxel_size):
 
 if __name__ == "__main__":
     voxel_size = 0.01 # means 5cm for the dataset
-    source, target, source_down, target_down, source_fpfh, target_fpfh = \
-            prepare_dataset(voxel_size)
+    source, target, source_down, target_down, source_fpfh, target_fpfh = prepare_dataset(voxel_size)
 
     result_ransac = execute_global_registration(source_down, target_down,
             source_fpfh, target_fpfh, voxel_size)
     print(result_ransac)
-    draw_registration_result(source_down, target_down,
-            result_ransac.transformation)
+    draw_registration_result(source_down, target_down,result_ransac.transformation)
 
     # result_icp = refine_registration(source, target,
     #         source_fpfh, target_fpfh, voxel_size)

@@ -1,0 +1,2 @@
+set(camera_pose_calibration_MESSAGE_FILES "/home/sinchiguano/yumi_depends_ws/src/camera_pose_calibration/msg/PatternParameters.msg")
+set(camera_pose_calibration_SERVICE_FILES "/home/sinchiguano/yumi_depends_ws/src/camera_pose_calibration/srv/CalibrateCall.srv;/home/sinchiguano/yumi_depends_ws/src/camera_pose_calibration/srv/CalibrateFile.srv;/home/sinchiguano/yumi_depends_ws/src/camera_pose_calibration/srv/CalibrateTopic.srv")

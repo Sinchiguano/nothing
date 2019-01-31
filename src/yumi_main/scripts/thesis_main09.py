@@ -34,23 +34,22 @@ def display_objcts(cloud1,cloud2):
 
     draw_geometries([pcloud1, pcloud2])
 
-
 def main():
     counter=0
     flag=True
 
     while (True):
         counter+=1
-        # #Get point PointCloud2
+        #Get point PointCloud2
         # pc=camObj.get_point_cloud()
         #
         # if pc is None:
         #     print('no PointCloud2!!!')
         #     continue
-        #
+
         # print(type(pc))
         # print(pc.shape)
-        #
+
         # if flag:
         #     pc=np.reshape(pc,(np.size(pc[:,:,0]),3))#I took the size of my x coordinates
         #     print(pc.shape)
@@ -61,43 +60,46 @@ def main():
         #     print('In progress!!!')
         #
         #     start_timer=time.time()
+        #
         #     pcd.points = Vector3dVector(pc)
-        #     write_point_cloud("scene3.pcd", pcd)
+        #     # Flip it, otherwise the pointcloud will be upside down
+        #     print("Load a pcd point cloud, and flip it!!!")
+        #     pcd.transform([[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]])
+        #     write_point_cloud("newone6.ply", pcd)
+        #     write_point_cloud("newone6.pcd", pcd)
+        #     source =read_point_cloud("newone6.ply")
+        #     draw_geometries([source])
+        #
         #     print('elapsed time:',time.time()-start_timer)
         #
         #     flag=False
-
-
-        # # Flip it, otherwise the pointcloud will be upside down
-        # print("Load a pcd point cloud, and flip it!!!")
-        # source =read_point_cloud("scene1.pcd")
-        # source.transform([[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]])
-        # write_point_cloud("scene1up.pcd", source)
-        # draw_geometries([source])
-
-
-
-        # Load the point cloud from the memory
-        cloud = pcl.load('scene1up.pcd')
-
-        # Downsample the cloud as high resolution which comes with a computation cost
-        downsample = do_voxel_grid_filter(point_cloud = cloud, LEAF_SIZE = 0.005)
-        pcl.save(downsample, 'downsample.pcd')
-
-        # Get only information in our region of interest, as we don't care about the other parts/// 0.5->50cm
-        filter = do_passthrough_filter(point_cloud = downsample,name_axis = 'x', min_axis = -0.5, max_axis = 0.10)
-        pcl.save(filter, 'roi_tabletop.pcd')
-
-        # Separate the table from everything else
-        table, objects = do_ransac_plane_segmentation(filter, max_distance = 0.01)
-        pcl.save(table, 'table.pcd')
-        pcl.save(objects, 'objects.pcd')
+        # exit()
+        # for pc in range(1,7):
+        #     tmp='newone'+str(pc)+'.pcd'
+        #     print(tmp)
+        #
+        # exit()
+        # # Load the point cloud from the memory
+        # cloud = pcl.load('newone1.pcd')
+        #
+        # # Downsample the cloud as high resolution which comes with a computation cost
+        # downsample = do_voxel_grid_filter(point_cloud = cloud, LEAF_SIZE = 0.005)
+        # pcl.save(downsample, 'downsample.pcd')
+        #
+        # # Get only information in our region of interest, as we don't care about the other parts/// 0.5->50cm
+        # filter = do_passthrough_filter(point_cloud = downsample,name_axis = 'x', min_axis = -0.05, max_axis = 0.15)
+        # pcl.save(filter, 'roi_tabletop.pcd')
+        #
+        # # Separate the table from everything else
+        # table, objects = do_ransac_plane_segmentation(filter, max_distance = 0.01)
+        # pcl.save(table, 'table.pcd')
+        # pcl.save(objects, 'objects.pcd')
 
 
 
 
         #Display the table and the object
-        display_objcts('table.pcd','objects.pcd')
+        #display_objcts('table.pcd','objects.pcd')
 
         print('------------------')
         print('counter:',counter)

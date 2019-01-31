@@ -1,0 +1,20 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~filter_by_area" : \b [bool] filter blobs by their area min: False, default: True, max: True
+- \b "~filter_by_circularity" : \b [bool] filter blobs by their circularity min: False, default: True, max: True
+- \b "~filter_by_convexity" : \b [bool] filter blobs by their convexity min: False, default: True, max: True
+- \b "~filter_by_inertia" : \b [bool] filter blobs by their aspect ration min: False, default: True, max: True
+- \b "~min_area" : \b [int] Minimum area of a blob min: 1, default: 25, max: 5000
+- \b "~max_area" : \b [int] Maximum area of a blob min: 1, default: 40000, max: 80000
+- \b "~min_circularity" : \b [double] The min aspect ratio necessary to be a circlular blob min: 0.1, default: 0.0, max: 1.0
+- \b "~max_circularity" : \b [double] The max aspect ratio necessary to be a circlular blob min: 0.75, default: 0.5, max: 1.0
+- \b "~min_threshold" : \b [int] The contrast minimum threshold to be a blob min: 1, default: 50, max: 1000
+- \b "~max_threshold" : \b [int] The contrast maximum threshold to be a blob min: 1, default: 120, max: 1000
+- \b "~min_distance" : \b [double] The min distance between blobs min: 1.0, default: 5.0, max: 500.0
+- \b "~min_convexity" : \b [double] The mininum convexity min: 0.1, default: 0.0, max: 1.0
+- \b "~max_convexity" : \b [double] The maximum convexity min: 0.99, default: 0.0, max: 1.0
+- \b "~min_inertia_ratio" : \b [double] The minimum inertial ratio min: 0.1, default: 0.0, max: 1.0
+- \b "~max_inertia_ratio" : \b [double] The maximum inertial ratio min: 0.99, default: 0.0, max: 1.0
+

@@ -1,0 +1,8 @@
+prefix=/home/sinchiguano/yumi_depends_ws/install
+
+Name: camera_pose_calibration
+Description: Description of camera_pose_calibration
+Version: 0.1.2
+Cflags: -I/home/sinchiguano/yumi_depends_ws/install/include
+Libs: -L/home/sinchiguano/yumi_depends_ws/install/lib 
+Requires: 

@@ -1,0 +1,21 @@
+\subsubsection usage Usage
+\verbatim
+<node name="industrial_extrinsic_cal_node" pkg="industrial_extrinsic_cal" type="industrial_extrinsic_cal_node">
+  <param name="filter_by_area" type="bool" value="True" />
+  <param name="filter_by_circularity" type="bool" value="True" />
+  <param name="filter_by_convexity" type="bool" value="True" />
+  <param name="filter_by_inertia" type="bool" value="True" />
+  <param name="min_area" type="int" value="25" />
+  <param name="max_area" type="int" value="40000" />
+  <param name="min_circularity" type="double" value="0.0" />
+  <param name="max_circularity" type="double" value="0.5" />
+  <param name="min_threshold" type="int" value="50" />
+  <param name="max_threshold" type="int" value="120" />
+  <param name="min_distance" type="double" value="5.0" />
+  <param name="min_convexity" type="double" value="0.0" />
+  <param name="max_convexity" type="double" value="0.0" />
+  <param name="min_inertia_ratio" type="double" value="0.0" />
+  <param name="max_inertia_ratio" type="double" value="0.0" />
+</node>
+\endverbatim
+

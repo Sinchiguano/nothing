@@ -1,0 +1,7 @@
+\subsubsection usage Usage
+\verbatim
+<node name="intrinsic_cal_node" pkg="intrinsic_cal" type="intrinsic_cal_node">
+  <param name="click_to_observe" type="bool" value="True" />
+</node>
+\endverbatim
+
