@@ -80,41 +80,41 @@ def main():
         #
         # print(tmp)
 
-        pc_name='newone5.pcd'
-        downsample_name='downsample5.pcd'
-        roi_tabletop_name='roi_tabletop5.pcd'
-
-        table_name='table5.pcd'
-        objects_name='objects5.pcd'
-
-        objects_name1="object5.ply"
-
-        # Load the point cloud from the memory
-        cloud = pcl.load(pc_name)
-
-        # Downsample the cloud as high resolution which comes with a computation cost
-        downsample = do_voxel_grid_filter(point_cloud = cloud, LEAF_SIZE = 0.005)
-        pcl.save(downsample, downsample_name)
-
-        # Get only information in our region of interest, as we don't care about the other parts/// 0.5->50cm
-        filter = do_passthrough_filter(point_cloud = downsample,name_axis = 'x', min_axis = -0.05, max_axis = 0.15)
-        pcl.save(filter, roi_tabletop_name)
-
-        # Separate the table from everything else
-        table, objects = do_ransac_plane_segmentation(filter, max_distance = 0.01)
-        pcl.save(table, table_name)
-        pcl.save(objects,objects_name )
-
-        source =read_point_cloud(objects_name)
-        write_point_cloud(objects_name1, source)
-
-
-        # #Display the table and the object
-        # display_objcts('table.pcd','objects.pcd')
-
-        print('------------------')
-        print('counter:',counter)
-        exit()
+        # pc_name='newone5.pcd'
+        # downsample_name='downsample5.pcd'
+        # roi_tabletop_name='roi_tabletop5.pcd'
+        #
+        # table_name='table5.pcd'
+        # objects_name='objects5.pcd'
+        #
+        # objects_name1="object5.ply"
+        #
+        # # Load the point cloud from the memory
+        # cloud = pcl.load(pc_name)
+        #
+        # # Downsample the cloud as high resolution which comes with a computation cost
+        # downsample = do_voxel_grid_filter(point_cloud = cloud, LEAF_SIZE = 0.005)
+        # pcl.save(downsample, downsample_name)
+        #
+        # # Get only information in our region of interest, as we don't care about the other parts/// 0.5->50cm
+        # filter = do_passthrough_filter(point_cloud = downsample,name_axis = 'x', min_axis = -0.05, max_axis = 0.15)
+        # pcl.save(filter, roi_tabletop_name)
+        #
+        # # Separate the table from everything else
+        # table, objects = do_ransac_plane_segmentation(filter, max_distance = 0.01)
+        # pcl.save(table, table_name)
+        # pcl.save(objects,objects_name )
+        #
+        # source =read_point_cloud(objects_name)
+        # write_point_cloud(objects_name1, source)
+        #
+        #
+        # # #Display the table and the object
+        # # display_objcts('table.pcd','objects.pcd')
+        #
+        # print('------------------')
+        # print('counter:',counter)
+        # exit()
 
 if __name__ == '__main__':
     camObj=camera()
