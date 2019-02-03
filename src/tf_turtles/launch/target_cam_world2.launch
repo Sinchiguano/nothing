@@ -1,0 +1,13 @@
+
+<launch>
+
+
+  <!--   0.094cm  -->
+  <group ns="world_target">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0 0 0 0 0 0 /world /target 100" />
+  </group>
+  <!-- x=0.5 cm z=0.094cm 0.628 ->pi/5-->
+  <group ns="cam_world">
+    <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.4622815 0.4622815 0.55638626  3.14 0.777 0 /target /camera_link  100" />
+  </group>
+</launch>

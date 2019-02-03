@@ -7,7 +7,7 @@
 # Distributed under terms of the MIT License license.
 
 """
-
+Finally I got in xyz coordinate according to ROS
 """
 from thesis_class import camera
 import numpy as np
@@ -22,24 +22,28 @@ def locate_target_orientation(frame):
     size = frame.shape #(height, width, color_channel)
 
     # 2D image points
-    ret, corners = cv2.findChessboardCorners(frame, (7,9))
+    ret, corners = cv2.findChessboardCorners(frame, (7,9))#column by rows
     #To handle the corners array more easily, we can reshape it as follows
     image_points=corners.reshape(-1,2)#undefied number of rows
 
     # 3D world points.
     x,y=np.meshgrid(range(7),range(9))
-    world_points_3d=np.hstack((x.reshape(63,1),y.reshape(63,1),np.zeros((63,1)))).astype(np.float32)
+    #print x
+    #print y
+    #exit()
+    #define my xyz coordinate system according to ROS
+    world_points_3d=np.hstack((y.reshape(63,1),x.reshape(63,1),np.zeros((63,1)))).astype(np.float32)
+    #print world_points_3d
 
     #We now have our correspondences between 3D and 2D points,
     # print('pair points!!!')
     # print image_points[0],'->',world_points_3d[0]
-    #
 
     # Camera internals
     #Intrinsic parameters===>>> from the intrinsic calibration!!!!
     list_matrix=[529.3652640113527, 0, 310.3141830332983, 0, 540.6164768242445, 220.3657848482968, 0, 0, 1]
     cameraMatrix_ar=np.asarray(list_matrix).reshape(3,3)
-    print(cameraMatrix_ar.shape)
+    # print(cameraMatrix_ar.shape)
     # print(cameraMatrix_ar)
     # print(cameraMatrix_ar[1,:])
 
@@ -54,7 +58,7 @@ def locate_target_orientation(frame):
     # print "Translation Vector:\n {0}".format(translation_vector)
 
     #Coordinates system
-    axis = np.float32([[3,0,0],[0,4,0],[0,0,-5]])
+    axis = np.float32([[5,0,0],[0,5,0],[0,0,5]])
     axis_img_pts, jacobian = cv2.projectPoints(axis, rotation_vector, translation_vector,cameraMatrix_ar, distCoef_ar)
 
     #print('From rotation vector to rotation matrix')
@@ -138,7 +142,6 @@ def main():
         frame=camObj.get_image()
         #print(type(frame))
 
-
         if frame is None:
             print('no image!!!')
             continue
@@ -151,10 +154,10 @@ def main():
 
         #We can now plot limes on the 3D image using the cv2.line function:
         line_width=2
-        cv2.drawChessboardCorners(frame, (7,9), corners, ret)
+        cv2.drawChessboardCorners(frame, (7,9), corners, ret)#column and rows 7x9
         cv2.line(frame, tuple(corners[0].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
-        cv2.line(frame, tuple(corners[0].ravel()), tuple(axi_imgpts[0].ravel()), (255,0,), line_width) #BLUE X
-        cv2.line(frame, tuple(corners[0].ravel()), tuple(axi_imgpts[2].ravel()), (0,0,255), line_width) #RED Z
+        cv2.line(frame, tuple(corners[0].ravel()), tuple(axi_imgpts[2].ravel()), (255,0,), line_width) #BLUE Z
+        cv2.line(frame, tuple(corners[0].ravel()), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
 
         #plotting(frame)
 
@@ -162,7 +165,7 @@ def main():
         cv2.imshow('frame',frame)
         cv2.imwrite('test2.jpg', frame)
         print('counter:',counter)
-        #exit()
+
     # When everything done, release the capture
     cv2.destroyAllWindows()
 
