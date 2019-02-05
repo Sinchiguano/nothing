@@ -16,6 +16,7 @@ from matplotlib import pyplot as plt
 import copy
 import math
 from transforms3d.euler import euler2mat, mat2euler
+import rospy
 
 
 def locate_target_orientation(frame):
@@ -28,16 +29,14 @@ def locate_target_orientation(frame):
 
     # 3D world points.
     x,y=np.meshgrid(range(7),range(9))
-    #print x
-    #print y
-    #exit()
+
     #define my xyz coordinate system according to ROS
-    world_points_3d=np.hstack((y.reshape(63,1),x.reshape(63,1),np.zeros((63,1)))).astype(np.float32)
+    world_points_3d=np.hstack((y.reshape(63,1) * 0.020, x.reshape(63,1) * 0.020, np.zeros((63,1)))).astype(np.float32)
     #print world_points_3d
 
     #We now have our correspondences between 3D and 2D points,
-    # print('pair points!!!')
-    # print image_points[0],'->',world_points_3d[0]
+    print('pair points!!!')
+    print image_points[0],'->',world_points_3d[0]
 
     # Camera internals
     #Intrinsic parameters===>>> from the intrinsic calibration!!!!
@@ -55,10 +54,10 @@ def locate_target_orientation(frame):
 
     (success, rotation_vector, translation_vector) = cv2.solvePnP(world_points_3d, image_points, cameraMatrix_ar, distCoef_ar, flags=cv2.SOLVEPNP_ITERATIVE)
     # print "Rotation Vector:\n {0}".format(rotation_vector)
-    # print "Translation Vector:\n {0}".format(translation_vector)
+    #print("Translation Vector: {0}\n".format(translation_vector))
 
     #Coordinates system
-    axis = np.float32([[5,0,0],[0,5,0],[0,0,5]])
+    axis = np.float32([[0.05,0,0],[0,0.05,0],[0,0,0.05]])
     axis_img_pts, jacobian = cv2.projectPoints(axis, rotation_vector, translation_vector,cameraMatrix_ar, distCoef_ar)
 
     #print('From rotation vector to rotation matrix')
@@ -81,7 +80,7 @@ def locate_target_orientation(frame):
     print("===camera rvec_matrix:")
     print(rvec_matrix.T)
     print("===camera translation_vector:")
-    print(-np.dot(rvec_matrix.T, translation_vector*0.02))
+    print(-np.dot(rvec_matrix.T, translation_vector))
 
 
     print('\n From Rmatrix to euler with code')
@@ -94,12 +93,15 @@ def locate_target_orientation(frame):
     print(roll,pitch,yaw)
 
     print('\nFrom Rmatrix to euler with decomposeProjectionMatrix  ')
-    eulerAngles_radians=[math.radians(_) for _ in eulerAngles]
-    pitch, yaw, roll = [math.radians(_) for _ in eulerAngles]
-    print(pitch, yaw, roll)
+    eulerAngles_radians = [math.radians(_) for _ in eulerAngles]
+    print(eulerAngles_radians)
+
+    pitch = math.degrees(math.asin(math.sin(pitch)))
+    roll = -math.degrees(math.asin(math.sin(roll)))
+    yaw = math.degrees(math.asin(math.sin(yaw)))
 
     print('-----------------------------------------------------')
-    return axis_img_pts,image_points,ret,eulerAngles_radians
+    return axis_img_pts,image_points,ret,eulerAngles_radians,(str(int(roll)), str(int(pitch)), str(int(yaw)))
 
 #for dafety reason
 def isRotationMatrix(R) :
@@ -134,36 +136,47 @@ def main():
     counter=0
     tmpNamec='temp2.jpg'
 
-    while(True):
+    while not rospy.is_shutdown():
 
         counter+=1
 
-        # Capture frame-by-frame
-        frame=camObj.get_image()
-        #print(type(frame))
-
-        if frame is None:
-            print('no image!!!')
-            continue
-
+        # # Capture frame-by-frame
+        # frame=camObj.get_image()
+        # #print(type(frame))
+        #
+        # if frame is None:
+        #     print('no image!!!')
+        #     continue
+        #
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-        # Extrinsic calibration!!!
-        axi_imgpts,corners,ret,rotate_radians= locate_target_orientation(frame)
 
-        #We can now plot limes on the 3D image using the cv2.line function:
+        #Import the image!!!
+        frame=cv2.imread('temp2.jpg')
+
+
+
+        # Extrinsic calibration!!!
+        axi_imgpts,corners,ret,rotate_radians,rotate_degree= locate_target_orientation(frame)
+
+        # We can now plot limes on the 3D image using the cv2.line function:
         line_width=2
+
+        # numpy.ravel
+        # Return a contiguous flattened array.
         cv2.drawChessboardCorners(frame, (7,9), corners, ret)#column and rows 7x9
         cv2.line(frame, tuple(corners[0].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
-        cv2.line(frame, tuple(corners[0].ravel()), tuple(axi_imgpts[2].ravel()), (255,0,), line_width) #BLUE Z
+        cv2.line(frame, tuple(corners[0].ravel()), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
         cv2.line(frame, tuple(corners[0].ravel()), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
 
-        #plotting(frame)
+        #Adding Text to Images:
+        for j in xrange(len(rotate_degree)):
+            cv2.putText(frame, ('{:05.2f}').format(float(rotate_degree[j])), (10, 30 + (50 * j)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), thickness=2, lineType=2)
 
         # Display the resulting frame
         cv2.imshow('frame',frame)
-        cv2.imwrite('test2.jpg', frame)
+        cv2.imwrite('test.jpg', frame)
         print('counter:',counter)
 
     # When everything done, release the capture
@@ -173,3 +186,9 @@ def main():
 if __name__ == '__main__':
     camObj=camera()
     main()
+
+# for idx, corner in enumerate(corners):
+#     idx_as_str = '{}'.format(idx)
+#     text_pos = (corner + np.array([2, 2])).astype(int)
+#     cv2.putText(frame, idx_as_str, tuple(text_pos),
+#         cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255));
