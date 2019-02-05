@@ -8,6 +8,6 @@
   </group>
   <!-- x=0.5 cm z=0.094cm 0.628 ->pi/5 /camera_link /target /camera_link    0.58327832 0.07324342 0.54483961 -50.87934037585486, 146.8933493172916, 10.478367523835486   -->
   <group ns="cam_world">
-    <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.58327832 0.07324342 0.54483961 -1.6151449356679664, -0.8869679219899926, 3.116412646303061 /target /camera_link  100" />
+    <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.58327832 0.07324342 0.54483961 1.5764445017442605, 0.012547331596651994, -2.2723584680796463 /target /camera_link  100" />
   </group>
 </launch>
