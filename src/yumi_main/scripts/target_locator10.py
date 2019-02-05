@@ -27,10 +27,11 @@ quaternion=Quaternion(matrix=np.eye(3))
 pose_camera = geometry_msgs.msg.Pose()
 
 
+
 def create_pose(rotation,translation):
     """Creates a pose using quaternions"""
 
-    global quaternion
+    global q_
     global pose_camera
 
     quaternion = Quaternion(matrix=rotation)
@@ -43,44 +44,20 @@ def create_pose(rotation,translation):
     pose_camera.orientation.z =quaternion.axis[2]
     pose_camera.orientation.w =quaternion.radians
 
-def create_pose2(rotation2,translation2):
-    """Creates a pose using quaternions"""
-    pose_camera = geometry_msgs.msg.Pose()
+def pose_callback(msg):
 
+    location_=Point(0.0,0.0,0.0)
 
-def print_information(rotation_vector,translation_vector,rvec_matrix):
+    q_=msg.orientation
+    t_=msg.position
+    quaternion_=[q_.x,q_.y,q_.z,q_.w]
+    roll_,pitch_,yaw_=tf.transformations.euler_from_quaternion(quaternion_)
 
-    print("\n\nThe world coordinate system's origin in camera's coordinate system:")
-    print("===rotation_vector:")
-    print(rotation_vector)
-    print("===rotation_matrix:")
-    print(rvec_matrix)
-    print("===translation_vector:")
-    print(translation_vector)
-
-
-    print("\n\nThe camera origin in world coordinate system:")
-    print("===camera rvec_matrix:")
-    print(rvec_matrix.T)
-    print("===camera translation_vector:")
-    print(-np.dot(rvec_matrix.T, translation_vector))
-    # print("===camera rvec_quaternion:")
-    # from pyquaternion import Quaternion
-    # q = Quaternion(matrix=rvec_matrix.T)
-    # q.normalised
-    # print(q.axis)
-    # print(q.radians)
-    #
-    # create_pose(rvec_matrix.T,-np.dot(rvec_matrix.T, translation_vector))
-    # create_pose2(rvec_matrix.T,-np.dot(rvec_matrix.T, translation_vector))
-
-
-    print('\n\nFrom Rmatrix to euler with transforms3d:')
-    yaw,pitch,roll = mat2euler(rvec_matrix.T,'szyx')
-    print('the one: ',yaw,pitch,roll)
-
-
-    print('\n\n-----------------------------------------------------')
+    location_.x=t_.x
+    location_.y=t_.y
+    location_.z=t_.z
+    print("Pose camera ",location_)
+    print('euler:',(roll_,pitch_,yaw_))
 
 def locate_target_orientation(frame):
     size = frame.shape #(height, width, color_channel)
@@ -97,8 +74,8 @@ def locate_target_orientation(frame):
 
 
     #We now have our correspondences between 3D and 2D points,
-    print('pair points!!!')
-    print corners[0],'->',world_points_3d[0]
+    # print('pair points!!!')
+    # print corners[0],'->',world_points_3d[0]
 
     # Camera internals
     #Intrinsic parameters===>>> from the intrinsic calibration!!!!
@@ -127,53 +104,53 @@ def locate_target_orientation(frame):
     # The camera position expressed in the world frame (OXYZ) is given by:
     pose_camera=-np.dot(rvec_matrix.T, translation_vector)
 
-    # Create the projection matrix P = [ R | t ]:
-    proj_matrix = np.hstack((rvec_matrix, translation_vector))
+    return axis_img_pts,corners,ret,rotation_vector,translation_vector,rvec_matrix
 
-    #Use cv2.decomposeProjectionMatrix() (or any home-made function) to retrieve Euler angles:
-    eulerAngles = cv2.decomposeProjectionMatrix(proj_matrix)[6]
-    euler_angles_radians = -cv2.decomposeProjectionMatrix(proj_matrix)[6]
-    euler_angles_degrees = 180 * euler_angles_radians/math.pi
-    ###############################
-    eul    = euler_angles_radians
-    yaw    = 180*eul[1,0]/math.pi
-    pitch  = 180*((eul[0,0]+math.pi/2)*math.cos(eul[1,0]))/math.pi
-    roll   = 180*( (-(math.pi/2)-eul[0,0])*math.sin(eul[1,0]) + eul[2,0] )/math.pi
-    print('rotate_degree: zyx ',yaw,pitch,roll)
-    print('rotate_radians: zyx ',yaw*math.pi/180,pitch*math.pi/180,roll*math.pi/180)
 
-    print_information(rotation_vector,translation_vector,rvec_matrix)
+def print_information(rotation_vector,translation_vector,rvec_matrix):
 
-    return axis_img_pts,corners,ret
+    print("\n\nThe world coordinate system's origin in camera's coordinate system:")
+    print("===rotation_vector:")
+    print(rotation_vector)
+    print("===rotation_matrix:")
+    print(rvec_matrix)
+    print("===translation_vector:")
+    print(translation_vector)
 
-def pose_callback(msg):
 
-    location_=Point(0.0,0.0,0.0)
+    print("\n\nThe camera origin in world coordinate system:")
+    print("===camera rvec_matrix:")
+    print(rvec_matrix.T)
+    print("===camera translation_vector:")
+    print(-np.dot(rvec_matrix.T, translation_vector))
 
-    q_=msg.orientation
-    t_=msg.position
-    quaternion_=[q_.x,q_.y,q_.z,q_.w]
-    roll_,pitch_,yaw_=tf.transformations.euler_from_quaternion(quaternion_)
 
-    location_.x=t_.x
-    location_.y=t_.y
-    location_.z=t_.z
-    print("Pose camera ",location_)
-    print('euler:',(roll_,pitch_,yaw_))
-def pose_callback2(msg):
+    print('\n\n-----------------------------------------------------')
 
-    location_=Point(0.0,0.0,0.0)
+def quaternion_hands_on(rotation_vector):
 
-    q_=msg.orientation
-    t_=msg.position
-    quaternion_=[q_.x,q_.y,q_.z,q_.w]
-    roll_,pitch_,yaw_=tf.transformations.euler_from_quaternion(quaternion_)
+    # Rotation_vector into quaternion
+    import math
+    from pyquaternion import Quaternion
+    theta_= math.sqrt(rotation_vector[0]**2+rotation_vector[1]**2+rotation_vector[2]**2)
+    unit_vector=rotation_vector/theta_
+    #print((unit_vector.ravel()))    #flatten an array
 
-    location_.x=t_.x
-    location_.y=t_.y
-    location_.z=t_.z
-    print("Pose camera ",location_)
-    print('euler:',(roll_,pitch_,yaw_))
+    q0_=math.cos(theta_/2)#magnitude
+    q_=unit_vector*(math.sin(theta_/2))#direction
+    q=Quaternion(axis=q_,radians=q0_)
+    q.normalised
+    inv_quaternion_ = q.inverse
+    print('module:\n ',q0_)
+    print('direction:\n ',q_)
+    # print('quaternion_')
+    # print(q.axis)
+    # print(q.radians)
+    # print('inv_quaternion_')
+    # print(inv_quaternion_.axis)
+    # print(inv_quaternion_.radians)
+    return inv_quaternion_.axis,inv_quaternion_.radians
+
 
 def main():
 
@@ -181,11 +158,8 @@ def main():
     tmpNamec='temp2.jpg'
 
 
-    pub_pose = rospy.Publisher('pose_camera', Pose, queue_size=10)
-    sub_pose = rospy.Subscriber('/pose_camera', Pose, pose_callback)
-
-    # pub_pose2 = rospy.Publisher('pose_camera2', Pose, queue_size=10)
-    # sub_pose2 = rospy.Subscriber('/pose_camera2', Pose, pose_callback2)
+    # pub_pose = rospy.Publisher('pose_camera', Pose, queue_size=10)
+    # sub_pose = rospy.Subscriber('/pose_camera', Pose, pose_callback)
 
     rate = rospy.Rate(10) # 10hz
 
@@ -193,26 +167,32 @@ def main():
 
         counter+=1
 
-        # Capture frame-by-frame
-        frame=camObj.get_image()
-        #print(type(frame))
-        if frame is None:
-            print('no image!!!')
-            continue
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            cv2.imwrite('temp2.jpg', frame)
-            break
-
-
-        # #Import the image!!! when not working onlin
-        # frame=cv2.imread('temp2.jpg')
+        # # Capture frame-by-frame
+        # frame=camObj.get_image()
+        # #print(type(frame))
+        # if frame is None:
+        #     print('no image!!!')
+        #     continue
         # if cv2.waitKey(1) & 0xFF == ord('q'):
+        #     cv2.imwrite('temp2.jpg', frame)
         #     break
 
+
+        #Import the image!!! when not working onlin
+        frame=cv2.imread('temp2.jpg')
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
         # Extrinsic calibration!!!
-        axi_imgpts,corners,ret= locate_target_orientation(frame)
+        axi_imgpts,corners,ret,rotation_vector,translation_vector,rvec_matrix= locate_target_orientation(frame)
+
+        print_information(rotation_vector,translation_vector,rvec_matrix)
+
+        #from rotation vector given into quaternion
+        q_scalar,q_direction=quaternion_hands_on(rotation_vector)
 
 
+        
         # We can now plot limes on the 3D image using the cv2.line function:
         line_width=2
 
@@ -233,7 +213,7 @@ def main():
         cv2.imwrite('test.jpg', frame)
         print('counter:',counter)
         # we should expect to go through the loop 10 times per second
-        pub_pose.publish(pose_camera)
+        #pub_pose.publish(pose_camera)
         rate.sleep()
 
     # When everything done, release the capture
