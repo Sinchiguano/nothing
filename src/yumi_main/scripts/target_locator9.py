@@ -22,8 +22,10 @@ from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
 from pyquaternion import Quaternion
 import tf
 
+
 quaternion=Quaternion(matrix=np.eye(3))
 pose_camera = geometry_msgs.msg.Pose()
+
 
 def create_pose(rotation,translation):
     """Creates a pose using quaternions"""
@@ -40,6 +42,13 @@ def create_pose(rotation,translation):
     pose_camera.orientation.y =quaternion.axis[1]
     pose_camera.orientation.z =quaternion.axis[2]
     pose_camera.orientation.w =quaternion.radians
+
+
+
+def create_pose2(rotation2,translation2):
+    """Creates a pose using quaternions"""
+    pose_camera = geometry_msgs.msg.Pose()
+
 
 def print_information(rotation_vector,translation_vector,rvec_matrix,eulerAngles):
 
@@ -63,7 +72,9 @@ def print_information(rotation_vector,translation_vector,rvec_matrix,eulerAngles
     q.normalised
     print(q.axis)
     print(q.radians)
+
     create_pose(rvec_matrix.T,-np.dot(rvec_matrix.T, translation_vector))
+    create_pose2(rvec_matrix.T,-np.dot(rvec_matrix.T, translation_vector))
 
 
     print('\n\nFrom Rmatrix to euler with transforms3d:')
@@ -125,31 +136,63 @@ def locate_target_orientation(frame):
 
     return axis_img_pts,corners,ret
 
+def pose_callback(msg):
+
+    location_=Point(0.0,0.0,0.0)
+
+    q_=msg.orientation
+    t_=msg.position
+    quaternion_=[q_.x,q_.y,q_.z,q_.w]
+    roll_,pitch_,yaw_=tf.transformations.euler_from_quaternion(quaternion_)
+
+    location_.x=t_.x
+    location_.y=t_.y
+    location_.z=t_.z
+    print("Pose camera ",location_)
+    print('euler:',(roll_,pitch_,yaw_))
+
+def pose_callback2(msg):
+
+    location_=Point(0.0,0.0,0.0)
+
+    q_=msg.orientation
+    t_=msg.position
+    quaternion_=[q_.x,q_.y,q_.z,q_.w]
+    roll_,pitch_,yaw_=tf.transformations.euler_from_quaternion(quaternion_)
+
+    location_.x=t_.x
+    location_.y=t_.y
+    location_.z=t_.z
+    print("Pose camera ",location_)
+    print('euler:',(roll_,pitch_,yaw_))
+
 def main():
 
     counter=0
     tmpNamec='temp2.jpg'
 
 
-    pub = rospy.Publisher('pose_camera', Pose, queue_size=10)
-    #rospy.init_node('talker', anonymous=True)
+    pub_pose = rospy.Publisher('pose_camera', Pose, queue_size=10)
+    sub_pose = rospy.Subscriber('/pose_camera', Pose, pose_callback)
+
+    pub_pose2 = rospy.Publisher('pose_camera2', Pose, queue_size=10)
+    sub_pose2 = rospy.Subscriber('/pose_camera2', Pose, pose_callback2)
     rate = rospy.Rate(10) # 10hz
 
     while not rospy.is_shutdown():
 
         counter+=1
-
+        #
         # # Capture frame-by-frame
         # frame=camObj.get_image()
         # #print(type(frame))
-        #
         # if frame is None:
         #     print('no image!!!')
         #     continue
-
         # if cv2.waitKey(1) & 0xFF == ord('q'):
         #     cv2.imwrite('temp2.jpg', frame)
         #     break
+
 
         #Import the image!!! when not working onlin
         frame=cv2.imread('temp2.jpg')
@@ -180,7 +223,7 @@ def main():
         cv2.imwrite('test.jpg', frame)
         print('counter:',counter)
         # we should expect to go through the loop 10 times per second
-        pub.publish(pose_camera)
+        pub_pose.publish(pose_camera)
         rate.sleep()
 
     # When everything done, release the capture
@@ -190,6 +233,16 @@ def main():
 if __name__ == '__main__':
     camObj=camera()
     main()
+# import roslib
+# roslib.load_manifest('learning_tf')
+# import rospy
+#
+# import tf
+# import turtlesim.msg
+
+
+
+
 
 # for idx, corner in enumerate(corners):
 #     idx_as_str = '{}'.format(idx)
