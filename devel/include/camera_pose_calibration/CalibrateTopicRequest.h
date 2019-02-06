@@ -25,15 +25,15 @@ struct CalibrateTopicRequest_
   typedef CalibrateTopicRequest_<ContainerAllocator> Type;
 
   CalibrateTopicRequest_()
-    : tag_frame()
-    , target_frame()
+    : target_frame()
+    , world_frame()
     , point_cloud_scale_x(0.0)
     , point_cloud_scale_y(0.0)
     , pattern()  {
     }
   CalibrateTopicRequest_(const ContainerAllocator& _alloc)
-    : tag_frame(_alloc)
-    , target_frame(_alloc)
+    : target_frame(_alloc)
+    , world_frame(_alloc)
     , point_cloud_scale_x(0.0)
     , point_cloud_scale_y(0.0)
     , pattern(_alloc)  {
@@ -42,11 +42,11 @@ struct CalibrateTopicRequest_
 
 
 
-   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _tag_frame_type;
-  _tag_frame_type tag_frame;
-
    typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _target_frame_type;
   _target_frame_type target_frame;
+
+   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _world_frame_type;
+  _world_frame_type world_frame;
 
    typedef double _point_cloud_scale_x_type;
   _point_cloud_scale_x_type point_cloud_scale_x;
@@ -135,12 +135,12 @@ struct MD5Sum< ::camera_pose_calibration::CalibrateTopicRequest_<ContainerAlloca
 {
   static const char* value()
   {
-    return "0769d4513a9cf910e06da4a02178112c";
+    return "c04a8f4268f5d4537094c18b02e29b31";
   }
 
   static const char* value(const ::camera_pose_calibration::CalibrateTopicRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x0769d4513a9cf910ULL;
-  static const uint64_t static_value2 = 0xe06da4a02178112cULL;
+  static const uint64_t static_value1 = 0xc04a8f4268f5d453ULL;
+  static const uint64_t static_value2 = 0x7094c18b02e29b31ULL;
 };
 
 template<class ContainerAllocator>
@@ -159,8 +159,8 @@ struct Definition< ::camera_pose_calibration::CalibrateTopicRequest_<ContainerAl
 {
   static const char* value()
   {
-    return "string tag_frame\n\
-string target_frame\n\
+    return "string target_frame\n\
+string world_frame\n\
 float64 point_cloud_scale_x\n\
 float64 point_cloud_scale_y\n\
 camera_pose_calibration/PatternParameters pattern\n\
@@ -190,8 +190,8 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.tag_frame);
       stream.next(m.target_frame);
+      stream.next(m.world_frame);
       stream.next(m.point_cloud_scale_x);
       stream.next(m.point_cloud_scale_y);
       stream.next(m.pattern);
@@ -213,10 +213,10 @@ struct Printer< ::camera_pose_calibration::CalibrateTopicRequest_<ContainerAlloc
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::camera_pose_calibration::CalibrateTopicRequest_<ContainerAllocator>& v)
   {
-    s << indent << "tag_frame: ";
-    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.tag_frame);
     s << indent << "target_frame: ";
     Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.target_frame);
+    s << indent << "world_frame: ";
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.world_frame);
     s << indent << "point_cloud_scale_x: ";
     Printer<double>::stream(s, indent + "  ", v.point_cloud_scale_x);
     s << indent << "point_cloud_scale_y: ";

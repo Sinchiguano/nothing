@@ -22,30 +22,30 @@
 
 (defclass camera_pose_calibration::CalibrateTopicRequest
   :super ros::object
-  :slots (_tag_frame _target_frame _point_cloud_scale_x _point_cloud_scale_y _pattern ))
+  :slots (_target_frame _world_frame _point_cloud_scale_x _point_cloud_scale_y _pattern ))
 
 (defmethod camera_pose_calibration::CalibrateTopicRequest
   (:init
    (&key
-    ((:tag_frame __tag_frame) "")
     ((:target_frame __target_frame) "")
+    ((:world_frame __world_frame) "")
     ((:point_cloud_scale_x __point_cloud_scale_x) 0.0)
     ((:point_cloud_scale_y __point_cloud_scale_y) 0.0)
     ((:pattern __pattern) (instance camera_pose_calibration::PatternParameters :init))
     )
    (send-super :init)
-   (setq _tag_frame (string __tag_frame))
    (setq _target_frame (string __target_frame))
+   (setq _world_frame (string __world_frame))
    (setq _point_cloud_scale_x (float __point_cloud_scale_x))
    (setq _point_cloud_scale_y (float __point_cloud_scale_y))
    (setq _pattern __pattern)
    self)
-  (:tag_frame
-   (&optional __tag_frame)
-   (if __tag_frame (setq _tag_frame __tag_frame)) _tag_frame)
   (:target_frame
    (&optional __target_frame)
    (if __target_frame (setq _target_frame __target_frame)) _target_frame)
+  (:world_frame
+   (&optional __world_frame)
+   (if __world_frame (setq _world_frame __world_frame)) _world_frame)
   (:point_cloud_scale_x
    (&optional __point_cloud_scale_x)
    (if __point_cloud_scale_x (setq _point_cloud_scale_x __point_cloud_scale_x)) _point_cloud_scale_x)
@@ -62,10 +62,10 @@
   (:serialization-length
    ()
    (+
-    ;; string _tag_frame
-    4 (length _tag_frame)
     ;; string _target_frame
     4 (length _target_frame)
+    ;; string _world_frame
+    4 (length _world_frame)
     ;; float64 _point_cloud_scale_x
     8
     ;; float64 _point_cloud_scale_y
@@ -77,10 +77,10 @@
    (&optional strm)
    (let ((s (if strm strm
               (make-string-output-stream (send self :serialization-length)))))
-     ;; string _tag_frame
-       (write-long (length _tag_frame) s) (princ _tag_frame s)
      ;; string _target_frame
        (write-long (length _target_frame) s) (princ _target_frame s)
+     ;; string _world_frame
+       (write-long (length _world_frame) s) (princ _world_frame s)
      ;; float64 _point_cloud_scale_x
        (sys::poke _point_cloud_scale_x (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
      ;; float64 _point_cloud_scale_y
@@ -91,10 +91,10 @@
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
-   ;; string _tag_frame
-     (let (n) (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4) (setq _tag_frame (subseq buf ptr- (+ ptr- n))) (incf ptr- n))
    ;; string _target_frame
      (let (n) (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4) (setq _target_frame (subseq buf ptr- (+ ptr- n))) (incf ptr- n))
+   ;; string _world_frame
+     (let (n) (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4) (setq _world_frame (subseq buf ptr- (+ ptr- n))) (incf ptr- n))
    ;; float64 _point_cloud_scale_x
      (setq _point_cloud_scale_x (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;; float64 _point_cloud_scale_y
@@ -150,7 +150,7 @@
   :super ros::object
   :slots ())
 
-(setf (get camera_pose_calibration::CalibrateTopic :md5sum-) "5e8812e45640426c831a0c069f6d5f72")
+(setf (get camera_pose_calibration::CalibrateTopic :md5sum-) "e9573ce50d1e28868e351fcf6966f85d")
 (setf (get camera_pose_calibration::CalibrateTopic :datatype-) "camera_pose_calibration/CalibrateTopic")
 (setf (get camera_pose_calibration::CalibrateTopic :request) camera_pose_calibration::CalibrateTopicRequest)
 (setf (get camera_pose_calibration::CalibrateTopic :response) camera_pose_calibration::CalibrateTopicResponse)
@@ -158,11 +158,11 @@
 (defmethod camera_pose_calibration::CalibrateTopicRequest
   (:response () (instance camera_pose_calibration::CalibrateTopicResponse :init)))
 
-(setf (get camera_pose_calibration::CalibrateTopicRequest :md5sum-) "5e8812e45640426c831a0c069f6d5f72")
+(setf (get camera_pose_calibration::CalibrateTopicRequest :md5sum-) "e9573ce50d1e28868e351fcf6966f85d")
 (setf (get camera_pose_calibration::CalibrateTopicRequest :datatype-) "camera_pose_calibration/CalibrateTopicRequest")
 (setf (get camera_pose_calibration::CalibrateTopicRequest :definition-)
-      "string tag_frame
-string target_frame
+      "string target_frame
+string world_frame
 float64 point_cloud_scale_x
 float64 point_cloud_scale_y
 camera_pose_calibration/PatternParameters pattern
@@ -207,11 +207,11 @@ float64 z
 float64 w
 ")
 
-(setf (get camera_pose_calibration::CalibrateTopicResponse :md5sum-) "5e8812e45640426c831a0c069f6d5f72")
+(setf (get camera_pose_calibration::CalibrateTopicResponse :md5sum-) "e9573ce50d1e28868e351fcf6966f85d")
 (setf (get camera_pose_calibration::CalibrateTopicResponse :datatype-) "camera_pose_calibration/CalibrateTopicResponse")
 (setf (get camera_pose_calibration::CalibrateTopicResponse :definition-)
-      "string tag_frame
-string target_frame
+      "string target_frame
+string world_frame
 float64 point_cloud_scale_x
 float64 point_cloud_scale_y
 camera_pose_calibration/PatternParameters pattern
@@ -258,6 +258,6 @@ float64 w
 
 
 
-(provide :camera_pose_calibration/CalibrateTopic "5e8812e45640426c831a0c069f6d5f72")
+(provide :camera_pose_calibration/CalibrateTopic "e9573ce50d1e28868e351fcf6966f85d")
 
 

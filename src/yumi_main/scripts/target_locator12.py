@@ -43,20 +43,17 @@ def create_pose_camera(q_scalar,q_direction,translation):
     pose_camera_pub.orientation.w =q_scalar
 
 def pose_callback(msg):
-    #print('msg:',msg)
+
     global quaternion_
     global temp_euler
+
     ori_=msg.orientation
     t_=msg.position
     quaternion_=[ori_.x,ori_.y,ori_.z,ori_.w]
-    # print(len  (quaternion_))
-    # print(quaternion_)
     roll_,pitch_,yaw_=tf.transformations.euler_from_quaternion(quaternion_)
     temp_euler=tf.transformations.euler_from_quaternion(quaternion_)
-    #print('\n Euler angles: \n',yaw_,pitch_,roll_)
 
 def locate_target_orientation(frame):
-    size = frame.shape #(height, width, color_channel)
 
     # 2D image points
     # To handle the corners array more easily, we can reshape it as follows
@@ -124,29 +121,28 @@ def print_information(rotation_vector,translation_vector,rvec_matrix):
 
 def quaternion_hands_on(rotation_vector):
 
-    # Rotation_vector into quaternion
-    import math
-    from pyquaternion import Quaternion
+    # Rotation_vector (Rodrigues convention)
     theta_= math.sqrt(rotation_vector[0]**2+rotation_vector[1]**2+rotation_vector[2]**2)
-    unit_vector=rotation_vector/theta_
-    #print((unit_vector.ravel()))    #flatten an array
+    unit_vector_=rotation_vector/theta_
+    unit_vector_=unit_vector_.ravel() #flattened an array
+    print('rodrigues convention: \n {} {}'.format(theta_,unit_vector_))
 
-    q0_=math.cos(theta_/2)#magnitude
-    q_=unit_vector*(math.sin(theta_/2))#direction
-    q=Quaternion(axis=q_,radians=q0_)
-    q.normalised
-    inv_quaternion_ = q.inverse
-
-    # print('module:\n ',q0_)
-    # print('direction:\n ',q_)
-    # print('quaternion_')
-    # print(q.axis)
-    # print(q.radians)
-    # print('inv_quaternion_')
-    # print(inv_quaternion_.axis)
-    # print(inv_quaternion_.radians)
-
-    return inv_quaternion_.radians, inv_quaternion_.axis
+    #quaternion hands_on
+    axis_vector_=unit_vector_
+    q0_=math.cos(theta_/2)#module
+    q_=axis_vector_*(math.sin(theta_/2))#direction
+    q_=axis_vector_/ math.sqrt(q_[0]**2+q_[1]**2+q_[2]**2)
+    print('q_ \n {} 	{}'.format(q0_,q_))
+    print('q_inverse: \n {} {}'.format(q0_,q_*-1))
+    # #quaternion with library
+    # from pyquaternion import Quaternion
+    # q=Quaternion(axis=unit_vector_,radians=theta_)
+    # q.normalised
+    # print('q:\n{}'.format(q))
+    # inv_quaternion_ = q.inverse
+    # print('q.inverse:\n{}'.format(inv_quaternion_))
+    # print(inv_quaternion_.radians, inv_quaternion_.axis,theta_,unit_vector_)
+    return q0_,q_*-1,theta_,unit_vector_
 
 def publish_transforms(translation,br):
 
@@ -172,6 +168,28 @@ def publish_transforms(translation,br):
     camera_transform.transform.rotation.w = quaternion_[3]
 
     br.sendTransform(camera_transform)
+
+def M(axis, theta):
+	from numpy import cross, eye, dot
+	from scipy.linalg import expm, norm
+	return expm(cross(np.eye(3), axis/norm(axis)*theta))
+
+def r_matrix(axis, theta):
+    """
+    Return the rotation matrix associated with counterclockwise rotation about
+    the given axis by theta radians.
+    """
+    axis = np.asarray(axis)
+    axis = axis / math.sqrt(np.dot(axis, axis))
+    a = math.cos(theta / 2.0)
+    b, c, d = -axis * math.sin(theta / 2.0)
+    aa, bb, cc, dd = a * a, b * b, c * c, d * d
+    bc, ad, ac, ab, bd, cd = b * c, a * d, a * c, a * b, b * d, c * d
+
+    return np.array([[aa + bb - cc - dd, 2 * (bc + ad), 2 * (bd - ac)],
+                     [2 * (bc - ad), aa + cc - bb - dd, 2 * (cd + ab)],
+                     [2 * (bd + ac), 2 * (cd - ab), aa + dd - bb - cc]])
+
 def main():
 
     counter=0
@@ -209,14 +227,24 @@ def main():
         axi_imgpts,corners,ret,rotation_vector,translation_vector,rvec_matrix= locate_target_orientation(frame)
 
 
-        #print information about rotation and translation for camera and world frame
-        #print_information(rotation_vector,translation_vector,rvec_matrix)
+        # print information about rotation and translation for the camera and world frame
+        print_information(rotation_vector,translation_vector,rvec_matrix)
 
         #from rotation vector given into quaternion
-        q_scalar,q_direction=quaternion_hands_on(rotation_vector)
+        q0_,q_,theta_,unit_vector_=quaternion_hands_on(rotation_vector)
 
-        #create a pose_camera message in order to publish to the ROS network
-        create_pose_camera(q_scalar,q_direction,-np.dot(rvec_matrix.T, translation_vector))
+
+
+        #WORLD FRAME 
+        print('unit_vector_,theta_: \n {}  {}'.format(unit_vector_,theta_))
+        print('1: \n {}'.format(M(unit_vector_*-1,theta_)))
+        print('2: \n {}'.format(r_matrix(unit_vector_*-1, theta_)))
+        print('3: \n {}'.format(rvec_matrix.T))
+
+        
+
+        # create a pose_camera message in order to publish to the ROS network
+        create_pose_camera(q0_,q_,-np.dot(rvec_matrix.T, translation_vector))
 
 
         # We can now plot limes on the 3D image using the cv2.line function,numpy.ravel-->Return a contiguous flattened array.
@@ -234,7 +262,7 @@ def main():
 
         # we should expect to go through the loop 10 times per second
         pub_pose.publish(pose_camera_pub)
-        publish_transforms(-np.dot(rvec_matrix.T, translation_vector),br)
+        #publish_transforms(-np.dot(rvec_matrix.T, translation_vector),br)
         rate.sleep()
 
 

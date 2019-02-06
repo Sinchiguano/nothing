@@ -23,24 +23,24 @@ class CalibrateTopicRequest {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
-      this.tag_frame = null;
       this.target_frame = null;
+      this.world_frame = null;
       this.point_cloud_scale_x = null;
       this.point_cloud_scale_y = null;
       this.pattern = null;
     }
     else {
-      if (initObj.hasOwnProperty('tag_frame')) {
-        this.tag_frame = initObj.tag_frame
-      }
-      else {
-        this.tag_frame = '';
-      }
       if (initObj.hasOwnProperty('target_frame')) {
         this.target_frame = initObj.target_frame
       }
       else {
         this.target_frame = '';
+      }
+      if (initObj.hasOwnProperty('world_frame')) {
+        this.world_frame = initObj.world_frame
+      }
+      else {
+        this.world_frame = '';
       }
       if (initObj.hasOwnProperty('point_cloud_scale_x')) {
         this.point_cloud_scale_x = initObj.point_cloud_scale_x
@@ -65,10 +65,10 @@ class CalibrateTopicRequest {
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type CalibrateTopicRequest
-    // Serialize message field [tag_frame]
-    bufferOffset = _serializer.string(obj.tag_frame, buffer, bufferOffset);
     // Serialize message field [target_frame]
     bufferOffset = _serializer.string(obj.target_frame, buffer, bufferOffset);
+    // Serialize message field [world_frame]
+    bufferOffset = _serializer.string(obj.world_frame, buffer, bufferOffset);
     // Serialize message field [point_cloud_scale_x]
     bufferOffset = _serializer.float64(obj.point_cloud_scale_x, buffer, bufferOffset);
     // Serialize message field [point_cloud_scale_y]
@@ -82,10 +82,10 @@ class CalibrateTopicRequest {
     //deserializes a message object of type CalibrateTopicRequest
     let len;
     let data = new CalibrateTopicRequest(null);
-    // Deserialize message field [tag_frame]
-    data.tag_frame = _deserializer.string(buffer, bufferOffset);
     // Deserialize message field [target_frame]
     data.target_frame = _deserializer.string(buffer, bufferOffset);
+    // Deserialize message field [world_frame]
+    data.world_frame = _deserializer.string(buffer, bufferOffset);
     // Deserialize message field [point_cloud_scale_x]
     data.point_cloud_scale_x = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [point_cloud_scale_y]
@@ -97,8 +97,8 @@ class CalibrateTopicRequest {
 
   static getMessageSize(object) {
     let length = 0;
-    length += object.tag_frame.length;
     length += object.target_frame.length;
+    length += object.world_frame.length;
     return length + 50;
   }
 
@@ -109,14 +109,14 @@ class CalibrateTopicRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '0769d4513a9cf910e06da4a02178112c';
+    return 'c04a8f4268f5d4537094c18b02e29b31';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    string tag_frame
     string target_frame
+    string world_frame
     float64 point_cloud_scale_x
     float64 point_cloud_scale_y
     camera_pose_calibration/PatternParameters pattern
@@ -138,18 +138,18 @@ class CalibrateTopicRequest {
       msg = {};
     }
     const resolved = new CalibrateTopicRequest(null);
-    if (msg.tag_frame !== undefined) {
-      resolved.tag_frame = msg.tag_frame;
-    }
-    else {
-      resolved.tag_frame = ''
-    }
-
     if (msg.target_frame !== undefined) {
       resolved.target_frame = msg.target_frame;
     }
     else {
       resolved.target_frame = ''
+    }
+
+    if (msg.world_frame !== undefined) {
+      resolved.world_frame = msg.world_frame;
+    }
+    else {
+      resolved.world_frame = ''
     }
 
     if (msg.point_cloud_scale_x !== undefined) {
@@ -280,6 +280,6 @@ class CalibrateTopicResponse {
 module.exports = {
   Request: CalibrateTopicRequest,
   Response: CalibrateTopicResponse,
-  md5sum() { return '5e8812e45640426c831a0c069f6d5f72'; },
+  md5sum() { return 'e9573ce50d1e28868e351fcf6966f85d'; },
   datatype() { return 'camera_pose_calibration/CalibrateTopic'; }
 };

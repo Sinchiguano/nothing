@@ -8,11 +8,11 @@ import struct
 import camera_pose_calibration.msg
 
 class CalibrateTopicRequest(genpy.Message):
-  _md5sum = "0769d4513a9cf910e06da4a02178112c"
+  _md5sum = "c04a8f4268f5d4537094c18b02e29b31"
   _type = "camera_pose_calibration/CalibrateTopicRequest"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """string tag_frame
-string target_frame
+  _full_text = """string target_frame
+string world_frame
 float64 point_cloud_scale_x
 float64 point_cloud_scale_y
 camera_pose_calibration/PatternParameters pattern
@@ -25,7 +25,7 @@ float64 pattern_distance
 float64 neighbor_distance
 float64 valid_pattern_ratio_threshold
 """
-  __slots__ = ['tag_frame','target_frame','point_cloud_scale_x','point_cloud_scale_y','pattern']
+  __slots__ = ['target_frame','world_frame','point_cloud_scale_x','point_cloud_scale_y','pattern']
   _slot_types = ['string','string','float64','float64','camera_pose_calibration/PatternParameters']
 
   def __init__(self, *args, **kwds):
@@ -36,7 +36,7 @@ float64 valid_pattern_ratio_threshold
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       tag_frame,target_frame,point_cloud_scale_x,point_cloud_scale_y,pattern
+       target_frame,world_frame,point_cloud_scale_x,point_cloud_scale_y,pattern
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -45,10 +45,10 @@ float64 valid_pattern_ratio_threshold
     if args or kwds:
       super(CalibrateTopicRequest, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
-      if self.tag_frame is None:
-        self.tag_frame = ''
       if self.target_frame is None:
         self.target_frame = ''
+      if self.world_frame is None:
+        self.world_frame = ''
       if self.point_cloud_scale_x is None:
         self.point_cloud_scale_x = 0.
       if self.point_cloud_scale_y is None:
@@ -56,8 +56,8 @@ float64 valid_pattern_ratio_threshold
       if self.pattern is None:
         self.pattern = camera_pose_calibration.msg.PatternParameters()
     else:
-      self.tag_frame = ''
       self.target_frame = ''
+      self.world_frame = ''
       self.point_cloud_scale_x = 0.
       self.point_cloud_scale_y = 0.
       self.pattern = camera_pose_calibration.msg.PatternParameters()
@@ -74,13 +74,13 @@ float64 valid_pattern_ratio_threshold
     :param buff: buffer, ``StringIO``
     """
     try:
-      _x = self.tag_frame
+      _x = self.target_frame
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
         length = len(_x)
       buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self.target_frame
+      _x = self.world_frame
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -106,18 +106,18 @@ float64 valid_pattern_ratio_threshold
       start = end
       end += length
       if python3:
-        self.tag_frame = str[start:end].decode('utf-8')
+        self.target_frame = str[start:end].decode('utf-8')
       else:
-        self.tag_frame = str[start:end]
+        self.target_frame = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
       start = end
       end += length
       if python3:
-        self.target_frame = str[start:end].decode('utf-8')
+        self.world_frame = str[start:end].decode('utf-8')
       else:
-        self.target_frame = str[start:end]
+        self.world_frame = str[start:end]
       _x = self
       start = end
       end += 42
@@ -134,13 +134,13 @@ float64 valid_pattern_ratio_threshold
     :param numpy: numpy python module
     """
     try:
-      _x = self.tag_frame
+      _x = self.target_frame
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
         length = len(_x)
       buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self.target_frame
+      _x = self.world_frame
       length = len(_x)
       if python3 or type(_x) == unicode:
         _x = _x.encode('utf-8')
@@ -167,18 +167,18 @@ float64 valid_pattern_ratio_threshold
       start = end
       end += length
       if python3:
-        self.tag_frame = str[start:end].decode('utf-8')
+        self.target_frame = str[start:end].decode('utf-8')
       else:
-        self.tag_frame = str[start:end]
+        self.target_frame = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
       start = end
       end += length
       if python3:
-        self.target_frame = str[start:end].decode('utf-8')
+        self.world_frame = str[start:end].decode('utf-8')
       else:
-        self.target_frame = str[start:end]
+        self.world_frame = str[start:end]
       _x = self
       start = end
       end += 42
@@ -343,6 +343,6 @@ def _get_struct_7d():
     return _struct_7d
 class CalibrateTopic(object):
   _type          = 'camera_pose_calibration/CalibrateTopic'
-  _md5sum = '5e8812e45640426c831a0c069f6d5f72'
+  _md5sum = 'e9573ce50d1e28868e351fcf6966f85d'
   _request_class  = CalibrateTopicRequest
   _response_class = CalibrateTopicResponse

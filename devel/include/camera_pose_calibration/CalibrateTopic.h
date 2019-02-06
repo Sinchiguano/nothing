@@ -40,7 +40,7 @@ template<>
 struct MD5Sum< ::camera_pose_calibration::CalibrateTopic > {
   static const char* value()
   {
-    return "5e8812e45640426c831a0c069f6d5f72";
+    return "e9573ce50d1e28868e351fcf6966f85d";
   }
 
   static const char* value(const ::camera_pose_calibration::CalibrateTopic&) { return value(); }
