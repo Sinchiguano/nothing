@@ -1,0 +1,22 @@
+
+<launch>
+
+  <!--   0.094cm  -->
+  <group ns="world_target">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.2 0 0 0 0 0 /world /target 100" />
+  </group>
+
+  <group ns="world_yumi">
+      <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0 0 0 0 0 0 /world /yumi_base_link 100" />
+  </group>
+
+  <!--
+  <group ns="target_camera">
+    <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.39934058 0.22507751 0.82788421 0.1555350221245283, -0.41446163699134914, -0.49527676243670665 /target /camera_link  100" />
+  </group>-->
+
+  <group ns="camerafake">
+    <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.39934058 0.22507751 0.82788421 3.1415 1.57 0 /target /camera_link  100" />
+  </group>
+
+</launch>
