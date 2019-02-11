@@ -154,8 +154,9 @@ def publish_transforms(br):
     t2.transform.translation.y = position[1]
     t2.transform.translation.z = position[2]
     #q2 = tf.transformations.quaternion_about_axis(theta_,-1*unit_vector_)
+    
     q2 = tf.transformations.quaternion_about_axis(theta_inv,unit_vector_inv)
-    #q2 = tf.transformations.quaternion_from_euler(euler_angles[0],euler_angles[1],euler_angles[2])
+    #q2 = tf.transformations.quaternion_from_euler(0,-1*euler_angles[1],0)
     #q2 = tf.transformations.quaternion_from_euler(0.0,-0.26947534495704306,0.0)
     t2.transform.rotation.x = q2[0]
     t2.transform.rotation.y = q2[1]
@@ -302,8 +303,7 @@ def main():
         pub_pose.publish(pose_pub)
         
         # we should expect to go through the loop 10 times per second
-        #rate.sleep()
-	rospy.sleep(0.05)
+        rate.sleep()
         # publish transform amongt coordinates system of the target, camera and world
         publish_transforms(br)
 

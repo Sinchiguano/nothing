@@ -5,13 +5,17 @@
       <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.10 0 0 0 0 0 1 /world /target  100" />
   </group> -->
 
+  <group ns="world_target">
+  <node pkg="tf" type="static_transform_publisher" name="link_broadcaster" args="0.20 0 0 0 0 0 1 /world /target  100" />
+  </group>
 
 
   <!-- -0.1508185089794148 -0.40295845519500306 0.5051546940004248  3.1415 1.57 0 -->
+  
   <group ns="target_camera">
   <node pkg="tf2_ros" type="static_transform_publisher"
     name="link1_broadcaster"
-    args="0.68011469 0.09968252 0.54556308 0.2894377956560501, -0.4294084431149748, -0.5658965082137337 /world /camera_link" />
+    args="0.6619738 0.09514373 0.5574063  0.3224357798072131 -0.4299841282442096 -0.5780675015558837  /target /camera_link" />
   </group>
 
 
