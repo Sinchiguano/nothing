@@ -56,56 +56,82 @@ def create_pointcloud(pc):
     return pcd
 
 def main():
-    counter=0
+    counter1=0
+    counter2=0
     flag=True
     rate = rospy.Rate(10) # 10hz
- 
+    path='pcdata/'
+    
     while not rospy.is_shutdown():
-        counter+=1
+        counter1+=1
 
-        # Capture frame-by-frame
+        # Capture 2D-data
+        frame=camObj.get_image()
+
+        # Capture depth data
+        depth=camObj.get_depth()
+
+        # Capture 3D-data
         pc=camObj.get_point_cloud()
 
-        #for testing, in order to get several point cloud
-        try:
-            while True:
-                #Get point PointCloud2
-                pc=camObj.get_point_cloud()
-
-                if pc is None:
-                    print('no PointCloud2!!!')
-                    continue
-
-                pcd=create_pointcloud(pc)
-        except KeyboardInterrupt:
-            print "\n============ Press 1 to save or 2 to ignore ==>>PointCloud"
-            temp=raw_input()
-            control_=int(temp)
-
-            if control_==1:
-                tmp='pointcloud'+str(counter)
-                write_point_cloud(tmp+'.pcd', pcd)
-                write_point_cloud(tmp+'.ply', pcd)
-                source =read_point_cloud(tmp+'.ply')
-                draw_geometries([source])
-            elif control_==2:
-                continue
-            pass
-
-
-
-
-
-        if frame is None:
-            print('no image!!!')
+        if pc is None:
+            print('no PointCloud2!!!')
             continue
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            cv2.imwrite('temp2.jpg', frame)
-            break
+        elif frame is None:
+            print('no Frame!!!')
+            continue
+        elif depth is None:
+            print('no depth image!!!')
+            continue
+
+        # #get sample of point cloud!!!
+        # pcd=create_pointcloud(pc)
+        # cv2.imshow('pc',pc)
+
+        # if cv2.waitKey(1) & 0xFF == ord('q'):
+        #     counter2+=1
+        #     tmp=path+'pointcloud'+str(counter2)
+        #     write_point_cloud(tmp+'.pcd', pcd)
+        #     write_point_cloud(tmp+'.ply', pcd)
+        #     cv2.imwrite(tmp+'.jpg', frame)
+        #     source =read_point_cloud(tmp+'.ply')
+        #     draw_geometries([source])
         
-        cv2.imshow('pc',pc)
 
-
+        # pc_name='newone5.pcd'
+        # downsample_name='downsample5.pcd'
+        # roi_tabletop_name='roi_tabletop5.pcd'
+        #
+        # table_name='table5.pcd'
+        # objects_name='objects5.pcd'
+        #
+        # objects_name1="object5.ply"
+        #
+        # # Load the point cloud from the memory
+        # cloud = pcl.load(pc_name)
+        #
+        # # Downsample the cloud as high resolution which comes with a computation cost
+        # downsample = do_voxel_grid_filter(point_cloud = cloud, LEAF_SIZE = 0.005)
+        # pcl.save(downsample, downsample_name)
+        #
+        # # Get only information in our region of interest, as we don't care about the other parts/// 0.5->50cm
+        # filter = do_passthrough_filter(point_cloud = downsample,name_axis = 'x', min_axis = -0.05, max_axis = 0.15)
+        # pcl.save(filter, roi_tabletop_name)
+        #
+        # # Separate the table from everything else
+        # table, objects = do_ransac_plane_segmentation(filter, max_distance = 0.01)
+        # pcl.save(table, table_name)
+        # pcl.save(objects,objects_name )
+        #
+        # source =read_point_cloud(objects_name)
+        # write_point_cloud(objects_name1, source)
+        #
+        #
+        # # #Display the table and the object
+        # # display_objcts('table.pcd','objects.pcd')
+        #
+        # print('------------------')
+        # print('counter:',counter)
     # When everything done, release the capture
     cv2.destroyAllWindows()
 
@@ -126,44 +152,6 @@ if __name__ == '__main__':
 
 
 
-
-
-
-    # pc_name='newone5.pcd'
-    # downsample_name='downsample5.pcd'
-    # roi_tabletop_name='roi_tabletop5.pcd'
-    #
-    # table_name='table5.pcd'
-    # objects_name='objects5.pcd'
-    #
-    # objects_name1="object5.ply"
-    #
-    # # Load the point cloud from the memory
-    # cloud = pcl.load(pc_name)
-    #
-    # # Downsample the cloud as high resolution which comes with a computation cost
-    # downsample = do_voxel_grid_filter(point_cloud = cloud, LEAF_SIZE = 0.005)
-    # pcl.save(downsample, downsample_name)
-    #
-    # # Get only information in our region of interest, as we don't care about the other parts/// 0.5->50cm
-    # filter = do_passthrough_filter(point_cloud = downsample,name_axis = 'x', min_axis = -0.05, max_axis = 0.15)
-    # pcl.save(filter, roi_tabletop_name)
-    #
-    # # Separate the table from everything else
-    # table, objects = do_ransac_plane_segmentation(filter, max_distance = 0.01)
-    # pcl.save(table, table_name)
-    # pcl.save(objects,objects_name )
-    #
-    # source =read_point_cloud(objects_name)
-    # write_point_cloud(objects_name1, source)
-    #
-    #
-    # # #Display the table and the object
-    # # display_objcts('table.pcd','objects.pcd')
-    #
-    # print('------------------')
-    # print('counter:',counter)
-    # exit()
 
 
 

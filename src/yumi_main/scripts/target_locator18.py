@@ -96,18 +96,18 @@ def print_information(rotation_vector,translation_vector,rvec_matrix):
 
     global euler_angles
     print("\n\nThe world coordinate system's origin in camera's coordinate system:")
-    print("\n===rotation_vector:")
+    print("===rotation_vector:")
     print(rotation_vector)
-    print("\n===rotation_matrix:")
+    print("===rotation_matrix:")
     print(rvec_matrix)
-    print("\n===translation_vector:")
+    print("===translation_vector:")
     print(translation_vector)
 
 
     print("\n\nThe camera origin in world coordinate system:")
-    print("\n===camera rvec_matrix:")
+    print("===camera rvec_matrix:")
     print(rvec_matrix.T)
-    print("\n===camera translation_vector:")
+    print("===camera translation_vector:")
     print(-np.dot(rvec_matrix.T, translation_vector))
     print('euler_angles inv yaw_,pitch_,roll_:  \n',euler_angles)
 
