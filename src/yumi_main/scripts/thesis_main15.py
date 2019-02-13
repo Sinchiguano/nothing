@@ -184,6 +184,7 @@ def main():
                 # Display the table and the object
                 pcd = read_point_cloud(objects_name +str(i)+'.pcd')
                 draw_geometries([pcd])
+            flag=False
         
        
         print('------------------')
