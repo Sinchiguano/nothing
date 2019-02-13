@@ -58,19 +58,19 @@ def create_dataset_pointcloud(frame,pc,counter2):
     source =read_point_cloud(tmp+'.ply')
     draw_geometries([source])
     
-def create_dataset_rgbd(frame,depth,counter2):
+def create_dataset_rgbd(frame,depth,counter3):
 
     #we save the pcd in the following formats pcd and ply
-    cv2.imwrite(colour_path+str(counter2)+'.jpg', frame)
-    cv2.imwrite(depth_path+str(counter2)+'.png', depth)
+    cv2.imwrite(colour_path+str(counter3)+'.jpg', frame)
+    cv2.imwrite(depth_path+str(counter3)+'.png', depth)
 
 
     pinhole_camera_intrinsic = read_pinhole_camera_intrinsic("camera_astra.json")
     print(pinhole_camera_intrinsic.intrinsic_matrix)
 
     print("Read dataset")
-    color_raw = read_image(colour_path+str(counter2)+'.jpg')
-    depth_raw = read_image(depth_path+str(counter2)+'.png')
+    color_raw = read_image(colour_path+str(counter3)+'.jpg')
+    depth_raw = read_image(depth_path+str(counter3)+'.png')
 
     rgbd_image = create_rgbd_image_from_color_and_depth(color_raw, depth_raw)
     
@@ -78,14 +78,16 @@ def create_dataset_rgbd(frame,depth,counter2):
     pcd = create_point_cloud_from_rgbd_image(rgbd_image, pinhole_camera_intrinsic)
 
 
-    write_point_cloud(pc_rgbd_path+'pointcloud'+str(counter2)+'.pcd', pcd)
-    write_point_cloud(pc_rgbd_path+'pointcloud'+str(counter2)+'.ply', pcd)
-
-    #we read our point cloud data from rgbd
-    pcd =read_point_cloud(pc_rgbd_path+'pointcloud'+str(counter2)+'.pcd')
-
     # Flip it, otherwise the pointcloud will be upside down
     pcd.transform([[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]])
+    #save point cloud
+    write_point_cloud(pc_rgbd_path+'pointcloud'+str(counter3)+'.pcd', pcd)
+    write_point_cloud(pc_rgbd_path+'pointcloud'+str(counter3)+'.ply', pcd)
+
+    #we read our point cloud data from rgbd
+    pcd =read_point_cloud(pc_rgbd_path+'pointcloud'+str(counter3)+'.pcd')
+
+
     draw_geometries([pcd])
 
 def create_vector3d(pc):
@@ -107,9 +109,18 @@ def create_vector3d(pc):
 
     return pcd
 
+def segmentation_rgbd(pcd):
+    print()
+def do_passthrough_filter(point_cloud, name_axis = 'z', min_axis = 0.6, max_axis = 1.1):
+    pass_filter = point_cloud.make_passthrough_filter()
+    pass_filter.set_filter_field_name(name_axis)
+    pass_filter.set_filter_limits(min_axis, max_axis)
+    return pass_filter.filter()
+
 def main():
     counter1=0
     counter2=0
+    counter3=0
 
     rate = rospy.Rate(10) # 10hz
     
@@ -135,31 +146,32 @@ def main():
             print('no depth image!!!')
             continue
 
-
-
-
-        # if cv2.waitKey(1) & 0xFF == ord('q'):
+        command=cv2.waitKey(1) & 0xFF
+        # if command == ord('p'):
         #     counter2+=1
         #     # make point cloud data
         #     create_dataset_pointcloud(frame,pc,counter2)
-
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            counter2+=1
-            # make rgbd data
-            create_dataset_rgbd(frame,depth,counter2)
-        
+        # elif command==ord('r'):
+        #     counter3+=1
+        #     # make rgbd data
+        #     create_dataset_rgbd(frame,depth,counter3)
+        if command == ord('q'):
+            break
         
         cv2.imshow('frame',frame)
-        if cv2.waitKey(1) & 0xFF == ord('e'):
-            break
+
+      
+
+        import glob
+        # Load the point cloud from the memory
+        rgbd_ = [pcl.load(rgbd) for rgbd in glob.glob(pc_rgbd_path+'*pcd')]
 
 
 
-        # pc_name='newone5.pcd'
-        # downsample_name='downsample5.pcd'
-        # roi_tabletop_name='roi_tabletop5.pcd'
-        #
+        pc_name='newone5.pcd'
+        downsample_name='downsample5.pcd'
+        roi_tabletop_name='roi_tabletop5.pcd'
+        
         # table_name='table5.pcd'
         # objects_name='objects5.pcd'
         #
@@ -168,13 +180,13 @@ def main():
         # # Load the point cloud from the memory
         # cloud = pcl.load(pc_name)
         #
-        # # Downsample the cloud as high resolution which comes with a computation cost
-        # downsample = do_voxel_grid_filter(point_cloud = cloud, LEAF_SIZE = 0.005)
-        # pcl.save(downsample, downsample_name)
-        #
-        # # Get only information in our region of interest, as we don't care about the other parts/// 0.5->50cm
-        # filter = do_passthrough_filter(point_cloud = downsample,name_axis = 'x', min_axis = -0.05, max_axis = 0.15)
-        # pcl.save(filter, roi_tabletop_name)
+        # Downsample the cloud as high resolution which comes with a computation cost
+        downsample = do_voxel_grid_filter(point_cloud = rgbd_[0], LEAF_SIZE = 0.005)
+        pcl.save(downsample, downsample_name)
+        
+        # Get only information in our region of interest, as we don't care about the other parts/// 0.5->50cm
+        filter = do_passthrough_filter(point_cloud = downsample,name_axis = 'x', min_axis = -0.05, max_axis = 0.15)
+        pcl.save(filter, roi_tabletop_name)
         #
         # # Separate the table from everything else
         # table, objects = do_ransac_plane_segmentation(filter, max_distance = 0.01)

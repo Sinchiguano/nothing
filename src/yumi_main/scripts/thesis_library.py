@@ -55,3 +55,13 @@ from open3d import CorrespondenceCheckerBasedOnDistance, statistical_outlier_rem
 import open3d
 from open3d import PointCloud, Vector3dVector, write_point_cloud,read_triangle_mesh
 import pcl
+
+
+
+#multiregistration
+from open3d import select_down_sample,create_rgbd_image_from_color_and_depth,read_image
+import pcl
+import cv2
+import glob
+import matplotlib.pyplot as plt
+from open3d import read_pinhole_camera_intrinsic,create_point_cloud_from_rgbd_image

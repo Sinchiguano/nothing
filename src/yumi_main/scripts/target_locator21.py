@@ -120,10 +120,9 @@ def print_information(rotation_vector,translation_vector,rvec_matrix):
 
     print('\n\n-----------------------------------------------------')
 
-def draw_show_on_image(frame,corners,axi_imgpts,ret,line_width=2):
+def draw_show_on_image(frame,axi_imgpts,corners,ret,line_width=2):
     # We can now plot limes on the 3D image using the cv2.line function,numpy.ravel-->Return a contiguous flattened array.
     cv2.drawChessboardCorners(frame, (5,7), corners, ret)#column and rows 7x9
-    #cv2.drawChessboardCorners(frame, (7,9), corners, ret)#column and rows 7x9
     cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
     cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
     cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
@@ -165,14 +164,13 @@ def locate_target_orientation(frame,ret, corners):
 
     # World coordinates system
     axis = np.float32([[0.07,0,0],[0,0.07,0],[0,0,0.07],[0,0,0]])
-    axis_img_pts, jacobian = cv2.projectPoints(axis, rotation_vector, translation_vector,cameraMatrix_ar, distCoef_ar)
+    axis_imgpts, jacobian = cv2.projectPoints(axis, rotation_vector, translation_vector,cameraMatrix_ar, distCoef_ar)
 
     # Rotation_vector into rotation_matrix
     rvec_matrix = cv2.Rodrigues(rotation_vector)[0]
-    rotation_vector_inv=cv2.Rodrigues(rvec_matrix.T)[0]
 
 
-    return axis_img_pts,corners,ret,rotation_vector,translation_vector,rvec_matrix,rotation_vector_inv
+    return axis_imgpts,corners,ret,rvec_matrix,translation_vector
 
 def main():
 
@@ -202,7 +200,6 @@ def main():
             cv2.imwrite('temp2.jpg', frame)
             break
 
-
         try:
             # 2D image points
             # To handle the corners array more easily, we can reshape it as follows
@@ -220,7 +217,7 @@ def main():
             
 
         # Extrinsic calibration!!!
-        axi_imgpts,corners,ret,rotation_vector,translation_vector,rvec_matrix,rotation_vector_inv= locate_target_orientation(frame,ret, corners)
+        axis_imgpts,corners,ret,rvec_matrix,translation_vector= locate_target_orientation(frame,ret, corners)
 
 
         # print information about rotation and translation for the camera and world frame
@@ -228,16 +225,16 @@ def main():
 
 
         #draw and display lines and text on the image
-        draw_show_on_image(frame,corners,axi_imgpts,ret)
+        draw_show_on_image(frame,axis_imgpts,corners,ret)
 
 
         # get transform matrix from rotation and translation of the camera frame relative to the world frame
         mat=data_to_transform(rvec_matrix.T,-np.dot(rvec_matrix.T, translation_vector))
-        print(mat)
+        #print(mat)
 
         # get the pose of the camera frame relative to the world frame
         pose=transform_to_pose(mat)
-        print(pose)
+        #print(pose)
 
         # publish pose of the camera frame
         pub_pose.publish(pose)
