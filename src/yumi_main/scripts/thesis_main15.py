@@ -172,7 +172,7 @@ def main():
 
                 # mask out point cloud in order to get only information in our region of interest, as we don't care about the other parts
                 filter = do_passthrough_filter(point_cloud = cloud,name_axis = 'x', min_axis = -0.4, max_axis = 0.4)
-                filter = do_passthrough_filter(point_cloud = filter,name_axis = 'y', min_axis = -0.4, max_axis = 0.1)
+                filter = do_passthrough_filter(point_cloud = filter,name_axis = 'y', min_axis = -0.25, max_axis = 0.1)
                 pcl.save(filter, roi_name+str(i)+'.pcd') 
                 
                 # Separate the table from everything else

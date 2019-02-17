@@ -73,15 +73,21 @@ def publish_transforms(br):
     t1.transform.translation.x = 0.30
     t1.transform.translation.y = 0.0
     t1.transform.translation.z = 0.0
-    q1 = tf.transformations.quaternion_from_euler(0,0,0)
+
+    tmp_rot=np.array([[0, 1, 0], [1, 0, 0],[0, 0, -1]])
+    tmp_trans=np.array([[0.30],[0],[0] ])
+    myrot =np.hstack((tmp_rot,tmp_trans)) 
+    myrot=np.vstack((myrot,[0.0,0.0,0.0,1.0]))
+    #print('my rotation: \n {}'.format(myrot) )
+
+    q1 = tf.transformations.quaternion_from_matrix(myrot)
+    #q1 = tf.transformations.quaternion_from_euler(0, -4.72,3.1415)
     t1.transform.rotation.x = q1[0]
     t1.transform.rotation.y = q1[1]
     t1.transform.rotation.z = q1[2]
-    t1.transform.rotation.w = q1[3]
-        
+    t1.transform.rotation.w = q1[3]      
     br.sendTransform(t1)
     
-
     t2 = geometry_msgs.msg.TransformStamped()
     t2.header.stamp = rospy.Time.now()
     t2.header.frame_id = "target"
@@ -94,14 +100,14 @@ def publish_transforms(br):
     t2.transform.rotation.y = q2[1]
     t2.transform.rotation.z = q2[2]
     t2.transform.rotation.w = q2[3]
-
     br.sendTransform(t2)
+
 
 def print_information(rotation_vector,translation_vector,rvec_matrix):
 
 
     global euler_angles
-    print("\n\nThe world coordinate system's origin in camera's coordinate system:")
+    print("\n\nThe world coordinate systems origin in-->> camera's coordinate system:")
     print("===rotation_vector:")
     print(rotation_vector)
     print("===rotation_matrix:")
@@ -109,20 +115,30 @@ def print_information(rotation_vector,translation_vector,rvec_matrix):
     print("===translation_vector:")
     print(translation_vector)
 
+    matr =np.hstack((rvec_matrix,translation_vector)) 
+    matr=np.vstack((matr,[0.0,0.0,0.0,1.0]))
+ 
+    quat_tmp = tf.transformations.quaternion_from_matrix(matr)
+    roll_, pitch_, yaw_=tf.transformations.euler_from_quaternion(quat_tmp)
+    euler_angles_tmp=[roll_,pitch_,yaw_]
+    print("euler_angles_tmp: ",euler_angles_tmp)
+    import math
+    print(roll_* 180 / math.pi,pitch_* 180 / math.pi,yaw_* 180 / math.pi)
 
-    print("\n\nThe camera origin in world coordinate system:")
+    print("\n\nThe camera origin in -->>world coordinate system:")
     print("===camera rvec_matrix:")
     print(rvec_matrix.T)
     print("===camera translation_vector:")
     print(-np.dot(rvec_matrix.T, translation_vector))
-    print('euler_angles inv yaw_,pitch_,roll_:  \n',euler_angles)
+    print('euler_angles inv roll_,pitch_,yaw:  \n',euler_angles_)
+    print(euler_angles_[0]* 180 / math.pi,euler_angles_[1]* 180 / math.pi,euler_angles_[2]* 180 / math.pi)
 
 
     print('\n\n-----------------------------------------------------')
 
 def draw_show_on_image(frame,axi_imgpts,corners,ret,line_width=2):
     # We can now plot limes on the 3D image using the cv2.line function,numpy.ravel-->Return a contiguous flattened array.
-    cv2.drawChessboardCorners(frame, (5,7), corners, ret)#column and rows 7x9
+    cv2.drawChessboardCorners(frame, (7,5), corners, ret)#column and rows 7x9
     cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
     cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
     cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
@@ -139,11 +155,12 @@ def draw_show_on_image(frame,axi_imgpts,corners,ret,line_width=2):
 def locate_target_orientation(frame,ret, corners):
 
     # 3D world points.
-    x,y=np.meshgrid(range(5),range(7))
-    world_points_3d=np.hstack((y.reshape(35,1) * 0.035,  x.reshape(35,1) * 0.035, np.zeros((35,1)))).astype(np.float32)
-    #print(world_points_3d)
+    x,y=np.meshgrid(range(7),range(5))#col row
+    world_points_3d=np.hstack(( x.reshape(35,1) * 0.035,y.reshape(35,1) * 0.035, np.zeros((35,1)))).astype(np.float32)
+    # print(world_points_3d)
+    # print(corners)
+    # exit(0)
 
-   
     # Camera internals
     #Intrinsic parameters===>>> from the intrinsic calibration!!!!
     list_matrix=[529.3652640113527, 0, 310.3141830332983, 0, 540.6164768242445, 220.3657848482968, 0, 0, 1]
@@ -170,7 +187,7 @@ def locate_target_orientation(frame,ret, corners):
     rvec_matrix = cv2.Rodrigues(rotation_vector)[0]
 
 
-    return axis_imgpts,corners,ret,rvec_matrix,translation_vector
+    return axis_imgpts,corners,ret,rvec_matrix,translation_vector,rotation_vector
 
 def main():
 
@@ -189,6 +206,7 @@ def main():
 
         # Capture frame-by-frame
         frame=camObj.get_image()
+        #frame=cv2.imread('temp2.jpg')
         #frame = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
         #print(type(frame))
@@ -203,7 +221,7 @@ def main():
         try:
             # 2D image points
             # To handle the corners array more easily, we can reshape it as follows
-            ret, corners = cv2.findCirclesGrid(frame, (5,7), flags=cv2.CALIB_CB_SYMMETRIC_GRID)
+            ret, corners = cv2.findCirclesGrid(frame, (7,5), flags=cv2.CALIB_CB_SYMMETRIC_GRID)#coulmn and rows
             corners=corners.reshape(-1,2)#undefied number of rows
             if not ret:
                 print('\nPlease, locate well the calibration target!!!')
@@ -217,11 +235,11 @@ def main():
             
 
         # Extrinsic calibration!!!
-        axis_imgpts,corners,ret,rvec_matrix,translation_vector= locate_target_orientation(frame,ret, corners)
+        axis_imgpts,corners,ret,rvec_matrix,translation_vector,rotation_vector= locate_target_orientation(frame,ret, corners)
 
 
         # print information about rotation and translation for the camera and world frame
-        #print_information(rotation_vector,translation_vector,rvec_matrix)
+        print_information(rotation_vector,translation_vector,rvec_matrix)
 
 
         #draw and display lines and text on the image
