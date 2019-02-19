@@ -75,14 +75,16 @@ def publish_transforms(br):
     t1.transform.translation.y = 0.0
     t1.transform.translation.z = 0.0
 
+    #convention to openCV
     tmp_rot=np.array([[0, 1, 0], [1, 0, 0],[0, 0, -1]])
     tmp_trans=np.array([[0.30],[0],[0] ])
     myrot =np.hstack((tmp_rot,tmp_trans)) 
     myrot=np.vstack((myrot,[0.0,0.0,0.0,1.0]))
     #print('my rotation: \n {}'.format(myrot) )
+    #q1 = tf.transformations.quaternion_from_matrix(myrot)
 
-    q1 = tf.transformations.quaternion_from_matrix(myrot)
-    #q1 = tf.transformations.quaternion_from_euler(0, -4.72,3.1415)
+    #no rotation at all
+    q1 = tf.transformations.quaternion_from_euler(0, 0, 0)
     t1.transform.rotation.x = q1[0]
     t1.transform.rotation.y = q1[1]
     t1.transform.rotation.z = q1[2]
@@ -95,7 +97,7 @@ def publish_transforms(br):
     t2.child_frame_id = "camera_link"
     t2.transform.translation.x = 1.00*position_[0]
     t2.transform.translation.y = 1.00*position_[1]
-    t2.transform.translation.z = 1.00*position_[2]  
+    t2.transform.translation.z = 0.82*position_[2]  
     #orientation according to openCV
     q3 = tf.transformations.quaternion_from_euler(euler_angles_[0],euler_angles_[1],euler_angles_[2])
     #orientation of camera link. which is parallel to world frame
@@ -145,7 +147,7 @@ def print_information(rotation_vector,translation_vector,rvec_matrix):
 
 def draw_show_on_image(frame,axi_imgpts,corners,ret,line_width=2):
     # We can now plot limes on the 3D image using the cv2.line function,numpy.ravel-->Return a contiguous flattened array.
-    cv2.drawChessboardCorners(frame, (7,5), corners, ret)#column and rows 7x9
+    cv2.drawChessboardCorners(frame, (7,5), corners, ret)#column and rows 
     cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
     cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
     cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
@@ -162,8 +164,8 @@ def draw_show_on_image(frame,axi_imgpts,corners,ret,line_width=2):
 def locate_target_orientation(frame,ret, corners):
 
     # 3D world points.
-    x,y=np.meshgrid(range(7),range(5))#col row
-    world_points_3d=np.hstack(( x.reshape(35,1) * 0.035,y.reshape(35,1) * 0.035, np.zeros((35,1)))).astype(np.float32)
+    x,y=np.meshgrid(range(5),range(7))#col row
+    world_points_3d=np.hstack(( y.reshape(35,1) * 0.035,x.reshape(35,1) * 0.035, np.zeros((35,1)))).astype(np.float32)
     # print(world_points_3d)
     # print(corners)
     # exit(0)
@@ -228,7 +230,7 @@ def main():
         try:
             # 2D image points
             # To handle the corners array more easily, we can reshape it as follows
-            ret, corners = cv2.findCirclesGrid(frame, (7,5), flags=cv2.CALIB_CB_SYMMETRIC_GRID)#coulmn and rows
+            ret, corners = cv2.findCirclesGrid(frame, (5,7), flags=cv2.CALIB_CB_SYMMETRIC_GRID)#column and rows
             corners=corners.reshape(-1,2)#undefied number of rows
             if not ret:
                 print('\nPlease, locate well the calibration target!!!')
