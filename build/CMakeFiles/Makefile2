@@ -697,6 +697,24 @@ industrial_core/industrial_deprecated/preinstall:
 .PHONY : industrial_core/industrial_deprecated/preinstall
 
 #=============================================================================
+# Directory level rules for directory panda_moveit_config
+
+# Convenience name for "all" pass in the directory.
+panda_moveit_config/all:
+
+.PHONY : panda_moveit_config/all
+
+# Convenience name for "clean" pass in the directory.
+panda_moveit_config/clean:
+
+.PHONY : panda_moveit_config/clean
+
+# Convenience name for "preinstall" pass in the directory.
+panda_moveit_config/preinstall:
+
+.PHONY : panda_moveit_config/preinstall
+
+#=============================================================================
 # Directory level rules for directory industrial_core/industrial_msgs
 
 # Convenience name for "all" pass in the directory.

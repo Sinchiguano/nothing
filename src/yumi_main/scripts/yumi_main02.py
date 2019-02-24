@@ -132,10 +132,11 @@ if __name__=='__main__':
 
     print "============ Press `Enter` to start (press ctrl-d to exit) ......"
     raw_input()
-    yumiR=MoveGroup('right_arm',gripperR)
-    yumiL=MoveGroup('left_arm',gripperL)
+    #yumiR=MoveGroup('right_arm',gripperR)
+    #yumiL=MoveGroup('left_arm',gripperL)
 
-    measurements(yumiL)
-    measurements(yumiR)
+
+    # measurements(yumiL)
+    # measurements(yumiR)
 
     main()

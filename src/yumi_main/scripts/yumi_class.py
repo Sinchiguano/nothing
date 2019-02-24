@@ -13,7 +13,7 @@ from yumi_lib import *
 
 class MoveGroup(object):
     """MoveGroup_Python"""
-    def __init__(self,temp,pubname):
+    def __init__(self,temp,pubname=None):
         ## First initialize `moveit_commander`_ and a `rospy`_ node:
         moveit_commander.roscpp_initialize(sys.argv)
         rospy.init_node('move_group_python', anonymous=True)
@@ -38,9 +38,9 @@ class MoveGroup(object):
 
         ## Create a `DisplayTrajectory`_ ROS publisher which is used to display
         ## trajectories in Rviz:
-        display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
-                                                       moveit_msgs.msg.DisplayTrajectory,
-                                                       queue_size=20)
+        # display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
+        #                                                moveit_msgs.msg.DisplayTrajectory,
+        #                                                queue_size=20)
 
         ## Getting Basic Information
         # We can get the name of the reference frame for the yumi robot:
@@ -73,14 +73,14 @@ class MoveGroup(object):
         Sends an effort command to the selected gripper. Should be in the range of
         -20.0 (fully open) to 20.0 (fully closed)
         """
-        self.pub_gripper = rospy.Publisher(pubname, std_msgs.msg.Float64, queue_size=10, latch=True)
+        #self.pub_gripper = rospy.Publisher(pubname, std_msgs.msg.Float64, queue_size=10, latch=True)
 
 
         # Misc variables
         self.robot = robot
         self.scene = scene
         self.move_group = move_group
-        self.display_trajectory_publisher = display_trajectory_publisher
+        #self.display_trajectory_publisher = display_trajectory_publisher
         self.planning_frame = planning_frame
         self.eef_link = eef_link
         self.group_names = group_names
@@ -153,7 +153,6 @@ class MoveGroup(object):
             print('pose goal!!!')
             pose_target=self.create_pose(pose_ee)
             print(pose_target)
-            print('hihi')
         else:
             print('random pose goal ')
             pose_goal=move_group.get_random_pose(end_effector_link = self.eef_link)
@@ -289,8 +288,7 @@ def measurements(arm_name):
     # # ''''Get the current pose of the end-effector of the group.'''
     print
     print('current pose of the end-effector '+arm_name.tag_name)
-    print
-    # print(arm_name.move_group.get_current_pose().pose)
+    print(arm_name.move_group.get_current_pose().pose)
 
     print('Position x, y and z!!!')
     temP=arm_name.move_group.get_current_pose().pose
