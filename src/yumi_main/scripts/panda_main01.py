@@ -78,12 +78,17 @@ def main():
 
         print "\n============ Press `Enter` to execute a sample movement using a pose goal ..."
         raw_input()
-        sx = np.random.normal(mux, sigmax, 1)
-        sy = np.random.normal(muy, sigmay, 1)
-        pose_ee = [sx[0], sy[0], 0.12,-3.0771184966162384, 0.03685181271073941, -3.110391501956562]
+
+        state=False
+        while(not state):
+            sx = np.random.normal(mux, sigmax, 1)
+            sy = np.random.normal(muy, sigmay, 1)
+            pose_ee = [sx[0], sy[0], 0.12,-3.0771184966162384, 0.03685181271073941, -3.110391501956562]
+            print('I am trying!!!')
+            state=panda_arm.go_to_pose_goal(pose_ee)
+        print('done!!!')
 
 
-        state=panda_arm.go_to_pose_goal(pose_ee)
         measurements(panda_arm)
 
 
