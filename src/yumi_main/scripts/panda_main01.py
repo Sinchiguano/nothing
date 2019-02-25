@@ -9,9 +9,12 @@
 """
 
 """
+
+import sys
+sys.path.insert(0, '/home/sinchiguano/yumi_depends_ws/src/yumi_main/scripts/project')
 from yumi_lib import *
 from yumi_class import MoveGroup,all_close,measurements
-import numpy as np
+
 
 # #Working range, top view
 # x=27.4cm
@@ -39,10 +42,10 @@ def main():
     # (-0.014995402371666888, 0.9991984279239302, -0.03193482483174249, 0.018915773973701613)
     # pose_ee = [0.7178623459394846, 0.19592706554820472, 0.1208276042327867,
     # -3.0771184966162384, 0.03685181271073941, -3.110391501956562]
-    counter=0
+ 
     pose_ee2 = [0.70, 0.10, 0.12,-3.0771184966162384, 0.03685181271073941, -3.110391501956562]
 
-
+    counter=0
     mux, sigmax = 0.70, 0.10 # mean and standard deviation
     muy, sigmay = 0.11, 0.10
 

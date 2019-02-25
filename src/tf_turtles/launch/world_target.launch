@@ -3,7 +3,7 @@
 
 
       <!-- Adjust this for your actual setup -->
-      <node pkg="tf" type="static_transform_publisher" name="world_frame" args="0 0 0 0 0 0 world_frame target_frame 100" />
+      <node pkg="tf" type="static_transform_publisher" name="world_frame" args="0.12 0.08 0 0 0 0 target object 100" />
 
 
 </launch>

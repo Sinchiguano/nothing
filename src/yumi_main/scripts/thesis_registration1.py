@@ -9,8 +9,12 @@
 """
 
 """
-from thesis_class import *
+import sys
+sys.path.insert(0, '/home/sinchiguano/yumi_depends_ws/src/yumi_main/scripts/project')
+
+#The order matters
 from thesis_library import *
+from thesis_class import *
 from thesis_function import *
 
 from open3d import uniform_down_sample,registration_icp,TransformationEstimationPointToPlane,TransformationEstimationPointToPoint
@@ -52,12 +56,12 @@ def do_preprocessing_pcd(pcd, voxel_size):
     return pcd_down, pcd_fpfh
 
 def do_ransac_registration(source_down, target_down, source_fpfh, target_fpfh):
-    
-    '''RANSAC registration is applied on downsampled point clouds.'''    
-    #Global registration. This family of algorithms do not require an alignment for initialization. 
+
+    '''RANSAC registration is applied on downsampled point clouds.'''
+    #Global registration. This family of algorithms do not require an alignment for initialization.
     #They usually produce less tight alignment results and are used as initialization of the local methods such as ICP.
     #RANSACConvergenceCriteria
-    #It defines the maximum number of RANSAC iterations and the maximum number of validation steps. 
+    #It defines the maximum number of RANSAC iterations and the maximum number of validation steps.
     #The larger these two numbers are, the more accurate the result is, but also the more time the algorithm takes.
     threshold = 0.003#0.01 * 1.5
     result = registration_ransac_based_on_feature_matching(source_down, target_down, source_fpfh, target_fpfh,threshold,
@@ -67,8 +71,8 @@ def do_ransac_registration(source_down, target_down, source_fpfh, target_fpfh):
     return result
 
 def do_icp_registration(source, target, transformation):
-    
-   
+
+
     '''Point-to-plane ICP registration is applied on original points'''
 
     estimate_normals(source, KDTreeSearchParamHybrid(radius = 0.01, max_nn = 20))
@@ -83,13 +87,13 @@ def do_icp_registration(source, target, transformation):
     return result
 
 def do_drawing_registration(source, target, transformation):
-    
+
     source_tmp= copy.deepcopy(source)
     target_tmp = copy.deepcopy(target)
     source_tmp.paint_uniform_color([1, 0.706, 0])
     target_tmp.paint_uniform_color([0, 0.651, 0.929])
 
-    source_tmp.transform(transformation)  
+    source_tmp.transform(transformation)
     draw_geometries([source_tmp, target_tmp])
 
 def main():
@@ -97,7 +101,7 @@ def main():
     counter2=0
     counter3=0
     path_cloud='end_cloud/'
-    
+
 
     path_in='end_cloud/'
     path_out='end_out/'
@@ -109,13 +113,13 @@ def main():
     # flag=sys.argv[1]
 
     rate = rospy.Rate(10) # 10hz
-    
+
     while not rospy.is_shutdown():
         counter1+=1
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-        
+
         # LOAD THE POINT CLOUD FROM THE MEMORY
         print("Load a pcd, print it, and render it")
         pcd_ = [read_point_cloud(pcd) for pcd in glob.glob(path_in+'objects_name'+'*pcd')]
@@ -130,22 +134,21 @@ def main():
         source, target, source_down, target_down, source_fpfh, target_fpfh=do_dataset(tmp1,tmp2)
         draw_geometries([source_down,target_down])
 
-        #RANSAC REGISTRATION-->>global registration 
+        #RANSAC REGISTRATION-->>global registration
         #-------------------
         ransac_output=do_ransac_registration(source_down, target_down, source_fpfh, target_fpfh )
 
+        do_drawing_registration(source, target, ransac_output.transformation)
         print('RANSAC')
         print(ransac_output.transformation)
-        do_drawing_registration(source, target, ransac_output.transformation)
-        
+
 
         #ICP REGISTRATION -->>local registration, point to plane approach
         #-------------------
         icp_output = do_icp_registration(source, target,ransac_output.transformation)
-        
+        do_drawing_registration(source, target, icp_output.transformation)
         print('ICP')
         print(icp_output.transformation)
-        do_drawing_registration(source, target, icp_output.transformation)
 
 
         # multiway registration
@@ -170,9 +173,9 @@ if __name__ == '__main__':
 #     draw_geometries([cloud])
 #     #flag=False
 # '''
-# statistical_outlier_removal removes points that are further away from their neighbors compared to the average for the point cloud. 
-# It takes two input parameters: nb_neighbors: allows to specify how many neighbors are taken into account in order to calculate 
-# the average distance for a given point. std_ratio: allows to set the threshold level based on the standard deviation of 
+# statistical_outlier_removal removes points that are further away from their neighbors compared to the average for the point cloud.
+# It takes two input parameters: nb_neighbors: allows to specify how many neighbors are taken into account in order to calculate
+# the average distance for a given point. std_ratio: allows to set the threshold level based on the standard deviation of
 # the average distances across the point cloud. The lower this number the more aggressive the filter will be.
 # '''
 # print("Statistical oulier removal")
