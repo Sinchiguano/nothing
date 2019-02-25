@@ -1,0 +1,12 @@
+\documentclass[10pt]{article}
+\begin{document}
+%body of the document
+This is my first latex document.
+
+Suppose we are given a rectangle with side lengths $(x+1)$ and $(x+3)$. Then the equation $A=x^2+4x+3$ represent the area of the rectangle.
+
+Suppose we are given a rectangle with side lengths $(x+1)$ and $(x+3)$ 
+
+
+
+\end{document}
