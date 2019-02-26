@@ -1,0 +1,319 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.1.27)  26 FEB 2019 12:31
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**ctuslides2.tex
+(./ctuslides2.tex
+LaTeX2e <2016/02/01>
+Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
+(/usr/share/texlive/texmf-dist/tex/csplain/opmac/opmac.tex
+This is OPmac (Olsak's Plain macros), version <Nov. 2015>
+\tmpnum=\count79
+\tmpdim=\dimen102
+\iindent=\dimen103
+\ttindent=\dimen104
+\colsep=\dimen105
+\mnoteindent=\dimen106
+\mnotesize=\dimen107
+l.135 OPmac WARNING: No multilanguage support (csplain is recommended).
+\ptunit=\dimen108
+\fontdim=\dimen109
+(/usr/share/texlive/texmf-dist/tex/csplain/fonts/ams-math.tex
+FONT: AMS math fonts - \mathchardef's prepared, 12 math families preloaded.
+\ptmunit=\dimen110
+
+! Undefined control sequence.
+<argument> \tenrm 
+                  
+l.229 ...\normalmathloading\relax\else \normalmath
+                                                   \fi  % load families, nor...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing font identifier.
+<to be read again> 
+                   \relax 
+l.229 ...\normalmathloading\relax\else \normalmath
+                                                   \fi  % load families, nor...
+I was looking for a control sequence whose
+current meaning has been defined by \font.
+
+Runaway argument?
+at\dgsize \textfont 10=\tenrm \let \dgsize =\sizemscript \letfont \tenrm \ETC.
+! Paragraph ended before \rfskipatN was complete.
+<to be read again> 
+                   \par 
+l.231 
+      
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+! Font \tenrm= not loadable: Metric (TFM) file not found.
+<to be read again> 
+                   \par 
+l.231 
+      
+I wasn't able to read the size data for this font,
+so I will ignore the font specification.
+[Wizards can fix TFM files using TFtoPL/PLtoTF.]
+You might try inserting a different font spec;
+e.g., type `I\font<same font id>=<substitute font name>'.
+
+)
+\reffile=\write3
+\testin=\read1
+\chapnum=\count80
+\secnum=\count81
+\seccnum=\count82
+\nonumnum=\count83
+\remskipamount=\skip41
+\tnum=\count84
+\fnum=\count85
+\dnum=\count86
+
+! Undefined control sequence.
+l.428 ...rt\expandafter{\expandafter\par\endinsert
+                                                  }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+\itemnum=\count87
+! Text line contains an invalid character.
+l.624   ^^T
+           ^^U^^V,% ch Ch CH
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.624   ^^T^^U
+              ^^V,% ch Ch CH
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.624   ^^T^^U^^V
+                 ,% ch Ch CH
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.649 \def\specsortingdatacs {ch:^^T
+                                     Ch:^^U CH:^^V}
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.649 \def\specsortingdatacs {ch:^^T Ch:^^U
+                                            CH:^^V}
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.649 \def\specsortingdatacs {ch:^^T Ch:^^U CH:^^V
+                                                  }
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.650 \def\specsortingdatask {ch:^^T
+                                     Ch:^^U CH:^^V} % DZ etc. are sorted nor...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.650 \def\specsortingdatask {ch:^^T Ch:^^U
+                                            CH:^^V} % DZ etc. are sorted nor...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+! Text line contains an invalid character.
+l.650 \def\specsortingdatask {ch:^^T Ch:^^U CH:^^V
+                                                  } % DZ etc. are sorted nor...
+A funny symbol that I can't read has just been input.
+Continue, and I'll forget that it ever happened.
+
+\mullines=\count88
+\oulnum=\count89
+\ttline=\count90
+\viline=\count91
+\vifile=\read2
+\tabdata=\toks14
+\colnum=\count92
+\picwidth=\dimen111
+\picheight=\dimen112
+\fnotenum=\count93
+\fnotenumlocal=\count94
+\mnotenum=\count95
+\mnoteskip=\dimen113
+\auxfile=\write4
+\bibnum=\count96
+\bibmark=\toks15
+\lastcitenum=\count97
+! Undefined control sequence.
+l.1555 \footline
+                ={\hss\tenrm\thefontsize[10]\folio\hss}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1555 \footline=
+                 {\hss\tenrm\thefontsize[10]\folio\hss}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no = in font nullfont!
+! Font \thefont=nullfont at 10.0pt not loadable: Metric (TFM) file not found.
+<to be read again> 
+                   \thefont 
+l.1555 \footline={\hss\tenrm\thefontsize[10]
+                                            \folio\hss}
+I wasn't able to read the size data for this font,
+so I will ignore the font specification.
+[Wizards can fix TFM files using TFtoPL/PLtoTF.]
+You might try inserting a different font spec;
+e.g., type `I\font<same font id>=<substitute font name>'.
+
+! Undefined control sequence.
+l.1555 \footline={\hss\tenrm\thefontsize[10]\folio
+                                                  \hss}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Infinite glue shrinkage found in a paragraph.
+l.1556 
+       
+The paragraph just ended includes some glue that has
+infinite shrinkability, e.g., `\hskip 0pt minus 1fil'.
+Such glue doesn't belong there---it allows a paragraph
+of any length to fit on one line. But it's safe to proceed,
+since the offensive shrinkability has been made finite.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 1555--1556
+[]
+
+\hbox(0.0+0.0)x0.0
+.\hbox(0.0+0.0)x20.0
+.\glue(\rightskip) 0.0
+
+\lastpage=\count98
+\pgwidth=\dimen114
+\pgheight=\dimen115
+\shiftoffset=\dimen116
+) ERROR -- csplain isn't detected, use ``pdfcsplain ctuslides2'' command.
+! Undefined control sequence.
+<argument> \makeheadline 
+                         
+l.17 \fi
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\opmacoutput ...eblacko {\makeheadline }\pagebody 
+                                                  \ensureblacko {\makefootli...
+l.17 \fi
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<argument> \makefootline 
+                         
+l.17 \fi
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[1]
+! Undefined control sequence.
+\opmacoutput ...st \shipout \box 0 \advancepageno 
+                                                  \ifnum \outputpenalty >-20...
+l.17 \fi
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\opmacoutput ...nalty >-20000 \else \dosupereject 
+                                                  \fi 
+l.17 \fi
+        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Output routine didn't use all of \box255.
+<to be read again> 
+                   \end 
+l.17 \fi
+        
+Your \output commands should empty \box255,
+e.g., by saying `\shipout\box255'.
+Proceed; I'll discard its present contents.
+
+The following box has been deleted:
+\vbox(1000.0+0.0)x0.0, glue set 990.0fill
+.\glue(\topskip) 10.0
+.\hbox(0.0+0.0)x0.0
+..\hbox(0.0+0.0)x20.0
+..\glue(\rightskip) 0.0
+.\penalty 20000
+.\glue(\baselineskip) 0.0
+.\hbox(0.0+0.0)x0.0
+..\glue(\rightskip) 0.0
+.\hbox(0.0+0.0)x0.0
+.\glue 0.0 plus 1.0fill
+
+ )
+(\end occurred when \ifx on line 229 was incomplete)
+(\end occurred when \ifx on line 153 was incomplete) 
+Here is how much of TeX's memory you used:
+ 1001 strings out of 493029
+ 9068 string characters out of 6136234
+ 63212 words of memory out of 5000000
+ 4607 multiletter control sequences out of 15000+600000
+ 11642 words of font info for 35 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 10i,1n,10p,205b,53s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on ctuslides2.pdf (1 page, 916 bytes).
+PDF statistics:
+ 8 PDF objects out of 1000 (max. 8388607)
+ 4 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

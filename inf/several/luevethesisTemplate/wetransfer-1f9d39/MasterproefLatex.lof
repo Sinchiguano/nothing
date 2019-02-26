@@ -1,0 +1,56 @@
+\select@language {english}
+\select@language {english}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Force compliance block scheme\relax }}{5}{figure.caption.9}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces ROS Topic\relax }}{7}{figure.caption.10}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces ROS Service\relax }}{8}{figure.caption.11}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces ROS Topology\relax }}{8}{figure.caption.12}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Graphical view of node communication\relax }}{9}{figure.caption.13}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Workspace packages\relax }}{10}{figure.caption.14}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Application package\relax }}{11}{figure.caption.15}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Contents of application package\relax }}{11}{figure.caption.16}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Contents of source file\relax }}{12}{figure.caption.17}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces KUKA LBR iiwa 7kg\relax }}{15}{figure.caption.18}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces KUKA inputs / outputs\relax }}{16}{figure.caption.19}
+\contentsline {figure}{\numberline {2.12}{\ignorespaces ReFlex TakkTile hand\relax }}{16}{figure.caption.20}
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Schunk industrial robot gripper\relax }}{17}{figure.caption.21}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Lab configuration\relax }}{19}{figure.caption.22}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Low level control\relax }}{20}{figure.caption.23}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Hardware interface\relax }}{21}{figure.caption.24}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Higher level RT-control\relax }}{22}{figure.caption.25}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Joint limits enforcing\relax }}{24}{figure.caption.27}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Controller manager\relax }}{25}{figure.caption.29}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces RT next to NRT\relax }}{26}{figure.caption.30}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Initial position of the robot\relax }}{36}{figure.caption.33}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Application A: Starting position\relax }}{39}{figure.caption.38}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Application B: Starting position\relax }}{41}{figure.caption.39}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Application C: Starting position\relax }}{46}{figure.caption.40}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Application D: Starting position\relax }}{48}{figure.caption.41}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Interface: Icon\relax }}{55}{figure.caption.42}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Interface: Button window\relax }}{55}{figure.caption.43}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Interface: Terminal\relax }}{57}{figure.caption.44}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Application A: Display\relax }}{60}{figure.caption.45}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Application A: Pushing with balloon\relax }}{61}{figure.caption.46}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Application B: Display, no person detected\relax }}{62}{figure.caption.47}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Application B: Display, person detected\relax }}{63}{figure.caption.48}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Application B: Scratching persons back\relax }}{64}{figure.caption.49}
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Application B: Scratch trajectory\relax }}{64}{figure.caption.50}
+\contentsline {figure}{\numberline {7.7}{\ignorespaces Application C: Display, no object to clamp\relax }}{65}{figure.caption.51}
+\contentsline {figure}{\numberline {7.8}{\ignorespaces Application C: Display, object clamped\relax }}{66}{figure.caption.52}
+\contentsline {figure}{\numberline {7.9}{\ignorespaces Application C: Clamping object\relax }}{67}{figure.caption.53}
+\contentsline {figure}{\numberline {7.10}{\ignorespaces Application D: Display\relax }}{68}{figure.caption.54}
+\contentsline {figure}{\numberline {7.11}{\ignorespaces Application D: Take and release object\relax }}{68}{figure.caption.55}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

@@ -1,0 +1,310 @@
+\input ctuslides2
+
+\worktype[O/EN]
+\faculty{F3}
+\department{Department of Mathematics}
+
+\slideshow 
+
+\tit CTUslides ---\nl 
+     simple slides\nl in CTUstyle design
+
+\subtit\bf Petr Ol\v s\'ak\nl petr@olsak.net
+
+\subtit\rm \url{http://petr.olsak.net/ctustyle.html}
+
+\pg; %------------------------------------------------------------------
+
+\sec Basics
+
+* The document is included in a file (say \code{file.tex})\nl
+  and it can be processed by \code{pdfcsplain file} command.
+* The header of the document should be:
+
+\pg=\typosize[13/15]\begtt
+\input ctuslides2 % slides macro (in version 2)
+\worktype[B/EN]   % type of the work (B,M,D,O) and language (CZ,SK,EN)
+\faculty{F3}      % the faculty in short
+\department {Department of Mathematics} % depart
+ment
+
+\slideshow        % begin of the document
+... document ...
+\pg.
+\endtt
+
+* The document must be finished by \code{\\pg} followed by period.
+
+* You need OPmac in the version May~2015 or newer.
+  Available at \url{http://petr.olsak.net/opmac-e.html}.
+
+* The work type should be set similarly as in {\bf\Blue CTUstyle}.
+
+* Only \code{\\worktype}, \code{\\faculty} and \code{\\department}
+  work here. No more declaration sequences from {\bf\Blue CTUstyle}.
+
+\pg; %------------------------------------------------------------------
+
+\sec The structural commands
+
+* You can type \code{\*} for starting of the item.
+* Nested items lists (second and more level) are created in
+  the \code{\\begitems}\dots\code{\\enditems} environments.
+* The slide titles are created by \code{\\sec Text}
+  followed by empty line.\nl You can use \code{\\secc Text} similarly.
+* The title page (first slide) can be special if \code{\\tit Title}\nl
+  (followed by empty line) is used here.
+* The \code{\\subtit Author name etc.} (followed by empty line)
+  can be used after \code{\\tit} at the first slide.
+* The paragraph texts are ragged right.
+* You can use \code{\\nl} for new line in the paragraph.
+* You can use \code{\\pg} followed by \code{+} or \code{,} or \code{.}
+  for new slide.
+* The page-bar in the right corner is clickable at it will be 
+  created correctly after second pass of the \TeX{} run.
+
+\pg; %------------------------------------------------------------------
+
+\sec Next page (next slide)
+
+* The control sequence \code{\\pg} must be followed by:
+
+\begitems
+* the character \frame{\strut\code{+}} -- next page keeps the same text
+  and a next text is added (usable for partially uncovering of ideas),\pg+ 
+* the character \frame{\strut\code{;}} -- normal next page,\pg+
+* the character \frame{\strut\code{.}} -- the end of the document.
+\enditems
+\pg+
+
+* Summary:
+\pg=\begtt
+\pg+    ... uncover next text
+\pg;    ... next page
+\pg.    ... the end of the document
+\endtt
+\pg+
+
+* If the control sequence \code{\\slideshow} is removed (or commented out)
+  from the beginning of the document then \code{\\pg+} sequences are deactivated.
+  This is usable for printing version of the document.
+
+* Another variant is \code{\\pg=} (i. e. \code{\\pg} followed by
+  \frame{\strut\code{=}}). It does not create new page, but it is used for verbatim
+  environment (see next slide\dots). 
+
+\pg; %------------------------------------------------------------------
+
+\sec Verbatim
+
+\secc Verbatim in paragraph
+
+* In-line verbatim doesn't work with declared \code{\\activettchar} when
+  \code{\\slideshow} is used.
+* You can use the \code{\\code} sequence described in OPmac trick 0102,\nl
+  see \url{http://petr.olsak.net/opmac-tricks-e.html\#code}.
+* The argument of the \code{\\code} sequence is printed verbatim, but
+  special \TeX{} characters must be preceded by backslash. I. e. backslash is
+  printed when it is doubled.\pg+
+
+\secc Multi-line verbatim
+
+* Multi-line verbatim is printed by \code{\\begtt...\\endtt} but \code{\\pg=}
+  must preceded:
+
+\pg=\adef|{\bslash}\begtt
+\pg=|begtt
+... verbatim text ...
+|endtt
+\endtt
+
+\pg; %------------------------------------------------------------------
+
+\sec Example of multi-line verbatim
+
+The source code includes:\smallskip
+
+\pg=\adef|{\bslash}\begtt
+\pg=\Red\typosize[13/15]|begtt
+#include <stdio.h>
+int main();
+{
+  printf("Hello world!\n");
+}
+|endtt
+\endtt\pg+
+
+and the result is:\smallskip
+
+\pg=\Red\typosize[13/15]\begtt
+#include <stdio.h>
+int main();
+{
+  printf("Hello world!\n");
+}
+\endtt
+
+Note that local declarations can be inserted between \code{\\pg=} and
+\code{\\begtt}.
+
+\pg; %------------------------------------------------------------------
+
+\sec Limits of the \code{\\pg+} sequence
+
+* The \code{\\pg+} sequence cannot be used inside a group.
+* The exception is the nested environment \code{\\begitems...\\enditems}.\pg+
+
+\secc What to do?
+
+* If you need to set a different font size by \code{\\typosize} or
+  \code{\\typoscale} then you this size globally and you can use
+  \code{\\pg+} inside different size of the font. Finally, you have to
+  return back to normal size by the \code{\\normalsize} sequence.
+ 
+* If you need to partially uncover the multi-line verbatim then you
+   can use:
+
+\pg=\typosize[13/15]\adef|{\bslash}\begtt
+\pg=\begtt
+... first line of the code ...
+|endtt \pg+ \pg=\begtt
+... second line of the code ...
+|endtt \pg+
+\endtt
+
+* If you need to uncover the texts more ingenious then you can
+  use macros \code{\\use} or \code{\\pshow} (see next slide\dots)
+
+\pg; %------------------------------------------------------------------
+
+\sec Uncovering by \code{\\use} and \code{\\pshow}
+
+* The macro \code{\\use{condition}\\action} runs \code{\\action} only if 
+  the number of the slide layer passes the given condition.
+
+* The macro \code{\\pshow X} (means partially show) prints the following text to
+  the end of the current group:
+\begitems\parskip=0pt
+* invisible, if the number of the slide layer is less than X,
+* red, if the number of slide the layer is equal to X,
+* normal (black), if the number of slide layers is greater than X. 
+\enditems
+
+* The number of the slide layer is reset to one after each \code{\\pg;} 
+  and it is incremented by one after each \code{\\pg+}.
+
+* The \code{\\pshow} macro is defined by the \code{\\use} macro as follows:
+
+\pg=\begtt
+\def\pshow#1{\use{=#1}\Red \use{<#1}\White \ignorespaces}
+\endtt
+
+You can redefine it as you wish.
+
+\edef\restore{\leftskip=\the\leftskip \relax}
+
+\pg; %------------------------------------------------------------------
+
+\sec An example of \code{\\pshow} usage
+
+\pg=\typosize[13/15]\begtt
+\secc Ideas in special order
+
+* {\pshow1 First idea}
+* {\pshow3 Second idea}
+* {\pshow2 Third idea}
+
+\pg+\pg+\pg+
+
+\secc A formula
+
+Consider
+$$ 
+  E = {\pshow5 m}{\pshow6 c^2}
+$$
+
+\pg+\pg+\pg+
+
+And that is all.
+
+\pg;
+\endtt
+
+\vskip-12cm \null 
+
+\leftskip=10cm 
+\def\s{\hskip10cm}
+
+\secc \s Ideas in special order
+
+* {\pshow1 First idea}
+* {\pshow3 Second idea}
+* {\pshow2 Third idea}
+
+\pg+\pg+\pg+
+
+\secc\s A formula
+
+Consider
+$$
+  \s E = {\pshow5 m}{\pshow6 c^2} 
+$$
+
+\pg+\pg+\pg+
+
+And that is all.
+
+\pg; %------------------------------------------------------------------
+
+\restore
+
+\sec Tables, pictures
+
+* Tables can be created by \code{\\table} or \code{\\ctable} macro.
+* Pictures can be included by \code{\\inspic} macro.
+* See OPmac documentation for more details.
+* The centering would be done by the \code{\\centerline{}} macro:
+* Example:\pg+
+
+\pg=\begtt
+\centerline{\picw=5cm \inspic cmelak1.jpg }
+\endtt
+
+\medskip
+\centerline{\picw=5cm \inspic cmelak1.jpg } 
+%\caption/f Čmelák
+
+\pg; %------------------------------------------------------------------
+
+\sec Comparison CTUslides with Beamer\fnote{\url{http://www.ctan.org/pkg/beamer}}
+
+The \LaTeX{} package Beamer gives much more features and many themes
+are prepared for Beamer, {\bf\Red but}
+
+* the user of Beamer is forced to {\em program} his/her document using 
+  dozens of \code{\\begin{foo}} and \code{\\end{foo}} and many another
+  programming constructions,
+* on the other hand, plain \TeX{} gives you a possibility to simply 
+  {\em write} your document with minimal markup. The result is more compact.
+\pg+
+* You need to read 250 pages of doc for understanding Beamer,
+* on the other hand, you need to read only ten 
+  slides\fnote{this eleventh slide isn't counted}
+  and you are ready to use {\bf\Blue CTUslides}.
+\pg+
+* A notice for programmers: to create another individual typographical 
+  design for \LaTeX{} is much more complicated than to do the same
+  in plain \TeX. And you need to seriously understand plain \TeX{} if you
+  want to do something more complicated in \LaTeX.
+
+\pg; %------------------------------------------------------------------
+
+\null
+\vskip2cm
+\centerline{\typosize[35/40]\bf Thanks for your attention}\pg+
+
+\vskip2cm
+\centerline{\Blue\typosize[60/70]\bf Questions?}
+
+\pg. %------------------------------KONEC-------------------------------
+

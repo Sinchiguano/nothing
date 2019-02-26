@@ -1,0 +1,72 @@
+\documentclass[11]{article}
+\usepackage[margin=0.75in,paperwidth=8.5in,paperheight=11in]{geometry}
+
+\begin{document}
+
+
+The function $f(x)=(x-3)^2+\frac{1}{2}$ has domain $D_f:(-\infty,\infty)$
+
+
+The function $f(x)=(x-3)^2+\frac{1}{2}$ has domain $\mathrm{D}_f:(-\infty,\infty)$ and range $\mathrm{D}_f:\left[\frac{1}{2},\infty\right)$
+
+$\lim\limits_{x \to a }$\\
+
+$\lim\limits{x \to a^- }f(x)$\\
+
+
+$\lim\limits_{x \to a^- }f(x)$\\
+
+$\lim\limits{x \to a^- } \frac{f(x)-f(a)}{x-a}=f(a)$\\
+
+$\displaystyle{\lim\limits{x \to a^- } \frac{f(x)-f(a)}{x-a}=f(a)}$\
+
+
+$\int \sin x \,dx$
+
+
+$\int \sin x \,dx=-\cos x \,+C$
+
+$\displaystyle{\int \sin x \,dx=-\cos x \,+C}$
+
+
+
+$\int_a^b$
+
+$\int \limits_a^b$
+
+
+$\displaystyle{\int_a^b}$
+
+$\int \limits_a^b$
+
+$\int \limits_{2a}^{b}$
+
+
+
+
+
+$\int \limits_{2a}^{b}x^2 \,dx=\left[\frac{x^3}{3}\right]_a^b- \frac{3}{4}$
+
+
+
+$\displaystyle{\sum \limits_{n=1}^{\infty}ar^n=a+ar+ar^2+...+ar^n}$
+
+
+$\displaystyle{\sum \limits_{n=1}^{\infty}ar^n=a+ar+ar^2+ \cdots+ar^n}$
+
+
+
+
+$\displaystyle{\int_a^b f(x) \,dx=\lim \limits_{x \to \infty} \sum \limits{k=1}^{n}f(x_k) \cdot \Delta x}$
+
+
+vector symbols\\
+
+
+$\vec{v}=v_1 \vec(x)+v_2 \vec{y}=\langle v_1,v_2 \rangle$
+
+
+
+
+
+\end{document}

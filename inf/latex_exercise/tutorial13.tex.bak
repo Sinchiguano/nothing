@@ -1,0 +1,66 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb}
+\usepackage[none]{hyphenat}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[L]{\slshape \MakeUppercase {Place the title here}}
+\fancyhead[R]{\slshape Sinchiguano Cesar }
+\fancyhead[C]{\thepage}
+
+
+
+
+
+\begin{document}
+
+
+\begin{titlepage}
+\begin{center}
+\vspace*{1cm}
+\Large {\textbf{Machine Learning Aproaches}}\\
+\Large {\textbf{for computer vision}}
+\vfill
+\line(1,0){400}\\[1mm]
+\huge{\textbf{This is a simple title}}\\[3mm]
+\Large{\textbf{This is a simple subtitle}}\\[1mm]
+\line(1,0){400}\\
+\vfill
+By Sinchiguano Cesar
+Candidate number
+
+\today
+
+
+\end{center}
+\end{titlepage}
+
+
+
+\section{Introduction}
+The use of analytics continues to evolve: Most decision makers have bought into analytics at a strategic level and recognize that effective analytics could benefit their organizations, particularly in deploying cutting-edge technologies like AI and IoT. However, the number of those effectively using analytics strategically across the organization could be higher.
+
+
+
+	\subsection{communication}
+	Implementing an analytics platform has shown great promise in growing the strategic value of analytics and in fostering innovation. These are just two findings from new research from SAS*, consisting of in-depth interviews with professionals in 132 organizations and a global online survey. Based on the results of this research the e-book delves into the biggest opportunities and remaining challenges.
+\section{Scoring Criterian}
+Read this e-book to find out How organizations are preparing for the future with the strategic and innovative use of analytics.
+	\subsection{reflection}
+	
+
+SAS is the leader in analytics. Through innovative software and services, SAS empowers and inspires customers around the world to transform data into intelligence. SAS gives you THE POWER TO KNOW®.
+
+\section{Conclusion}
+
+
+    What challenges organizations recognize on their way to fully deploy the potential of analytics.
+    How leading organizations benefit from an analytics platform and get out the most of their analytics investment.
+
+
+
+\end{document}

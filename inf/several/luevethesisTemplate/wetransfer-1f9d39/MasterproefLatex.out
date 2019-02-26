@@ -1,0 +1,82 @@
+\BOOKMARK [0][-]{chapter*.1}{Abstract}{}% 1
+\BOOKMARK [0][-]{chapter*.2}{Acknowledgements}{}% 2
+\BOOKMARK [0][-]{chapter*.3}{Contents}{}% 3
+\BOOKMARK [0][-]{chapter*.4}{List of Figures}{}% 4
+\BOOKMARK [0][-]{chapter*.5}{List of Abbreviations}{}% 5
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 6
+\BOOKMARK [1][-]{section.1.1}{Motivation}{chapter.1}% 7
+\BOOKMARK [1][-]{section.1.2}{Purpose of the thesis}{chapter.1}% 8
+\BOOKMARK [1][-]{section.1.3}{Goal of the thesis}{chapter.1}% 9
+\BOOKMARK [1][-]{section.1.4}{Thesis structure}{chapter.1}% 10
+\BOOKMARK [0][-]{chapter.2}{Thesis context}{}% 11
+\BOOKMARK [1][-]{section.2.1}{What is force compliance?}{chapter.2}% 12
+\BOOKMARK [2][-]{subsection.2.1.1}{Stiff actuators}{section.2.1}% 13
+\BOOKMARK [2][-]{subsection.2.1.2}{Passive compliance}{section.2.1}% 14
+\BOOKMARK [2][-]{subsection.2.1.3}{Active compliance}{section.2.1}% 15
+\BOOKMARK [1][-]{section.2.2}{ROS}{chapter.2}% 16
+\BOOKMARK [2][-]{subsection.2.2.1}{Nodes}{section.2.2}% 17
+\BOOKMARK [2][-]{subsection.2.2.2}{Topics}{section.2.2}% 18
+\BOOKMARK [2][-]{subsection.2.2.3}{Services}{section.2.2}% 19
+\BOOKMARK [2][-]{subsection.2.2.4}{Master}{section.2.2}% 20
+\BOOKMARK [1][-]{section.2.3}{Catkin workspace}{chapter.2}% 21
+\BOOKMARK [2][-]{subsection.2.3.1}{Workspace}{section.2.3}% 22
+\BOOKMARK [2][-]{subsection.2.3.2}{Catkin package}{section.2.3}% 23
+\BOOKMARK [2][-]{subsection.2.3.3}{Package.xml-file}{section.2.3}% 24
+\BOOKMARK [2][-]{subsection.2.3.4}{CMakeList.txt-file}{section.2.3}% 25
+\BOOKMARK [1][-]{section.2.4}{KUKA LBR iiwa}{chapter.2}% 26
+\BOOKMARK [1][-]{section.2.5}{Grippers}{chapter.2}% 27
+\BOOKMARK [2][-]{subsection.2.5.1}{Righthand Robotics robot hand}{section.2.5}% 28
+\BOOKMARK [2][-]{subsection.2.5.2}{Schunk industrial robot gripper}{section.2.5}% 29
+\BOOKMARK [0][-]{chapter.3}{Literature study}{}% 30
+\BOOKMARK [1][-]{section.3.1}{Controlling the robot}{chapter.3}% 31
+\BOOKMARK [2][-]{subsection.3.1.1}{Configuration of the robot lab}{section.3.1}% 32
+\BOOKMARK [2][-]{subsection.3.1.2}{Lowest level controller}{section.3.1}% 33
+\BOOKMARK [2][-]{subsection.3.1.3}{Hardware interface}{section.3.1}% 34
+\BOOKMARK [2][-]{subsection.3.1.4}{Higher level RT-controller}{section.3.1}% 35
+\BOOKMARK [2][-]{subsection.3.1.5}{Higher level NRT-thread}{section.3.1}% 36
+\BOOKMARK [0][-]{chapter.4}{Explanation of the code}{}% 37
+\BOOKMARK [1][-]{section.4.1}{Commanding the robot}{chapter.4}% 38
+\BOOKMARK [2][-]{subsection.4.1.1}{Robot commander}{section.4.1}% 39
+\BOOKMARK [2][-]{subsection.4.1.2}{Moving in joint space}{section.4.1}% 40
+\BOOKMARK [2][-]{subsection.4.1.3}{Moving in Cartesian space}{section.4.1}% 41
+\BOOKMARK [1][-]{section.4.2}{Commanding the robot hand}{chapter.4}% 42
+\BOOKMARK [2][-]{subsection.4.2.1}{Calibration}{section.4.2}% 43
+\BOOKMARK [2][-]{subsection.4.2.2}{Controlling}{section.4.2}% 44
+\BOOKMARK [1][-]{section.4.3}{Commanding the industrial gripper}{chapter.4}% 45
+\BOOKMARK [0][-]{chapter.5}{Applications}{}% 46
+\BOOKMARK [1][-]{section.5.1}{Issue about the used grippers}{chapter.5}% 47
+\BOOKMARK [1][-]{section.5.2}{Structure of the code}{chapter.5}% 48
+\BOOKMARK [2][-]{subsection.5.2.1}{Include packages}{section.5.2}% 49
+\BOOKMARK [2][-]{subsection.5.2.2}{General self-written functions}{section.5.2}% 50
+\BOOKMARK [2][-]{subsection.5.2.3}{Main function}{section.5.2}% 51
+\BOOKMARK [1][-]{section.5.3}{Application A: Pushing the robot with a balloon}{chapter.5}% 52
+\BOOKMARK [2][-]{subsection.5.3.1}{Explanation of the code}{section.5.3}% 53
+\BOOKMARK [1][-]{section.5.4}{Application B: Scratching a persons back}{chapter.5}% 54
+\BOOKMARK [2][-]{subsection.5.4.1}{Explanation of the code}{section.5.4}% 55
+\BOOKMARK [1][-]{section.5.5}{Application C: Third hand}{chapter.5}% 56
+\BOOKMARK [2][-]{subsection.5.5.1}{Explanation of the code}{section.5.5}% 57
+\BOOKMARK [1][-]{section.5.6}{Application D: Take object}{chapter.5}% 58
+\BOOKMARK [2][-]{subsection.5.6.1}{Explanation of the code}{section.5.6}% 59
+\BOOKMARK [0][-]{chapter.6}{Additional parts}{}% 60
+\BOOKMARK [1][-]{section.6.1}{Issue about the force compliance controller}{chapter.6}% 61
+\BOOKMARK [1][-]{section.6.2}{Force controller on application level}{chapter.6}% 62
+\BOOKMARK [2][-]{subsection.6.2.1}{Explanation of the code}{section.6.2}% 63
+\BOOKMARK [1][-]{section.6.3}{Application interface}{chapter.6}% 64
+\BOOKMARK [0][-]{chapter.7}{Conclusions}{}% 65
+\BOOKMARK [1][-]{section.7.1}{Results}{chapter.7}% 66
+\BOOKMARK [2][-]{subsection.7.1.1}{Robot hand}{section.7.1}% 67
+\BOOKMARK [2][-]{subsection.7.1.2}{Force controller on application level}{section.7.1}% 68
+\BOOKMARK [2][-]{subsection.7.1.3}{Application A}{section.7.1}% 69
+\BOOKMARK [2][-]{subsection.7.1.4}{Application B}{section.7.1}% 70
+\BOOKMARK [2][-]{subsection.7.1.5}{Application C}{section.7.1}% 71
+\BOOKMARK [2][-]{subsection.7.1.6}{Application D}{section.7.1}% 72
+\BOOKMARK [1][-]{section.7.2}{Conclusions}{chapter.7}% 73
+\BOOKMARK [1][-]{section.7.3}{Recommendations for the future}{chapter.7}% 74
+\BOOKMARK [0][-]{appendix.A}{Application A: Pushing with balloon}{}% 75
+\BOOKMARK [0][-]{appendix.B}{Application B: Scratching persons back}{}% 76
+\BOOKMARK [0][-]{appendix.C}{Application C: Third hand}{}% 77
+\BOOKMARK [0][-]{appendix.D}{Application D: Take object}{}% 78
+\BOOKMARK [0][-]{appendix.E}{Force controller on application level}{}% 79
+\BOOKMARK [0][-]{appendix.F}{Gravity compensation controller}{}% 80
+\BOOKMARK [0][-]{appendix.G}{Application Interface}{}% 81
+\BOOKMARK [0][-]{appendix.H}{USB device}{}% 82

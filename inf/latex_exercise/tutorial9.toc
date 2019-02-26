@@ -1,0 +1,10 @@
+\contentsline {section}{\numberline {1}Motivation}{2}
+\contentsline {subsection}{\numberline {1.1}Motivation0}{2}
+\contentsline {subsection}{\numberline {1.2}Motivation1}{3}
+\contentsline {subsection}{\numberline {1.3}Motivation2}{3}
+\contentsline {section}{\numberline {2}Linear Function}{3}
+\contentsline {subsection}{\numberline {2.1}Slope-intercept form}{3}
+\contentsline {subsection}{\numberline {2.2}point-slope form}{3}
+\contentsline {section}{\numberline {3}Quadratic Function}{3}
+\contentsline {subsection}{\numberline {3.1}something1 form}{3}
+\contentsline {subsection}{\numberline {3.2}something2 form}{3}

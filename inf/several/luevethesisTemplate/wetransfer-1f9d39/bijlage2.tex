@@ -1,0 +1,252 @@
+\chapter{Application B: Scratching persons back}
+
+\begin{lstlisting}
+#include <ros/ros.h>
+#include <capek_robot/CapekRobotCommander.h>
+
+#include <controller_manager_msgs/SwitchController.h>
+#include <sensor_msgs/JointState.h>
+
+
+bool switch_controllers(int controller_mode) {
+
+	controller_manager_msgs::SwitchController srv_switch;
+	srv_switch.request.strictness = controller_manager_msgs::SwitchController::Request::BEST_EFFORT;
+
+	if (controller_mode == 0) {
+		srv_switch.request.start_controllers.push_back("trajectory_controller");
+		srv_switch.request.stop_controllers.push_back("compliance_controller");
+		srv_switch.request.stop_controllers.push_back("gravity_compensation_controller");
+	} else if(controller_mode == 2){
+		srv_switch.request.start_controllers.push_back("gravity_compensation_controller");
+		srv_switch.request.stop_controllers.push_back("compliance_controller");
+		srv_switch.request.stop_controllers.push_back("trajectory_controller");
+	} else{
+		srv_switch.request.start_controllers.push_back("compliance_controller");
+		srv_switch.request.stop_controllers.push_back("gravity_compensation_controller");
+		srv_switch.request.stop_controllers.push_back("trajectory_controller");
+	}
+	if (!ros::service::call("/r2/controller_manager/switch_controller", srv_switch)) {
+		ROS_ERROR_STREAM("Cannot switch controllers.");
+		return false;
+	}
+
+	return true;
+}
+
+
+
+int computeScratchPath(CapekRobotCommander &crc){
+
+	ROS_INFO_STREAM("Scratching...");
+
+	CapekRobotCommander::Plan plan;
+
+	robot_state::RobotState state = *crc.getCurrentState();
+	Eigen::Affine3d X = state.getGlobalLinkTransform("r2_ee");
+	Eigen::Affine3d A = X * Eigen::Translation3d(0.1, -0.1, 0.0);
+	Eigen::Affine3d B = A * Eigen::Translation3d(0.2, 0.0, 0.0);
+	Eigen::Affine3d C = B * Eigen::Translation3d(0.0, 0.2, 0.0);
+	Eigen::Affine3d D = C * Eigen::Translation3d(0.2, 0.0, 0.0);
+	Eigen::Affine3d E = D * Eigen::Translation3d(0.0, -0.2, 0.0);
+	Eigen::Affine3d F = E * Eigen::Translation3d(-0.4, 0.2, 0.0);
+	Eigen::Affine3d G = F * Eigen::Translation3d(-0.1, -0.1, 0.0);
+
+
+	moveit_msgs::RobotTrajectory rtraj;
+
+	crc.computeCartesianPath(rtraj, {A, B, C, D, E, F, G}, "r2_ee", "r2_arm");
+	crc.plan(plan);
+	plan.trajectory_ = rtraj;
+	crc.showTrajectory(plan);
+	crc.execute(plan);
+	ROS_INFO_STREAM("End of scratching");
+}
+
+
+Eigen::Matrix<double, 7, 1> effort;
+
+void getForceMeasurements(){
+
+	sensor_msgs::JointState r2_joint_states;
+
+	do{
+		auto msg = ros::topic::waitForMessage<sensor_msgs::JointState>("/r2/joint_states");
+		r2_joint_states = *msg;
+		ROS_INFO_STREAM(r2_joint_states.effort[1]);
+		for (size_t i = 0; i < effort.size(); ++i) {
+        		effort(i, 0) = r2_joint_states.effort[i];
+	}
+	}while(r2_joint_states.effort[1] > -1.0 and r2_joint_states.velocity[0] != 0);
+
+}
+
+
+int scratch(CapekRobotCommander &crc){
+
+	//Move towards person. If there is no person, application will end.
+	//If there is a person, scratching starts
+	ROS_INFO_STREAM("Detecting person...");
+
+	CapekRobotCommander::Plan plan;
+	robot_state::RobotState state = *crc.getCurrentState();
+	Eigen::Affine3d A = state.getGlobalLinkTransform("r2_ee");
+	Eigen::Affine3d B = A * Eigen::Translation3d(0.0, 0.0, +0.1);
+
+	moveit_msgs::RobotTrajectory rtraj;
+
+	crc.computeCartesianPath(rtraj, {B}, "r2_ee", "r2_arm");
+
+	crc.plan(plan);
+	plan.trajectory_ = rtraj;
+	crc.showTrajectory(plan);
+
+	crc.setRobotSpeed(0.2);
+
+	//This command computes trajecory without waiting till it's done => can be stopped by crc.stop()
+	crc.asyncExecute(plan);
+
+	getForceMeasurements();
+
+	if(effort[1] < -1.0){
+		
+		ROS_INFO_STREAM("Person detected, start scratching path.");
+		crc.stop();
+
+		//Set controller mode to mode 3 (Compliance mode)
+		if (!switch_controllers(0)) {
+			ROS_ERROR_STREAM("Cannot set to mode 3");
+			return -1;
+		}
+
+		ROS_INFO_STREAM("Controller mode set to mode 3 (Compliance mode)");
+
+		computeScratchPath(crc);
+	}
+	else{
+		ROS_INFO_STREAM("No person to scratch");
+	}
+
+	crc.setRobotSpeed(1.0);
+
+}
+
+
+
+int moveToInitialPosition(CapekRobotCommander &crc){
+
+	//Move robot to initial position
+	crc.moveToNamedTarget(crc.NAMED_TARGET_L);
+
+	if (!crc.move()) {
+		ROS_ERROR_STREAM("Cannot move to initial position");
+		return -1;
+	}
+
+	ROS_INFO_STREAM("Moved to initial position");
+
+}
+
+
+
+
+
+
+int moveToStartPosition(CapekRobotCommander &crc){
+
+	//Move robot to start position
+	auto state = *crc.getCurrentState();
+	state.setToDefaultValues();
+	state.setVariablePosition("r2_joint_1", M_PI_2);
+	state.setVariablePosition("r2_joint_2", M_PI/6.0);
+	state.setVariablePosition("r2_joint_3", 0.0);
+	state.setVariablePosition("r2_joint_4", -M_PI/3.0);
+	state.setVariablePosition("r2_joint_5", 0.0);
+	state.setVariablePosition("r2_joint_6", 0.0);
+	state.setVariablePosition("r2_joint_7", 0.0);
+	crc.setJointValueTarget(state);
+
+	if (!crc.move()) {
+		ROS_ERROR_STREAM("Cannot move to start position");
+		return -1;
+	}
+
+	ROS_INFO_STREAM("Moved to start position");
+
+}
+
+
+int main(int argc, char **argv) {
+
+	ROS_INFO_STREAM("Application B started: Scratching a persons back.");
+
+
+	//Initializing the node
+	ros::init(argc, argv, "applicationB_scratching");
+	ros::NodeHandle n;
+
+	ros::AsyncSpinner spinner(2);
+	spinner.start();
+
+	ROS_INFO_STREAM("Node initialized");
+
+
+	//Declare robot commander and publishers
+	CapekRobotCommander crc(crc.GROUP_R2_ARM);
+	crc.setRobotSpeed(1.0);
+		
+
+	//Set controller mode to mode 0 (Trajectory mode)
+	if (!switch_controllers(0)) {
+		ROS_ERROR_STREAM("Cannot set to mode 0");
+		return -1;
+	}
+
+	ROS_INFO_STREAM("Controller mode set to mode 0 (Trajectory mode)");
+
+
+	//Move to initial position
+	moveToInitialPosition(crc);
+
+	ROS_INFO_STREAM("Press enter to start scratching.");
+
+
+	//Loop continues till key is pressed
+	while(!getchar()){
+	}
+
+
+	//Move to start position
+	moveToStartPosition(crc);
+		
+	ROS_INFO_STREAM("Press enter when person is ready.");
+
+
+	//Loop continues till key is pressed
+	while(!getchar()){
+	}
+	
+
+	//Scratching
+	scratch(crc);
+
+
+	//Set controller mode to mode 0 (Trajectory mode)
+	if (!switch_controllers(0)) {
+		ROS_ERROR_STREAM("Cannot set to mode 0");
+		return -1;
+	}
+
+	ROS_INFO_STREAM("Controller mode set to mode 0 (Trajectory mode)");
+
+
+	//Move to initial position
+	moveToInitialPosition(crc);
+
+
+	ROS_INFO_STREAM("End of application");
+
+	return 0;
+}
+
+\end{lstlisting}

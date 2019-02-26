@@ -1,0 +1,268 @@
+\chapter{Application C: Third hand}
+\begin{lstlisting}
+#include <ros/ros.h>
+#include <capek_robot/CapekRobotCommander.h>
+
+#include <controller_manager_msgs/SwitchController.h>
+#include <iiwa_kinematic/Jacobian.h>
+
+
+bool switch_controllers(int controller_mode) {
+
+	controller_manager_msgs::SwitchController srv_switch;
+	srv_switch.request.strictness = controller_manager_msgs::SwitchController::Request::BEST_EFFORT;
+
+	if (controller_mode == 0) {
+		srv_switch.request.start_controllers.push_back("trajectory_controller");
+		srv_switch.request.stop_controllers.push_back("compliance_controller");
+		srv_switch.request.stop_controllers.push_back("gravity_compensation_controller");
+	} else if(controller_mode == 2){
+		srv_switch.request.start_controllers.push_back("gravity_compensation_controller");
+		srv_switch.request.stop_controllers.push_back("compliance_controller");
+		srv_switch.request.stop_controllers.push_back("trajectory_controller");
+	} else{
+		srv_switch.request.start_controllers.push_back("compliance_controller");
+		srv_switch.request.stop_controllers.push_back("gravity_compensation_controller");
+		srv_switch.request.stop_controllers.push_back("trajectory_controller");
+	}
+	if (!ros::service::call("/r2/controller_manager/switch_controller", srv_switch)) {
+		ROS_ERROR_STREAM("Cannot switch controllers.");
+		return false;
+	}
+
+	return true;
+}
+
+
+
+int moveToStartPosition(CapekRobotCommander &crc){
+
+	//Move robot to start position
+	auto state = *crc.getCurrentState();
+	state.setToDefaultValues();
+	state.setVariablePosition("r2_joint_1", 0.0);
+	state.setVariablePosition("r2_joint_2", 15.0 * M_PI / 180.0);
+	state.setVariablePosition("r2_joint_3", 0.0);
+	state.setVariablePosition("r2_joint_4", -M_PI_2);
+	state.setVariablePosition("r2_joint_5", 0.0);
+	state.setVariablePosition("r2_joint_6", M_PI_2 - 15.0 * M_PI / 180.0);
+	state.setVariablePosition("r2_joint_7", 0.0);
+	crc.setJointValueTarget(state);
+
+	if (!crc.move()) {
+		ROS_ERROR_STREAM("Cannot move to start position");
+		return -1;
+	}
+
+	ROS_INFO_STREAM("Moved to start position");
+
+}
+
+
+Eigen::Matrix<double, 7, 1> effort;
+
+void getForceMeasurements(){
+
+	sensor_msgs::JointState r2_joint_states;
+
+	do{
+
+		auto msg = ros::topic::waitForMessage<sensor_msgs::JointState>("/r2/joint_states");
+		r2_joint_states = *msg;
+		ROS_INFO_STREAM(r2_joint_states.effort[3]);
+		for (size_t i = 0; i < effort.size(); ++i) {
+			effort(i, 0) = r2_joint_states.effort[i];
+		}
+
+	}while(effort[0] < 10 and effort[1] < 10 and effort[2] < 10 and effort[3] < 10 and effort[4] < 10 
+	and r2_joint_states.velocity[0] != 0);
+ 
+}
+
+
+int clamp(CapekRobotCommander &crc){
+
+	crc.setRobotSpeed(0.1);
+	
+	//Move towards object. Cycle continues regardless if there is an object or not. 
+	CapekRobotCommander::Plan plan;
+
+	robot_state::RobotState state = *crc.getCurrentState();
+	Eigen::Affine3d A = state.getGlobalLinkTransform("r2_ee");
+	Eigen::Affine3d B = A * Eigen::Translation3d(0.0, 0.0, +0.05);
+
+	moveit_msgs::RobotTrajectory rtraj;
+
+	crc.computeCartesianPath(rtraj, {B}, "r2_ee", "r2_arm");
+
+	crc.plan(plan);
+	plan.trajectory_ = rtraj;
+	crc.showTrajectory(plan);
+
+	//This command computes trajecory without waiting till it's done => can be stopped by crc.stop()
+	crc.asyncExecute(plan);
+
+	getForceMeasurements();
+
+	if(effort[0] > 10 or effort[1] > 10 or effort[2] > 10 or effort[3] > 10 or effort[4] > 10){
+		crc.stop();
+		ROS_INFO_STREAM("Object clamped, press enter to stop clamping");
+
+		//Set controller mode to mode 3 (Compliance mode)
+		if (!switch_controllers(3)) {
+			ROS_ERROR_STREAM("Cannot set to mode 3");
+			return -1;
+		}
+
+		ROS_INFO_STREAM("Controller mode set to mode 3 (Compliance mode)");
+		
+	}
+	else{
+		ROS_INFO_STREAM("Object is not clamped");
+	}
+
+	crc.setRobotSpeed(1.0);
+
+}
+
+
+int moveToInitialPosition(CapekRobotCommander &crc){
+
+	//Move robot to initial position
+	crc.moveToNamedTarget(crc.NAMED_TARGET_L);
+
+	if (!crc.move()) {
+		ROS_ERROR_STREAM("Cannot move to initial position");
+		return -1;
+	}
+
+	ROS_INFO_STREAM("Moved to initial position");
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+int main(int argc, char **argv) {
+
+	ROS_INFO_STREAM("Application C started: Using the robot as a third hand.");
+
+
+	//Initializing the node
+	ros::init(argc, argv, "applicationC_third_hand");
+	ros::NodeHandle n;
+
+	ros::AsyncSpinner spinner(2);
+	spinner.start();
+
+	ROS_INFO_STREAM("Node initialized");
+
+
+	//Declare robot commander
+	CapekRobotCommander crc(crc.GROUP_R2_ARM);
+	crc.setRobotSpeed(1.0);
+
+
+	//Set controller mode to mode 0 (Trajectory mode)
+	if (!switch_controllers(0)) {
+		ROS_ERROR_STREAM("Cannot set to mode 0");
+		return -1;
+	}
+
+	ROS_INFO_STREAM("Controller mode set to mode 0 (Trajectory mode)");
+
+
+	//Move to initial position
+	moveToInitialPosition(crc);
+
+
+	//Move to start position
+	moveToStartPosition(crc);
+
+
+	//Set controller mode to mode 2 (Gravity compensation mode)
+	if (!switch_controllers(2)) {
+		ROS_INFO_STREAM("Cannot set to mode 2");
+		return -1;
+	}
+
+	ROS_INFO_STREAM("Controller mode set to mode 2 (Gravity compensation mode), 
+	please guide the robot.");
+	ROS_INFO_STREAM("Press enter to clamp");
+
+
+
+
+
+
+
+
+
+
+
+
+	//Third hand cycle
+	bool help = false;
+
+	while(ros::ok()) {
+
+
+		//Set controller mode to mode 0 (Trajectory mode)
+		if (getchar() && !help) {
+			help = true;
+			if (!switch_controllers(0)) {
+				ROS_ERROR_STREAM("Cannot set to mode 0");
+				return -1;
+			}
+
+			ROS_INFO_STREAM("Controller mode set to mode 0 (Trajectory mode)");
+
+			clamp(crc);
+
+			ROS_INFO_STREAM("Press enter to guide");
+			
+		}
+
+
+		//Set controller mode to mode 2 (Gravity compensation mode)
+		if (getchar() && help)	{
+			help = false;
+			if (!switch_controllers(2)) {
+				ROS_ERROR_STREAM("Cannot set to mode 2");
+				return -1;
+			}
+
+			ROS_INFO_STREAM("Controller mode set to mode 2 (Gravity compensation mode),
+			please guide the robot.");
+
+			ROS_INFO_STREAM("Press enter to clamp");
+
+		}
+
+	}
+
+	ros::waitForShutdown();
+
+
+	//Set controller mode to mode 0 (Trajectory mode)
+	if (!switch_controllers(0)) {
+		ROS_ERROR_STREAM("Cannot set to mode 0");
+		return -1;
+	}
+
+	ROS_INFO_STREAM("Controller mode set to mode 0 (Trajectory mode)");
+
+	ROS_INFO_STREAM("End of application");
+
+	return 0;
+
+}
+\end{lstlisting}

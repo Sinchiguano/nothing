@@ -1,0 +1,175 @@
+\chapter{Gravity compensation controller}
+
+\begin{lstlisting}
+/**
+ * Copyright (c) CTU in Prague  - All Rights Reserved
+ * Created on: 23.1.18
+ *     Author: Vladimir Petrik <vladimir.petrik@cvut.cz>
+ */
+
+#include <iiwa_fri_controller_gravity/GravityCompensationController.h>
+#include <pluginlib/class_list_macros.h>
+#include <fstream>
+
+GravityCompensationController::GravityCompensationController() {
+}
+
+bool GravityCompensationController::init(hardware_interface::PositionJointInterface *hw,
+ros::NodeHandle &nh) {
+    if (hw->getNames().size() != joints.size()) {
+        ROS_ERROR_STREAM("Wrong number of joints");
+        return false;
+    }
+    for (size_t i = 0; i < joints.size(); ++i) {
+        joints[i] = hw->getHandle(hw->getNames()[i]);
+    }
+    nh.param("tau_max", tau_max, 20.0);
+    nh.param("kp_linear", kp_linear, 0.000002);
+    nh.param("kd_linear", kd_linear, 0.00002);
+    nh.param("kp_angular", kp_angular, 0.00005);
+    nh.param("kd_angular", kd_angular, 0.0001);
+    nh.param("f_0", f_0, 5.0);
+    nh.param("m_0", m_0, 1.0);
+    nh.param("m_0z", m_0z, 0.4);
+
+    return true;
+}
+
+
+void GravityCompensationController::starting(const ros::Time &time1) {
+    v = Eigen::Vector3d::Zero();
+    omega = Eigen::Vector3d::Zero();
+    cmd = getPosition();
+}
+
+void GravityCompensationController::stopping(const ros::Time &time1) {
+    v = Eigen::Vector3d::Zero();
+    omega = Eigen::Vector3d::Zero();
+}
+
+void GravityCompensationController::update(const ros::Time &time,const ros::Duration &period) {
+
+    auto effort = getEffort();
+
+    if (effort.lpNorm<Eigen::Infinity>() > tau_max) { // max(|tau_i|) > tau_max => 
+	set NAN => stop controller
+        for (auto &joint : joints) {
+            joint.setCommand(NAN);
+        }
+        return;
+    }
+
+    Jacobian jac;
+    const auto J = jac.computeJacobian(cmd);//use the last commanded position to compute the Jacobian
+    const Eigen::Matrix<double, 6, 7> pinv = (J * J.transpose()).inverse() * J;
+    const Eigen::Matrix<double, 6, 1> ft = pinv * effort; //cartesian forces/moments
+    updateInternalLinearVelocity(ft.head(3));
+    updateInternalAngularVelocity(ft.tail(3));
+
+    Eigen::Matrix<double, 6, 1> w; //twist
+    w.head(3) = v;
+    w.tail(3) = omega;
+    Eigen::Matrix<double, 7, 1> dq = J.transpose() * (J * J.transpose()).inverse() * w;
+
+    RobotLimits lim;
+    if (lim.boundVelocity(dq, lim.getMinJointVelocity() * 0.25 * period.toSec())) {
+        w = J * dq; //update v,omega from bounded dq
+        v = w.head(3);
+        omega = w.tail(3);
+    }
+
+    if (!lim.isVelocityInLimits(RobotLimits::toArray(dq), 0.26 * period.toSec())) {
+        for (auto &joint : joints) { 
+            joint.setCommand(NAN);
+        }
+        return;
+    }
+
+    auto cmd_new = cmd;
+    cmd_new += dq;
+    constexpr auto sing_lim = 10.0 * M_PI / 180.0;
+    if (!lim.isPositionInLimits(RobotLimits::toArray(cmd_new), 5.0) ||
+        cmd_new[1] < sing_lim || cmd_new[3] > -sing_lim || cmd_new[5] < sing_lim ||
+        jac.d.dkt(RobotLimits::toArray(cmd_new)).translation()[2] < 0.3) {
+        cmd_new = cmd; // use the last command
+        v.setZero();
+        omega.setZero();
+        dq.setZero();
+    }
+    for (size_t i = 0; i < joints.size(); ++i) {
+        joints[i].setCommand(cmd_new[i]);
+    }
+    cmd = cmd_new;
+}
+
+void GravityCompensationController::updateInternalAngularVelocity
+(Eigen::Vector3d moments) {
+    for (size_t i = 0; i < moments.rows(); ++i) { //filter
+        if (i == 2) {
+            moments(i) = filter(moments(i), m_0z);
+        } else {
+            moments(i) = filter(moments(i), m_0);
+        }
+    }
+
+    if (moments.norm() > std::numeric_limits<double>::epsilon()) { //if applied moment
+        omega += moments * kp_angular;
+    } else {
+        for (size_t i = 0; i < omega.rows(); ++i) { 
+            const auto ddv = -sgn(omega[i]) * kd_angular;
+            if (std::abs(ddv) > std::abs(omega[i])) {
+                omega[i] = 0.0;
+            } else {
+                omega[i] += ddv;
+            }
+        }
+    }
+}
+
+void GravityCompensationController::updateInternalLinearVelocity(Eigen::Vector3d f) {
+    for (size_t i = 0; i < f.rows(); ++i) { //filter
+        f(i) = filter(f(i), f_0);
+    }
+
+    if (f.norm() > std::numeric_limits<double>::epsilon()) { //if applied force
+        v += f * kp_linear;
+    } else {
+        for (size_t i = 0; i < v.rows(); ++i) { 
+            const auto ddv = -sgn(v[i]) * kd_linear;
+            if (std::abs(ddv) > std::abs(v[i])) {
+                v[i] = 0.0;
+            } else {
+                v[i] += ddv;
+            }
+        }
+    }
+}
+
+double GravityCompensationController::filter(double x, double x0) const {
+    if (std::abs(x) > x0) {
+        return x - sgn(x) * x0;
+    }
+    return 0.0;
+}
+
+Eigen::Matrix<double, RobotLimits::NUM_JOINTS, 1> GravityCompensationController::
+getEffort() const {
+    Eigen::Matrix<double, RobotLimits::NUM_JOINTS, 1> effort;
+    for (size_t i = 0; i < effort.size(); ++i) {
+        effort(i, 0) = joints[i].getEffort();
+    }
+    return effort;
+}
+
+Eigen::Matrix<double, RobotLimits::NUM_JOINTS, 1> GravityCompensationController::
+getPosition() const {
+    Eigen::Matrix<double, RobotLimits::NUM_JOINTS, 1> pos;
+    for (size_t i = 0; i < pos.size(); ++i) {
+        pos(i, 0) = joints[i].getPosition();
+    }
+    return pos;
+}
+
+PLUGINLIB_EXPORT_CLASS(GravityCompensationController, controller_interface::
+ControllerBase)
+\end{lstlisting}

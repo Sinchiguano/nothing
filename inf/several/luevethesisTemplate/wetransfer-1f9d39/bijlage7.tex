@@ -1,0 +1,209 @@
+\chapter{Application Interface}
+
+\begin{lstlisting}
+#!/usr/bin/env python
+
+# name: application_interface
+# auth: Matthias De Ryck <derycmat@fel.cvut.cz>
+# desc: Graphical user interface for capek_robot_applications_mdr
+
+from Tkinter import *
+import os
+import subprocess
+
+
+class ApplicationGUI:
+
+	#Initializes the interface window
+	def __init__(self, master):
+
+		self.master = master
+		self.robot = None
+		master.geometry("380x224")
+		master.grid_rowconfigure(0, weight=1)
+		master.grid_columnconfigure(0, weight=1)
+		master.title("Applications for Capek robot")
+
+		self.start_button = Button(master, text="Start robot(s)", command=self.startRobot)
+		self.start_button.grid(row=0, sticky=E+W+S+N)
+
+		self.stop_button = Button(master, text="Stop robot(s)", command=self.stopRobot)
+		self.stop_button.grid(row=6, sticky=E+W+S+N)
+
+		self.A_button = Button(master, text="Start application A: Pushing robot with a balloon
+		(Robot 1)", command=self.startA)
+		self.A_button.grid(row=1, sticky=E+W+S+N)
+
+		self.B_button = Button(master, text="Start application B: Scratching a persons back 
+		(Robot 2)", command=self.startB)
+		self.B_button.grid(row=2, sticky=E+W+S+N)
+
+ 		self.C_button = Button(master, text="Start application C: Third hand (Robot 2)",
+		command=self.startC)
+		self.C_button.grid(row=3, sticky=E+W+S+N)
+
+		self.D_button = Button(master, text="Start application D: Taking object (Robot 1)",
+		command=self.startD)
+		self.D_button.grid(row=4, sticky=E+W+S+N)
+
+		self.Home_button = Button(master, text="Move robot(s) to home position.", command=self.Home)
+		self.Home_button.grid(row=5, sticky=E+W+S+N)
+
+		self.close_button = Button(master, text="Close", command=self.closeWindow)
+		self.close_button.grid(row=7, sticky=E+W+S+N)
+
+		master.mainloop()
+
+
+	def closeWindow(self):
+
+		os.system("pkill -9 -x sh")
+		master.destroy()
+
+
+	def startRobot(self):
+
+		if (self.robot == None):
+			#Set up IP-address
+			correct = False
+			while (not correct):
+				ip = raw_input("Type ip address of your computer: ")
+				if len(ip) <= 15 and len(ip) >= 7:
+					correct = True
+				else:
+					print("IP is not valid.")
+
+			#Setting variables needed to connect to the CapekPC0
+			print("Setting some variables...")
+			os.environ["ROS_MASTER_URI"] = "http://" + str(ip) + ":11311"
+			os.environ["ROS_IP"] = str(ip)
+			os.environ["ROSLAUNCH_SSH_UNKNOWN"] = "1"
+
+			#Set up robot
+			correct = False
+			while(not correct):
+				self.robot = raw_input("Robot you want to use (1 or 2 or 3 = both): ")
+				if self.robot == '1' or self.robot == '2' or self.robot == '3':
+					correct = True
+				else:
+					print("Number is not valid.")
+
+			if (self.robot == '3'):
+				#Robot launches after the FRIPositionControl application is started on 
+				#the teach pendant of both robots
+				print('Please start application: FRIPositionControl on KUKA teach pendant 
+				of both robots.')
+				raw_input("Press Enter to continue...")
+				subprocess.Popen(['gnome-terminal -x sh -c "roslaunch capek_launch
+				start_robot.launch; bash"'], shell=True)
+				robotActive = True
+				print('Connecting to robots...')
+				print('Wait till robots and visualization are started.')
+				print('')
+
+			else:
+				#Robot launches after the FRIPositionControl application is started on 
+				#the teach pendant of the robot
+				print('Please start application: FRIPositionControl on KUKA teach pendant
+				of robot ' + str(self.robot) + '.')
+				raw_input("Press Enter to continue...")
+				subprocess.Popen(['gnome-terminal -x sh -c "roslaunch capek_launch start_r'
+				+ str(self.robot) + '.launch; bash"'], shell=True)
+				robotActive = True
+				print('Connecting to robot...')
+				print('Wait till robot and visualization are started.')
+				print('')
+		else:
+			print("Stop robot first")
+
+
+	def stopRobot(self):
+		if self.robot == None:
+			print("Please start a robot first.")
+		else:
+			os.system("pkill -9 -x sh")
+			print("Robot(s) stopped")
+			self.robot = None
+			robotActive = False
+		print('')
+
+
+	def Home(self):
+		if self.robot == None:
+			print("Please start a robot first.")
+		else:
+			if (self.robot == '1'):
+				os.system('xterm -e rosrun capek_tutorials move_L1')
+			elif (self.robot == '2'):
+				os.system('xterm -e rosrun capek_tutorials move_L2')
+			else:
+				os.system('xterm -e rosrun capek_tutorials move_L1')
+				os.system('xterm -e rosrun capek_tutorials move_L2')
+			print('Robot(s) moved to home position.')
+		print('')
+
+
+	def startA(self):
+		if self.robot == None:
+			print("Please start a robot first.")
+		elif self.robot == "2":
+			print("Please start other robot.")
+		else:
+			print('Application A started in new terminal. Please follow instructions
+			in the terminal.')
+
+			params1 = "\"{'X':150, 'Y':150, 'Z':150, 'mX':5000, 'mY':5000, 'mZ':5000,
+			'Kp_scale': 0.15,'v_max': 1, 'Ki': 0, 'Kd':0, 'D':0}\""
+			params2 = "\"{'Kp_1':0.035, 'Kp_2':0.017, 'Kp_3':0.05, 'Kp_4':0.017, 
+			'Kp_5':0.05, 'Kp_6':0.018, 'Kp_7':0.05, 'debug':0}\""
+			os.system('rosrun dynamic_reconfigure dynparam set /r1/deployer ' + params1)
+			os.system('rosrun dynamic_reconfigure dynparam set /r1/deployer ' + params2)
+			os.system('xterm -e rosrun capek_robot_applications_mdr 
+			applicationA_pushing_with_balloon_without_hand')
+		print('')
+
+
+	def startB(self):
+		if self.robot == None:
+			print("Please start a robot first.")
+		elif self.robot == "1":
+			print("Please start other robot.")
+		else:
+			print('Application B started in new terminal. Please follow instructions
+			in the terminal.')
+			os.system('xterm -e rosrun capek_robot_applications_mdr 
+			applicationB_scratching_without_hand')
+		print('')
+
+
+	def startC(self):
+		if self.robot == None:
+			print("Please start a robot first.")
+		elif self.robot == "1":
+			print("Please start other robot.")
+		else:
+			print('Application C started in new terminal. Please follow instructions
+			in the terminal.')
+			print("Press Ctrl+C ENTER to stop the cycle.")
+			os.system('xterm -e rosrun capek_robot_applications_mdr applicationC_third_hand')
+		print('')
+
+
+	def startD(self):
+		if self.robot == None:
+			print("Please start a robot first.")
+		elif self.robot == "2":
+			print("Please start other robot.")
+		else:
+			print('Application D started in new terminal. Please follow instructions
+			in the terminal.')
+			print("Press Ctrl+C ENTER to stop the cycle.")
+			os.system('gnome-terminal -x sh -c "roslaunch papouch_ros quido_usb.launch; bash"')
+			os.system('xterm -e rosrun capek_robot_applications_mdr 
+			applicationD_take_object_withQuido')
+		print('')
+
+
+master = Tk()
+application_gui = ApplicationGUI(master)
+\end{lstlisting}

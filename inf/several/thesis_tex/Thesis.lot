@@ -1,0 +1,23 @@
+\select@language {english}
+\select@language {english}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Comparison of XPath and CSS selectors syntax\relax }}{11}{table.caption.8}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces Top result for the proportion of 'NaN' and 'None' values in different CSS properties \relax }}{38}{table.caption.20}
+\contentsline {table}{\numberline {6.2}{\ignorespaces Number of outliers for several features\relax }}{39}{table.caption.23}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces The final list of features\relax }}{47}{table.caption.28}
+\contentsline {table}{\numberline {7.2}{\ignorespaces Top 10 combinations of event component for every URL\relax }}{48}{table.caption.29}
+\contentsline {table}{\numberline {7.3}{\ignorespaces Summary statistics for some numerical features\relax }}{50}{table.caption.32}
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {8.1}{\ignorespaces Experiment 3: Metrics values for a different classification models and event components. PCA components calculated on extracted tf-idf matrix were added as additional features. Cross-validation with k = 5.\relax }}{55}{table.caption.36}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {10.1}{\ignorespaces Summary statistics for a textual features grouped by meta name\relax }}{65}{table.caption.42}
+\contentsline {table}{\numberline {10.2}{\ignorespaces Summary statistics for a spatial features grouped by meta name\relax }}{66}{table.caption.43}
+\contentsline {table}{\numberline {10.3}{\ignorespaces Experiment 1: Overestimated metrics values for a different classification models and event components. The result is incorrect because in the train and test sets domain names are overlapping, that means trained classifier knows the structure of a webpage.\relax }}{73}{table.caption.50}
+\contentsline {table}{\numberline {10.4}{\ignorespaces Experiment 2: Metrics values for a different classification models and event components. Only numeric standardized features were used\relax }}{74}{table.caption.51}

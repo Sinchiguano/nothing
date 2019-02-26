@@ -1,0 +1,95 @@
+\select@language {english}
+\select@language {english}
+\contentsline {chapter}{Abstract}{v}{chapter*.1}
+\contentsline {chapter}{Acknowledgements}{vi}{chapter*.2}
+\contentsline {chapter}{Contents}{ix}{chapter*.3}
+\contentsline {chapter}{List of Figures}{x}{chapter*.4}
+\contentsline {chapter}{List of Abbreviations}{xii}{chapter*.5}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Purpose of the thesis}{1}{section.1.2}
+\contentsline {section}{\numberline {1.3}Goal of the thesis}{2}{section.1.3}
+\contentsline {section}{\numberline {1.4}Thesis structure}{2}{section.1.4}
+\contentsline {chapter}{\numberline {2}Thesis context}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}What is force compliance?}{3}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Stiff actuators}{3}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Passive compliance}{4}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Active compliance}{4}{subsection.2.1.3}
+\contentsline {subsubsection}{Functions of active compliance}{4}{section*.6}
+\contentsline {subparagraph}{Gravity compensation mode}{4}{section*.7}
+\contentsline {subparagraph}{Compliance mode}{5}{section*.8}
+\contentsline {section}{\numberline {2.2}ROS}{6}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Nodes}{6}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Topics}{6}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Services}{7}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Master}{8}{subsection.2.2.4}
+\contentsline {section}{\numberline {2.3}Catkin workspace}{8}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Workspace}{8}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Catkin package}{9}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Package.xml-file}{11}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}CMakeList.txt-file}{14}{subsection.2.3.4}
+\contentsline {section}{\numberline {2.4}KUKA LBR iiwa}{15}{section.2.4}
+\contentsline {section}{\numberline {2.5}Grippers}{16}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Righthand Robotics robot hand}{16}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Schunk industrial robot gripper}{16}{subsection.2.5.2}
+\contentsline {chapter}{\numberline {3}Literature study}{18}{chapter.3}
+\contentsline {section}{\numberline {3.1}Controlling the robot}{18}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Configuration of the robot lab}{18}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Lowest level controller}{19}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Hardware interface}{20}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Higher level RT-controller}{21}{subsection.3.1.4}
+\contentsline {subsubsection}{Controller functions}{23}{section*.26}
+\contentsline {subsubsection}{Controller manager}{23}{section*.28}
+\contentsline {subsection}{\numberline {3.1.5}Higher level NRT-thread}{25}{subsection.3.1.5}
+\contentsline {chapter}{\numberline {4}Explanation of the code}{27}{chapter.4}
+\contentsline {section}{\numberline {4.1}Commanding the robot}{27}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Robot commander}{27}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Moving in joint space}{27}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Moving in Cartesian space}{28}{subsection.4.1.3}
+\contentsline {section}{\numberline {4.2}Commanding the robot hand}{29}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Calibration}{29}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Controlling}{29}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Commanding the industrial gripper}{31}{section.4.3}
+\contentsline {chapter}{\numberline {5}Applications}{32}{chapter.5}
+\contentsline {section}{\numberline {5.1}Issue about the used grippers}{32}{section.5.1}
+\contentsline {section}{\numberline {5.2}Structure of the code}{33}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Include packages}{33}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}General self-written functions}{34}{subsection.5.2.2}
+\contentsline {subsubsection}{Function: switch\textunderscore controllers()}{34}{section*.31}
+\contentsline {subsubsection}{Function: moveToInitialPosition()}{35}{section*.32}
+\contentsline {subsubsection}{Function: moveHandToDefaultPosition()}{36}{section*.34}
+\contentsline {subsection}{\numberline {5.2.3}Main function}{37}{subsection.5.2.3}
+\contentsline {subsubsection}{Initializing the node}{37}{section*.35}
+\contentsline {subsubsection}{Declare robot commander}{37}{section*.36}
+\contentsline {subsubsection}{Set controller to trajectory mode}{37}{section*.37}
+\contentsline {section}{\numberline {5.3}Application A: Pushing the robot with a balloon}{38}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Explanation of the code}{38}{subsection.5.3.1}
+\contentsline {section}{\numberline {5.4}Application B: Scratching a persons back}{40}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Explanation of the code}{40}{subsection.5.4.1}
+\contentsline {section}{\numberline {5.5}Application C: Third hand}{44}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Explanation of the code}{44}{subsection.5.5.1}
+\contentsline {section}{\numberline {5.6}Application D: Take object}{47}{section.5.6}
+\contentsline {subsection}{\numberline {5.6.1}Explanation of the code}{47}{subsection.5.6.1}
+\contentsline {chapter}{\numberline {6}Additional parts}{51}{chapter.6}
+\contentsline {section}{\numberline {6.1}Issue about the force compliance controller}{51}{section.6.1}
+\contentsline {section}{\numberline {6.2}Force controller on application level}{52}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Explanation of the code}{52}{subsection.6.2.1}
+\contentsline {section}{\numberline {6.3}Application interface}{55}{section.6.3}
+\contentsline {chapter}{\numberline {7}Conclusions}{58}{chapter.7}
+\contentsline {section}{\numberline {7.1}Results}{58}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Robot hand}{59}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Force controller on application level}{59}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}Application A}{60}{subsection.7.1.3}
+\contentsline {subsection}{\numberline {7.1.4}Application B}{62}{subsection.7.1.4}
+\contentsline {subsection}{\numberline {7.1.5}Application C}{65}{subsection.7.1.5}
+\contentsline {subsection}{\numberline {7.1.6}Application D}{67}{subsection.7.1.6}
+\contentsline {section}{\numberline {7.2}Conclusions}{69}{section.7.2}
+\contentsline {section}{\numberline {7.3}Recommendations for the future}{69}{section.7.3}
+\contentsline {chapter}{\numberline {A}Application A: Pushing with balloon}{70}{appendix.A}
+\contentsline {chapter}{\numberline {B}Application B: Scratching persons back}{73}{appendix.B}
+\contentsline {chapter}{\numberline {C}Application C: Third hand}{78}{appendix.C}
+\contentsline {chapter}{\numberline {D}Application D: Take object}{83}{appendix.D}
+\contentsline {chapter}{\numberline {E}Force controller on application level}{88}{appendix.E}
+\contentsline {chapter}{\numberline {F}Gravity compensation controller}{90}{appendix.F}
+\contentsline {chapter}{\numberline {G}Application Interface}{94}{appendix.G}
+\contentsline {chapter}{\numberline {H}USB device}{98}{appendix.H}

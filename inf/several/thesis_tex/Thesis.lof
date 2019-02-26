@@ -1,0 +1,38 @@
+\select@language {english}
+\select@language {english}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces An example of the social event on a webpage\relax }}{3}{figure.caption.6}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The DOM and CSSOM trees are combined to form the Render tree\relax }}{9}{figure.caption.7}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Popularity of semantic annotations, 2017\relax }}{14}{figure.caption.10}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces The difference between Information Extraction and Information Retrieval\relax }}{21}{figure.caption.12}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces The components of Sociopath event extraction system\relax }}{29}{figure.caption.15}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces The scheme of dataset collecting process, the final number of records is 1.6 million\relax }}{34}{figure.caption.18}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Raw data-cleaning workflow\relax }}{36}{figure.caption.19}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Visual difference between one-event and multi-events pages\relax }}{40}{figure.caption.21}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Examples of outliers\relax }}{41}{figure.caption.22}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Distribution of the text length by meta name\relax }}{44}{figure.caption.25}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Distribution of the digits number by meta name\relax }}{44}{figure.caption.26}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces The distribution of X and Y coordinates\relax }}{45}{figure.caption.27}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Distribution of digits number by meta name\relax }}{49}{figure.caption.30}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Feature importance from Random Forest for the Event name. Top-5: font family, tag, block width, font size, number of uppercase letters\relax }}{57}{figure.caption.34}
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Feature importance from Boosted Trees for the Event name. Top-5: font family, tag, digits share, block width, x\_coords\relax }}{58}{figure.caption.35}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {10.1}{\ignorespaces The distribution of upper case letters number by meta name\relax }}{61}{figure.caption.38}
+\contentsline {figure}{\numberline {10.2}{\ignorespaces The distribution of white spaces by meta name\relax }}{62}{figure.caption.39}
+\contentsline {figure}{\numberline {10.3}{\ignorespaces The distribution of digit proportion by meta name\relax }}{63}{figure.caption.40}
+\contentsline {figure}{\numberline {10.4}{\ignorespaces The distribution of punctuation marks number by meta name\relax }}{64}{figure.caption.41}
+\contentsline {figure}{\numberline {10.5}{\ignorespaces Feature importance from Random Forest for the Event date, Top: digits share, number of digits, font family, tag, number of punctuation\relax }}{67}{figure.caption.44}
+\contentsline {figure}{\numberline {10.6}{\ignorespaces Feature importance from Random Forest for the Event location, Top: number of uppercase letters, tag, font family, number of siblings, text length\relax }}{68}{figure.caption.45}
+\contentsline {figure}{\numberline {10.7}{\ignorespaces Feature importance from Random Forest for the Event description, Top: block width, text length, font family, number of punctuation\relax }}{69}{figure.caption.46}
+\contentsline {figure}{\numberline {10.8}{\ignorespaces Feature importance from Boosted Trees for the Event location. Top-5: font family, tag, digits share, font size, number of uppercase letters\relax }}{70}{figure.caption.47}
+\contentsline {figure}{\numberline {10.9}{\ignorespaces Feature importance from Boosted Trees for the Event name. Top-5: font family, tag, block height, font weight, x coords\relax }}{71}{figure.caption.48}
+\contentsline {figure}{\numberline {10.10}{\ignorespaces Feature importance from Boosted Trees for the Event description. Top-5: font family, tag, block width, font size, number of uppercase letters\relax }}{72}{figure.caption.49}
+\contentsline {figure}{\numberline {10.11}{\ignorespaces Folders structure on attached CD\relax }}{75}{figure.caption.53}
