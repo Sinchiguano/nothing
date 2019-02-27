@@ -1,0 +1,69 @@
+\documentclass{ctuthesis}
+\ctusetup{
+xdoctype = M,
+xfaculty = F3,
+mainlanguage = english,
+titlelanguage = english,
+title-english = {Part localization for robotic manipulation},
+title-czech = {},
+department-english = {},
+author = {C\'esar Sinchiguano},
+supervisor = {Dr Gaël Pierre Écorchard.},
+supervisor-address = {Czech Institute of Informatics, Robotics, and Cybernetics,
+Office B-323,Jugoslávských partyzánů 3,\\
+160 00  Prague 6},
+month = 5,
+year = 2019,
+}
+
+\ctuprocess
+
+% Acknowledgements
+\begin{thanks}
+I would like to express my sincere gratitude to my supervisor, Dr Gaël Pierre Écorchard for his patient guidance and good predisposition to help on my thesis... 
+\end{thanks}
+
+% Declaration 
+\begin{declaration}
+I hereby declare that I have completed this thesis independently and that I have listed all
+the literature and publications used.
+
+
+Prague, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
+\end{declaration}
+
+
+
+\begin{abstract-english}
+The new generation of so-called collaborative robots allow the use of small robotic arms without them being isolated from human workers.  Such an example of the collaborative robot is the YuMi robot, dual 7-axis arms robot designed for precise manupulation of small parts and availbable in the lab of Intelligent and Mobile Robotics, CIIRC.
+For further acceptance of such robots in the industry, some methods and sensors systems have to be developed to allow them to pick parts without the positition of the part being known in advance, just as humans do.
+The thesis is focussed on the implementation of an algorithm for localization of the known parts. In addition to the localization, part of the work consists of calibrating the camera relativeley to the robot and devoloping methods to obtain the ground truth positition of parts. \ldots
+\end{abstract-english}
+
+\begin{abstract-czech}
+Nová generace takzvaných spolupracujících robotů umožňuje použití malých robotických zbraní bez toho, aby byli izolováni od lidských pracovníků. Takovým příkladem spolupracujícího robota je robot YuMi, dvojitý 7-osý robot robotů určený pro přesnou manipulaci s malými částmi a dostupný v laboratoři Inteligentní a mobilní robotika CIIRC.
+Pro další přijetí takových robotů v průmyslu je třeba vyvinout některé metody a systémy snímačů, které by jim umožnily vybírat části bez předchozího znát umístění části, stejně jako lidé.
+Práce je zaměřena na implementaci algoritmu pro lokalizaci známých částí. Vedle lokalizace se část práce skládá z kalibrace kamery relativeley k robotovým a devolopingovým metodám pro získání pozemské pravdivé pozici dílů. \ldots
+\end{abstract-czech}
+
+
+\begin{document}
+\maketitle
+\chapter{Introduction}
+Foo bar
+
+
+\chapter{Conclusion}
+
+Lorep ipsum \cite{doe}
+
+
+
+\begin{thebibliography}{1}
+\bibitem{doe} J. Doe. \emph{Book on foobar.} Publisher X,
+2300.
+\end{thebibliography}
+
+
+
+\end{document}
