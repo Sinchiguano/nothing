@@ -20,10 +20,10 @@ year = 2019,
 
 % Acknowledgements
 \begin{thanks}
-I would like to express my sincere gratitude to my supervisor, Dr Gaël Pierre Écorchard for his patient guidance and good predisposition to help on my thesis... 
+I would like to express my sincere gratitude to my supervisor, Dr Gaël Pierre Écorchard for his patient guidance and good predisposition to help on my thesis...
 \end{thanks}
 
-% Declaration 
+% Declaration
 \begin{declaration}
 I hereby declare that I have completed this thesis independently and that I have listed all
 the literature and publications used.
@@ -35,9 +35,10 @@ Prague, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
 
 
 \begin{abstract-english}
-The new generation of so-called collaborative robots allow the use of small robotic arms without them being isolated from human workers.  Such an example of the collaborative robot is the YuMi robot, dual 7-axis arms robot designed for precise manupulation of small parts and availbable in the lab of Intelligent and Mobile Robotics, CIIRC.
-For further acceptance of such robots in the industry, some methods and sensors systems have to be developed to allow them to pick parts without the positition of the part being known in advance, just as humans do.
-The thesis is focussed on the implementation of an algorithm for localization of the known parts. In addition to the localization, part of the work consists of calibrating the camera relativeley to the robot and devoloping methods to obtain the ground truth positition of parts. \ldots
+The new generation of so-called collaborative robots allow the use of small robotic arms without them being isolated from human workers.  Such an example of the collaborative robot is the YuMi robot, dual 7-axis arms robot designed for precise manipulation of small parts and available in the lab of Intelligent and Mobile Robotics, CIIRC.
+
+For further acceptance of such robots in the industry, some methods and sensors systems have to be developed to allow them to pick parts without the position of the part being known in advance, just as humans do.
+The thesis is focussed on the implementation of an algorithm for localization of the known parts. In addition to the localization, part of the work consists of calibrating the camera relatively to the robot and developing methods to obtain the ground truth position of parts. \ldots
 \end{abstract-english}
 
 
@@ -48,14 +49,18 @@ Pro další přijetí takových robotů v průmyslu je třeba vyvinout některé
 Práce je zaměřena na implementaci algoritmu pro lokalizaci známých částí. Vedle lokalizace se část práce skládá z kalibrace kamery relativeley k robotovým a devolopingovým metodám pro získání pozemské pravdivé pozici dílů. \ldots
 \end{abstract-czech}
 
+%packages
+\usepackage{import}
 
 \begin{document}
 \maketitle
-\chapter{Introduction}
-Foo bar
+%\chapter{Introduction}
+% CHAPTERS
+\import{01_Introduction/}{Intro1.tex}
+%\import{02_Background/}{Intro1.tex}
 
 
-\chapter{Conclusion}
+%\chapter{Conclusion}
 
 Lorep ipsum \cite{doe}
 
