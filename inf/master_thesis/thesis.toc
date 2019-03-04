@@ -23,4 +23,4 @@
 \contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}Goal}{1}{section.1.2}
 \contentsline {section}{\numberline {1.3}Thesis structure}{2}{section.1.3}
-\contentsline {chapter}{Bibliography}{5}{chapter*.5}
+\contentsline {chapter}{Bibliography}{3}{chapter*.5}

@@ -1,45 +1,25 @@
 \chapter{Introduction}
-%\label{chap:intro}
-Within this chapter, the reader receive an outline of the general context which surrounds this thesis. Starting with the research motivation and the target goal, a summary of the thesis' structure follows. And finally, an overview of related work is presented.  
+\label{chap:intro}
 
-
-Within this chapter, the reader receives an outline of the general context which surrounds this thesis. Starting with the motivation section and the ultimate goal to be accomplished, a summary of the thesis' structure follows. And finally, an overview of related work is presented.
+Within this chapter, the reader receives an outline of the general context which surrounds this thesis. Starting with the motivation section and the ultimate goal to be accomplished, and a summary of the thesis' structure follow. 
+%And finally, an overview of related work is presented.
 
 \section{Motivation}
 
-Recognizing and determining the 6D pose of an object (3D translation and 3D rotation) is necessary in order for robots to manipulate such objects. However, it is still a challenging problem for computer vision. In this master thesis we are interested in tackling the problem of determining the 3D pose by estimating it, giving as input, a RGB-D image and a 3D object model, which is created and it is required for pose estimation. In addition to, a robot-camera calibration(extrinsic calibration) needs to be solved first as well as the intrinsic parameters of the camera. The method does not deal with occlusion and overlapping transparent objects. It is mainly focus in an isolated object.
 
-
-Existing research of 3D object recognition based on 3D data of an object, as a
-3D model, often categorizes the approach in using either global or local feature
-descriptors. Local descriptors describe a local region of the scene or of the 3D
-model while global descriptors describe the whole of the object using only one
-descriptor.
+For years, The industrial robot has undergoes through enormous development. Robot nowadays not only receives command from the computer. But also has the ability to make decision itself. Such abilities are well known in the world of the computer vision as recognizing and determining 6D pose of a rigid body (3D translation and 3D rotation). However, finding the object of interest or determining its pose in either 2D or 3D scenes is still a challenging task for computer vision. There are many researchers working on it with method that goes from state-of-the-art to deep learning means where the object is usually represented with a CAD model or object's 3D reconstruction and typical task is detection of this particular object in the scene captured with RBGD or depth camera. Detection consider determining the location of the object in the input image. This is typical in robotics and machine vision applications where the robot usually does task like pick and place objects. However, localization and pose estimation is much more challenging task due to the high dimensionality of the search in the workspace. And addition, the object of interest is often sought in cluttered scenes under occlusion with requirement of real-time performance.
 
 \section{Goal}
 
-We address the problem of finding the best 6D pose for an isolated part. A robot-camera calibration and extrinsic calibration are tackling with the help of openCV library and The Industrial Extrinsic Calibration package \cite{intro1}  
 
-
-Industrial calibration package pipeline sume that we are operating with RGB-D images and some information about the pose of the camera. We also assume that a 3D mesh model of the object is available, along with a small number of labeled images of the object. The problem is motivated by robot systems operating in indoor environments that need to manipulate particular objects and therefore need accurate pose estimates.
-
-This contrasts with other vision settings in which there is great variability in the objects but precise localization is not required. Our approach is to find the global best object localization in a full 6D space of rigid poses. There are two key components to our approach: (1) learning a view-based model of the object and (2) detecting the object in an image. An object model consists of edge and depth parts whose positions are piece-wise linear functions of the object pose, learned from synthetic rendered images of the 3D mesh model. We search for objects using branch-and-bound search in the space of the depth image (not directly in the Euclidean world space) in order to facilitate an efficient bounding function computed from lower-dimensional data structures.
-
-Nowadays the new generation of collaborative robots allow the use of small robotic arms without them being isolated from human workers. Such an example of collaborative robot is the YuMi robot, a dual 7-axis arms robot designed for precise manipulation of small parts.
-
-For further acceptance of such robots in the industry, some methods and sensor systems have to be developed to allow
-them to pick parts without the position of the parts being known in advance, just as humans do.
-The aim of the project is to implement algorithms for the localization of known parts. Part of the work will consist in calibrating
-the camera relatively to the robot and developing methods to obtain the ground truth position of parts. The second part
-will consist in developing the localization algorithms themselves.
-The student‘s tasks will consist in:
-- developing a camera-robot calibration algorithm,
-- developing the software and/or hardware to determine the ground-truth position of a single isolated part,
-- developing algorithms to localize an isolated part,
-- verifying the system experimentally,
-- studying the possibility to extend the system to picking multiple isolated part and random bin picking.
+We attempt to provide an algorithm for the localization of the known parts(6D object pose estimation using RGBD data) \cite{intro2}. In addition, a robot-camera calibration needs to be done, and a 3D object model is created.
 
 \section{Thesis structure}
+
+
+The next chapter gives a brief overview of the field of computer vision and related work. We have a look at the classical way the community tackle the problem of pose estimation of rigid body. This is followed by a description of the ROS which stand for Robot operating system, and a background information in order to keep up with the method we will implement.
+
+
 
 \begin{figure}[h]
 \begin{center}
@@ -48,6 +28,4 @@ The student‘s tasks will consist in:
 \label{fig:webevent}
 \end{center}
 \end{figure}
-
-nothing else until the day of tomorrow i will try again please wait and be patient
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.1.27)  4 MAR 2019 20:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.1.27)  4 MAR 2019 21:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1522,34 +1522,39 @@ Package microtype Info: Loading generic settings for font family
 
  (./01_Introduction/Intro1.tex
 Chapter 1.
-[1
+
+Underfull \vbox (badness 2384) has occurred while \output is active []
+
+ [1
 
 
 
 
 
-] <01_Introduction/figures01/linux1.jpeg, id=72, 301.125pt x 168.63pt>
+]
+<01_Introduction/figures01/linux1.jpeg, id=72, 301.125pt x 168.63pt>
 File: 01_Introduction/figures01/linux1.jpeg Graphic file (type jpg)
 
 <use 01_Introduction/figures01/linux1.jpeg>
 Package pdftex.def Info: 01_Introduction/figures01/linux1.jpeg used on input li
-ne 46.
+ne 26.
 (pdftex.def)             Requested size: 355.669pt x 199.16928pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 )
 
 LaTeX Warning: Citation `2' on page 2 undefined on input line 68.
 
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 78.
-[2] [3 <./01_Introduction/figures01/linux1.jpeg>] [4
+[2 <./01_Introduction/figures01/linux1.jpeg>]
+Underfull \hbox (badness 10000) in paragraph at lines 86--87
+[][]$\T1/lmtt/m/n/10.95 https : / / hci . iwr . uni-[]heidelberg . de / vislear
+n / research /
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 91.
+[3
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 91.
- [5]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 91.
  (./thesis.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 91.
@@ -1563,11 +1568,11 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 91.
  ) 
 Here is how much of TeX's memory you used:
- 19615 strings out of 493029
- 339107 string characters out of 6136234
- 449278 words of memory out of 5000000
- 22755 multiletter control sequences out of 15000+600000
- 79897 words of font info for 104 fonts, out of 8000000 for 9000
+ 19606 strings out of 493029
+ 339026 string characters out of 6136234
+ 449346 words of memory out of 5000000
+ 22757 multiletter control sequences out of 15000+600000
+ 79482 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  40i,17n,49p,10357b,789s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/
@@ -1575,10 +1580,10 @@ public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/sh
 are/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public
 /lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso10.pfb></usr/shar
 e/texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on thesis.pdf (11 pages, 201488 bytes).
+Output written on thesis.pdf (9 pages, 198447 bytes).
 PDF statistics:
- 126 PDF objects out of 1000 (max. 8388607)
- 103 compressed objects within 2 object streams
- 24 named destinations out of 1000 (max. 500000)
+ 120 PDF objects out of 1000 (max. 8388607)
+ 100 compressed objects within 1 object stream
+ 23 named destinations out of 1000 (max. 500000)
  23603 words of extra memory for PDF output out of 24883 (max. 10000000)
 
