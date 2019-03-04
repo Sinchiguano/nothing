@@ -79,20 +79,20 @@ def publish_transforms(br):
     br.sendTransform(t0)
 
    
-    t1 = geometry_msgs.msg.TransformStamped()
-    t1.header.stamp = rospy.Time.now()
-    t1.header.frame_id = "target"
-    t1.child_frame_id = "object"
-    t1.transform.translation.x = 0.12
-    t1.transform.translation.y = 0.12
-    t1.transform.translation.z = 0.0
+    # t1 = geometry_msgs.msg.TransformStamped()
+    # t1.header.stamp = rospy.Time.now()
+    # t1.header.frame_id = "target"
+    # t1.child_frame_id = "object"
+    # t1.transform.translation.x = 0.12
+    # t1.transform.translation.y = 0.12
+    # t1.transform.translation.z = 0.0
 
-    q1 = tf.transformations.quaternion_from_euler(0, 0, 0)
-    t1.transform.rotation.x = q1[0]
-    t1.transform.rotation.y = q1[1]
-    t1.transform.rotation.z = q1[2]
-    t1.transform.rotation.w = q1[3]      
-    br.sendTransform(t1)
+    # q1 = tf.transformations.quaternion_from_euler(0, 0, 0)
+    # t1.transform.rotation.x = q1[0]
+    # t1.transform.rotation.y = q1[1]
+    # t1.transform.rotation.z = q1[2]
+    # t1.transform.rotation.w = q1[3]      
+    # br.sendTransform(t1)
    
     t1 = geometry_msgs.msg.TransformStamped()
     t1.header.stamp = rospy.Time.now()
@@ -170,7 +170,7 @@ def print_information(rotation_vector,translation_vector,rvec_matrix):
 
 def draw_show_on_image(frame,axi_imgpts,corners,ret,line_width=2):
     # We can now plot limes on the 3D image using the cv2.line function,numpy.ravel-->Return a contiguous flattened array.
-    cv2.drawChessboardCorners(frame, (7,9), corners, ret)#column and rows 7x9
+    cv2.drawChessboardCorners(frame, (7,9), corners, ret)#column and rows 7x9 after the calibration i do not need anymore
     cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
     cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
     cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x

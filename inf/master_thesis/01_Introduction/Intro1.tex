@@ -3,39 +3,51 @@
 Within this chapter, the reader receive an outline of the general context which surrounds this thesis. Starting with the research motivation and the target goal, a summary of the thesis' structure follows. And finally, an overview of related work is presented.  
 
 
+Within this chapter, the reader receives an outline of the general context which surrounds this thesis. Starting with the motivation section and the ultimate goal to be accomplished, a summary of the thesis' structure follows. And finally, an overview of related work is presented.
+
 \section{Motivation}
-Besides the obvious application of WE in the search engine, there are also so-called vertical web services where WE is widely used too. Such websites allow to explore and work with the information on a specific topic. Such services usually do not produce the content by themselves, and rather they automatically collect the data from various sources, processes this data in some way and present to the user in the appealing form. Such services also called \textit{aggregators}. A broad list of aggregators topics includes news, retail other advertisements, reviews, flight tickets, videos and pictures, recipes, social networks and many other. The list is very extensive, virtually for any subject discussed and presented on the Internet there are aggregators exist which try to grasp all other sources into one. \\
 
-Aggregators are usually very popular because they provide the user with the big database, rich functionality, flexibility and instant updates, what helps a user to save time. Due to popularity of aggregator the 'original' content maker is becoming popular too and therefore the content maker has resources to produce new interesting content. The other side of this practice is traffic reduction on the original content maker websites. It happens for example if the aggregator is unfair and doesn't show the source of information. \\
-
-The relationship between aggregators and original source makers today reminds the problem of chicken and egg. That's why search engines are very accurate with automatic extraction at the moment of showing the result for the search query. If Google shows you the correct answer right when you type the question, the website with this particular answer where Google took the information from will lose the user. Since this site loses the user, it also loses monetizing and resources to produce the 'correct answers' in future; hence Google will lose the sources of correct answers. That's the reason why WE among Internet industry players is a controversial topic.\\
-
-In the research area, WE is typically used in the tasks related to natural language processing and text mining. The reason for this is that the web page content is the semi-structured text mixed with the HTML markdown. Many research project centered around the analysis of various news sources as news articles, tweets, social networks, etc. Some of the possible tasks are sentiment analysis of news, topic recognition, summarization. \\
-
-Some projects aim to build the system which collects huge amount of data, extract entities from them, determine relationships between them and my answer on human-language question (IBM Watson \cite{IBMAlchemy}, Calais by Reuters \cite{Calais}, Wolfram Language \cite{Wolfram}).\\      
-
-The extraction of data from the web page is closely linked with the Document Object Model (DOM) processing and implies the understanding of the web page structure from the 'browser point of view'. \\
-
-In this way, WE is becoming a quite interesting, actual and challenging task. It includes both the technical background for the data retrieving and manipulation as well as theoretical background for the reasonable model building. This thesis includes all necessary parts of this task.
+Recognizing and determining the 6D pose of an object (3D translation and 3D rotation) is necessary in order for robots to manipulate such objects. However, it is still a challenging problem for computer vision. In this master thesis we are interested in tackling the problem of determining the 3D pose by estimating it, giving as input, a RGB-D image and a 3D object model, which is created and it is required for pose estimation. In addition to, a robot-camera calibration(extrinsic calibration) needs to be solved first as well as the intrinsic parameters of the camera. The method does not deal with occlusion and overlapping transparent objects. It is mainly focus in an isolated object.
 
 
+Existing research of 3D object recognition based on 3D data of an object, as a
+3D model, often categorizes the approach in using either global or local feature
+descriptors. Local descriptors describe a local region of the scene or of the 3D
+model while global descriptors describe the whole of the object using only one
+descriptor.
 
-In this thesis, we won't solve the problem of identifying if the event announcement is placed on the web page since it is the task from Information Retrieval field. We assume that the page already has an event and we want to find and extract the structured information about it (i.e. extract four items above). On the picture \ref{fig:webevent} you can see a typical example of the page where four main event components are circled in red.\\
+\section{Goal}
 
-We consider \textit{the webpage} as the rendered page where primary JavaScript already executed (it may be executed in future if the user interacts with a page). Such page has several important components: DOM tree, corresponding CSS, HTML code, resources (e.g. images) and rendered picture which the browser displays us. \\
+We address the problem of finding the best 6D pose for an isolated part. A robot-camera calibration and extrinsic calibration are tackling with the help of openCV library and The Industrial Extrinsic Calibration package \cite{intro1}  
 
-For a webpage, we will collect all web elements from a DOM tree, and four of them would be components we need to extract. We will collect more than two hundreds features for every web element and build the model which distinguishes an event components from all other elements. In our problem we will consider four one-vs-all classifiers where each of them will detect associated event component. 
+
+Industrial calibration package pipeline sume that we are operating with RGB-D images and some information about the pose of the camera. We also assume that a 3D mesh model of the object is available, along with a small number of labeled images of the object. The problem is motivated by robot systems operating in indoor environments that need to manipulate particular objects and therefore need accurate pose estimates.
+
+This contrasts with other vision settings in which there is great variability in the objects but precise localization is not required. Our approach is to find the global best object localization in a full 6D space of rigid poses. There are two key components to our approach: (1) learning a view-based model of the object and (2) detecting the object in an image. An object model consists of edge and depth parts whose positions are piece-wise linear functions of the object pose, learned from synthetic rendered images of the 3D mesh model. We search for objects using branch-and-bound search in the space of the depth image (not directly in the Euclidean world space) in order to facilitate an efficient bounding function computed from lower-dimensional data structures.
+
+Nowadays the new generation of collaborative robots allow the use of small robotic arms without them being isolated from human workers. Such an example of collaborative robot is the YuMi robot, a dual 7-axis arms robot designed for precise manipulation of small parts.
+
+For further acceptance of such robots in the industry, some methods and sensor systems have to be developed to allow
+them to pick parts without the position of the parts being known in advance, just as humans do.
+The aim of the project is to implement algorithms for the localization of known parts. Part of the work will consist in calibrating
+the camera relatively to the robot and developing methods to obtain the ground truth position of parts. The second part
+will consist in developing the localization algorithms themselves.
+The student‘s tasks will consist in:
+- developing a camera-robot calibration algorithm,
+- developing the software and/or hardware to determine the ground-truth position of a single isolated part,
+- developing algorithms to localize an isolated part,
+- verifying the system experimentally,
+- studying the possibility to extend the system to picking multiple isolated part and random bin picking.
+
+\section{Thesis structure}
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[height=7cm]{figures01/event_example}
+\includegraphics[height=7cm]{figures01/linux1.jpeg}
 \caption{An example of the social event on a webpage}
 \label{fig:webevent}
 \end{center}
 \end{figure}
 
+nothing else until the day of tomorrow i will try again please wait and be patient
 
-\section{Thesis Outline}
-The thesis consists of 8 chapters, \nameref{appendix} and \nameref{chap:cd}. The current chapter briefly describes the idea of the thesis and motivation for the task of web extraction. Chapter \ref{chap:background} covers necessary web concepts for this work: webpage, DOM, XPath, Microdata semantic markup, etc. Chapter \ref{chap:webextr} refers to an overview of state of the art Web Extraction techniques, overview of complementary problems from IE and related work. In Chapter \ref{chap:design} we explain the structure of our system together with the description of its main components. The method which we propose for the collecting of the training dataset will be discussed in details in Chapter \ref{chap:datacollect}. \\
-
-Last three chapters are devoted to an iterative technical process of the dataset analysis. In Chapter \ref{chap:clean} we will do several cleaning procedures in order to make the dataset reliable. In Chapter \ref{chap:dataexplore} we show the visualization and precise analysis of the extracted features and its relationships. In Chapter \ref{chap:model} we will build  and evaluate several classification models. \nameref{chap:conclusion} will sum up our most valuable contributions and propose ideas for further work.

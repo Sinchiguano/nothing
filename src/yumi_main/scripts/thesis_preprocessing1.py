@@ -28,8 +28,8 @@ from thesis_class import *
 from thesis_function import *
 
 #folder where my point cloud data
-path='pcdata/'
-pc_rgbd_path='pcd_from_color_depth/'
+pc_path='pcdata/'
+rgbd_path='pcd_from_color_depth/'
 
 
 def display_objects(cloud1,cloud2):
@@ -47,7 +47,8 @@ def main():
     counter1=0
     counter2=0
     counter3=0
-    path_cloud='end_cloud/'
+    #path_cloud='end_cloud_pc/'
+    path_cloud='end_cloud_rgbd/'
     downsample_name=path_cloud+'downsample_name'
     roi_name=path_cloud+'roi_name'
     table_name=path_cloud+'table_name'
@@ -64,14 +65,16 @@ def main():
         counter1+=1
 
         # Load the point cloud from memory##read_point_cloud(rgbd)
-        rgbd_ = [pcl.load(rgbd) for rgbd in glob.glob(pc_rgbd_path+'*pcd')]
+        #rgbd_ = [pcl.load(rgbd) for rgbd in glob.glob(pc_path+'*pcd')]
+        rgbd_ = [pcl.load(rgbd) for rgbd in glob.glob(rgbd_path+'*pcd')]
+        
 
         if flag:
             for i, cloud in enumerate(rgbd_):
 
                 # mask out point cloud in order to get only information in our region of interest, as we don't care about the other parts
                 filter = do_passthrough_filter(point_cloud = cloud,name_axis = 'x', min_axis = -0.4, max_axis = 0.4)
-                filter = do_passthrough_filter(point_cloud = filter,name_axis = 'y', min_axis = -0.25, max_axis = 0.1)
+                filter = do_passthrough_filter(point_cloud = filter,name_axis = 'y', min_axis = -0.25, max_axis = 0.08)
                 pcl.save(filter, roi_name+str(i)+'.pcd')
 
                 # Separate the table from everything else
@@ -83,7 +86,9 @@ def main():
         for i, cloud in enumerate(rgbd_):
             # Display the table and the object
             pcd = read_point_cloud(objects_name +str(i)+'.pcd')
+            write_point_cloud(objects_name +str(i)+'.ply', pcd)
             draw_geometries([pcd])
+
 
 
 
