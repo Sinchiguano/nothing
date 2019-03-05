@@ -1,9 +1,9 @@
-\chapter{Introduction}
+\chapter{Background}
 %\label{chap:intro}
 Information extraction (IE) is a complicated problem, and its goal is the automatic extraction of structural information from unstructured or semi-structured documents. Web Extraction (WE) is a particular case of IE where the corpus of documents are webpages. In the thesis, we are solving the problem of WE for the specific types of the data, namely the local (social) event extraction from a webpage.   
 
 
-\section{Motivation}
+\section{something1}
 Besides the obvious application of WE in the search engine, there are also so-called vertical web services where WE is widely used too. Such websites allow to explore and work with the information on a specific topic. Such services usually do not produce the content by themselves, and rather they automatically collect the data from various sources, processes this data in some way and present to the user in the appealing form. Such services also called \textit{aggregators}. A broad list of aggregators topics includes news, retail other advertisements, reviews, flight tickets, videos and pictures, recipes, social networks and many other. The list is very extensive, virtually for any subject discussed and presented on the Internet there are aggregators exist which try to grasp all other sources into one. \\
 
 Aggregators are usually very popular because they provide the user with the big database, rich functionality, flexibility and instant updates, what helps a user to save time. Due to popularity of aggregator the 'original' content maker is becoming popular too and therefore the content maker has resources to produce new interesting content. The other side of this practice is traffic reduction on the original content maker websites. It happens for example if the aggregator is unfair and doesn't show the source of information. \\
@@ -18,7 +18,7 @@ The extraction of data from the web page is closely linked with the Document Obj
 
 In this way, WE is becoming a quite interesting, actual and challenging task. It includes both the technical background for the data retrieving and manipulation as well as theoretical background for the reasonable model building. This thesis includes all necessary parts of this task.
 
-\section{Problem definition}
+\section{something2}
 In the thesis, we aim to create the system which automatically extracts the \textit{event components} of the social event from a webpage. The social events might include musical concerts, meetings, performances, festivals, cinema and other social activities. Such events may be published on the different entertainment websites, but usually on a website of the event organizer.\\
 
 To classify the entity on a web page as an event let's state that it must have the following \textit{event components}:
@@ -37,14 +37,14 @@ For a webpage, we will collect all web elements from a DOM tree, and four of the
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[height=7cm]{figures01/event_example}
+\includegraphics[height=7cm]{figures02/event_example}
 \caption{An example of the social event on a webpage}
 \label{fig:webevent}
 \end{center}
 \end{figure}
 
 
-\section{Thesis Outline}
+\section{something3}
 The thesis consists of 8 chapters, \nameref{appendix} and \nameref{chap:cd}. The current chapter briefly describes the idea of the thesis and motivation for the task of web extraction. Chapter \ref{chap:background} covers necessary web concepts for this work: webpage, DOM, XPath, Microdata semantic markup, etc. Chapter \ref{chap:webextr} refers to an overview of state of the art Web Extraction techniques, overview of complementary problems from IE and related work. In Chapter \ref{chap:design} we explain the structure of our system together with the description of its main components. The method which we propose for the collecting of the training dataset will be discussed in details in Chapter \ref{chap:datacollect}. \\
 
 Last three chapters are devoted to an iterative technical process of the dataset analysis. In Chapter \ref{chap:clean} we will do several cleaning procedures in order to make the dataset reliable. In Chapter \ref{chap:dataexplore} we show the visualization and precise analysis of the extracted features and its relationships. In Chapter \ref{chap:model} we will build  and evaluate several classification models. \nameref{chap:conclusion} will sum up our most valuable contributions and propose ideas for further work.

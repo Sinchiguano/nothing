@@ -10,17 +10,20 @@ department-english = {},
 author = {C\'esar Sinchiguano},
 supervisor = {Dr Gaël Pierre Écorchard.},
 supervisor-address = {Czech Institute of Informatics, Robotics, and Cybernetics,
-Office B-323,Jugoslávských partyzánů 3,\\
+Office B-323,Jugoslávských partyzánů 3,
 160 00  Prague 6},
 month = 5,
 year = 2019,
+keywords-czech = {manuál, závěrečnná práce, \LaTeX},
+keywords-english = {manual, degree project, \LaTeX},
+pkg-hyperref=true
 }
-
+\ctusetup{ pkg-amsthm = false }
 \ctuprocess
 
 % Acknowledgements
 \begin{thanks}
-I would like to express my sincere gratitude to my supervisor, Dr Gaël Pierre Écorchard for his patient guidance and good predisposition to help me with my thesis...
+I would like to express my sincere gratitude to my supervisor, Dr Gaël Pierre Écorchard for his patient guidance and good predisposition to help me with my thesis.
 \end{thanks}
 
 % Declaration
@@ -28,17 +31,14 @@ I would like to express my sincere gratitude to my supervisor, Dr Gaël Pierre �
 I hereby declare that the presented work was developed independently and that I have listed
 all sources of information used within it in accordance with methodical instructions for
 observing the ethical principles in the preparation of university theses.
-
 Prague, \ctufield{day}.~\monthinlanguage{title}~\ctufield{year}
+
 \end{declaration}
 
-
-
 \begin{abstract-english}
-The new generation of so-called collaborative robots allow the use of small robotic arms without them being isolated from human workers.  Such an example of the collaborative robot is the YuMi robot, dual 7-axis arms robot designed for precise manipulation of small parts and available in the lab of Intelligent and Mobile Robotics, CIIRC.
+The new generation of the collaborative robots allow the use of small robot arms working in an asynchronous or synchronous fashion with human workers.  Such an example of the collaborative robot is the YuMi robot, dual 7-DOF robot arms designed for precise manipulation of small parts better known in computer vision as rigid body. For further acceptance of such robots in the industry, some methods and sensors systems have to be developed to allow them to pick parts without the position of the part being known in advance, just as humans do.
+This thesis is focused on the implementation of an algorithm for determing the positition of the known parts. We first deal with a robot-camera calibration, then  we propose a method to obtain the ground truth position of known parts. As step in between a 3D model of the known part needs to be created.
 
-For further acceptance of such robots in the industry, some methods and sensors systems have to be developed to allow them to pick parts without the position of the part being known in advance, just as humans do.
-The thesis is focussed on the implementation of an algorithm for localization of the known parts. In addition to the localization, part of the work consists of calibrating the camera relatively to the robot and developing methods to obtain the ground truth position of parts. \ldots
 \end{abstract-english}
 
 
@@ -50,42 +50,35 @@ Práce je zaměřena na implementaci algoritmu pro lokalizaci známých částí
 \end{abstract-czech}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-%packages
+%##########################
+%Default package loading
 \usepackage{import}
+%\usepackage{biblatex}
+%\addbibresource{mybib.bib}
 
 
 
-
-
+%//////////////_START BODY_////////////////////////
 \begin{document}
 \maketitle
-%\chapter{Introduction}
-% CHAPTERS
+
+
+% Introduction-->>Chapter one
 \import{01_Introduction/}{Intro1.tex}
 
+% Background-->>Chapter two
+\import{02_Background/}{Background2.tex}
 
-hi \cite{2}
 
 
 
 %\chapter{Conclusion}
-
-Lorep ipsum \cite{doe}
-
+Lorep ipsum \cite{intro1}
 
 
-\begin{thebibliography}{1}
-
-\bibitem{doe} J. Doe. \emph{Book on foobar.} Publisher X,
-2300.
-\bibitem{intro1}
-\url{https://github.com/ros-industrial/industrial_calibration}
-
-\bibitem{intro2}
-\url{https://hci.iwr.uni-heidelberg.de/vislearn/research/scene-understanding/pose-estimation/#ICCV15}
-\end{thebibliography}
-
+\import{References/}{reference1.tex}
 
 
 \end{document}
+%//////////////_END BODY_////////////////////////
+
