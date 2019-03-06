@@ -63,39 +63,6 @@ def pose_camera_callback(msg):
     euler_angles_=[roll_,pitch_,yaw_]
 
 
-def print_information(rotation_vector,translation_vector,rvec_matrix):
-
-
-    global euler_angles
-    print("\n\nThe world coordinate systems origin in-->> camera's coordinate system:")
-    print("===rotation_vector:")
-    print(rotation_vector)
-    print("===rotation_matrix:")
-    print(rvec_matrix)
-    print("===translation_vector:")
-    print(translation_vector)
-
-    matr =np.hstack((rvec_matrix,translation_vector))
-    matr=np.vstack((matr,[0.0,0.0,0.0,1.0]))
-
-    quat_tmp = tf.transformations.quaternion_from_matrix(matr)
-    roll_, pitch_, yaw_=tf.transformations.euler_from_quaternion(quat_tmp)
-    euler_angles_tmp=[roll_,pitch_,yaw_]
-    print("euler_angles_tmp: ",euler_angles_tmp)
-    import math
-    print(roll_* 180 / math.pi,pitch_* 180 / math.pi,yaw_* 180 / math.pi)
-
-    print("\n\nThe camera origin in -->>world coordinate system:")
-    print("===camera rvec_matrix:")
-    print(rvec_matrix.T)
-    print("===camera translation_vector:")
-    print(-np.dot(rvec_matrix.T, translation_vector))
-    print('euler_angles inv roll_,pitch_,yaw:  \n',euler_angles_)
-    print(euler_angles_[0]* 180 / math.pi,euler_angles_[1]* 180 / math.pi,euler_angles_[2]* 180 / math.pi)
-
-
-    print('\n\n-----------------------------------------------------')
-
 def draw_show_on_image(frame,axi_imgpts,corners,ret,reprojection_imgpts,line_width=2):
 
     print(corners.shape)
@@ -104,45 +71,50 @@ def draw_show_on_image(frame,axi_imgpts,corners,ret,reprojection_imgpts,line_wid
     print(type(reprojection_imgpts))
     aux_reprojection=reprojection_imgpts.reshape(-1,2)
     print(aux_reprojection.shape)
-    euclidean_distances=np.sqrt(np.sum((corners-aux_reprojection)**2))
+    euclidean_distances=np.sqrt(np.sum((corners-aux_reprojection)**2, axis=1))
 
+    '''
+    Re-projection Error
+    Re-projection error gives a good estimation of just how exact is the found parameters.
+    This should be as close to zero as possible. Given the intrinsic, distortion, rotation and translation matrices,
+    we first transform the object point to image point using cv2.projectPoints(). Then we calculate the absolute norm between what we got with our transformation and the corner finding algorithm. To find the average error we calculate the arithmetical mean of the errors calculate for all the calibration images.
+    '''
+    print('len(euclidean distance): \n', len(euclidean_distances))
+    print('len(aux_reprojection): \n', len(aux_reprojection))
     print('euclidean distance: \n',euclidean_distances)
-    #print(np.square(corners -aux_reprojection).mean(axis=0))
-    #print(np.sqrt(np.sum((corners-aux_reprojection)**2).mean()))
+    print('mean(euclidean distance): \n', euclidean_distances.mean())
+    #print('euclidean distance: \n',np.sqrt(np.sum((corners-aux_reprojection)**2)))
+    error = cv2.norm(corners,aux_reprojection, cv2.NORM_L2)/len(aux_reprojection)
+    print('Re-projection Error: ',error)
 
-
-
-
-    # We can now plot limes on the 3D image using the cv2.line function,numpy.ravel-->Return a contiguous flattened array.
-    cv2.drawChessboardCorners(frame, (7,9), reprojection_imgpts, ret)#column and rows 7x9 after the calibration i do not need anymore
-    cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
-    cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
-    cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
-
-
-    cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
-    cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
-    cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
-
-    cv2.imshow('projection',frame)
-
-    # frame1=copy.deepcopy(frame)
-    # # for idx, corner in enumerate(corners):
-    # #     idx_as_str = '{}'.format(idx)
-    # #     text_pos = (corner + np.array([3.5,-7])).astype(int)
-    # #     cv2.putText(frame, idx_as_str, tuple(text_pos),cv2.FONT_HERSHEY_PLAIN, 1, (0, 0,255))
-    #
-    # # Display the resulting frame
-    # cv2.drawChessboardCorners(frame1, (7,9), reprojection_imgpts, ret)
-    # cv2.line(frame1, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
-    # cv2.line(frame1, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
-    # cv2.line(frame1, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
+    # # We can now plot limes on the 3D image using the cv2.line function,numpy.ravel-->Return a contiguous flattened array.
+    # #cv2.drawChessboardCorners(frame, (7,9), reprojection_imgpts, ret)#column and rows 7x9 after the calibration i do not need anymore
+    # cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
+    # cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
+    # cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
     #
     #
-    # cv2.line(frame1, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
-    # cv2.line(frame1, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
-    # cv2.line(frame1, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
-    # cv2.imshow('reprojection',frame1)
+    # cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
+    # cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
+    # cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
+    # cv2.imshow('projection',frame)
+
+    frame1=copy.deepcopy(frame)
+    # for idx, corner in enumerate(corners):
+    #     idx_as_str = '{}'.format(idx)
+    #     text_pos = (corner + np.array([3.5,-7])).astype(int)
+    #     cv2.putText(frame, idx_as_str, tuple(text_pos),cv2.FONT_HERSHEY_PLAIN, 1, (0, 0,255))
+
+    # Display the resulting frame
+    cv2.drawChessboardCorners(frame1, (7,9), reprojection_imgpts, ret)
+    cv2.line(frame1, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
+    cv2.line(frame1, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
+    cv2.line(frame1, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
+
+    cv2.line(frame1, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
+    cv2.line(frame1, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
+    cv2.line(frame1, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
+    cv2.imshow('Re-projection',frame1)
     cv2.imwrite('test.jpg', frame)
 
 

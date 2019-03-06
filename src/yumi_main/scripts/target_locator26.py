@@ -22,7 +22,7 @@ position_=[0.0,0.0,0.0]
 
 ##convert a rot and trans matrix to a 4x4 matrix
 def data_to_transform(r_matrix,t_position):
-    mat =np.hstack((r_matrix,t_position)) 
+    mat =np.hstack((r_matrix,t_position))
     mat=np.vstack((mat,[0.0,0.0,0.0,1.0]))
     return mat
 
@@ -43,7 +43,7 @@ def pose_camera_callback(msg):
 
     global euler_angles_
     global position_
-    
+
     position_=[msg.position.x,msg.position.y,msg.position.z]
     quaternion_=msg.orientation
 
@@ -52,7 +52,7 @@ def pose_camera_callback(msg):
     euler_angles_=[roll_,pitch_,yaw_]
 
 def publish_transforms(br):
-    
+
     global euler_angles_
     global position_
 
@@ -67,7 +67,7 @@ def publish_transforms(br):
 
     tmp_rot=np.array([[1,0, 0], [0, 1, 0],[0, 0, 1]])
     tmp_trans=np.array([[0.30],[0],[0] ])
-    myrot =np.hstack((tmp_rot,tmp_trans)) 
+    myrot =np.hstack((tmp_rot,tmp_trans))
     myrot=np.vstack((myrot,[0.0,0.0,0.0,1.0]))
     #print('my rotation: \n {}'.format(myrot) )
 
@@ -75,10 +75,10 @@ def publish_transforms(br):
     t0.transform.rotation.x = q0[0]
     t0.transform.rotation.y = q0[1]
     t0.transform.rotation.z = q0[2]
-    t0.transform.rotation.w = q0[3]      
+    t0.transform.rotation.w = q0[3]
     br.sendTransform(t0)
 
-   
+
     # t1 = geometry_msgs.msg.TransformStamped()
     # t1.header.stamp = rospy.Time.now()
     # t1.header.frame_id = "target"
@@ -91,9 +91,9 @@ def publish_transforms(br):
     # t1.transform.rotation.x = q1[0]
     # t1.transform.rotation.y = q1[1]
     # t1.transform.rotation.z = q1[2]
-    # t1.transform.rotation.w = q1[3]      
+    # t1.transform.rotation.w = q1[3]
     # br.sendTransform(t1)
-   
+
     t1 = geometry_msgs.msg.TransformStamped()
     t1.header.stamp = rospy.Time.now()
     t1.header.frame_id = "world"
@@ -104,7 +104,7 @@ def publish_transforms(br):
 
     # tmp_rot=np.array([[0, 1, 0], [1, 0, 0],[0, 0, -1]])
     # tmp_trans=np.array([[0.30],[0],[0] ])
-    # myrot =np.hstack((tmp_rot,tmp_trans)) 
+    # myrot =np.hstack((tmp_rot,tmp_trans))
     # myrot=np.vstack((myrot,[0.0,0.0,0.0,1.0]))
     #print('my rotation: \n {}'.format(myrot) )
 
@@ -113,9 +113,9 @@ def publish_transforms(br):
     t1.transform.rotation.x = q1[0]
     t1.transform.rotation.y = q1[1]
     t1.transform.rotation.z = q1[2]
-    t1.transform.rotation.w = q1[3]      
+    t1.transform.rotation.w = q1[3]
     br.sendTransform(t1)
-    
+
     t2 = geometry_msgs.msg.TransformStamped()
     t2.header.stamp = rospy.Time.now()
     t2.header.frame_id = "target"
@@ -147,9 +147,9 @@ def print_information(rotation_vector,translation_vector,rvec_matrix):
     print("===translation_vector:")
     print(translation_vector)
 
-    matr =np.hstack((rvec_matrix,translation_vector)) 
+    matr =np.hstack((rvec_matrix,translation_vector))
     matr=np.vstack((matr,[0.0,0.0,0.0,1.0]))
- 
+
     quat_tmp = tf.transformations.quaternion_from_matrix(matr)
     roll_, pitch_, yaw_=tf.transformations.euler_from_quaternion(quat_tmp)
     euler_angles_tmp=[roll_,pitch_,yaw_]
@@ -170,7 +170,7 @@ def print_information(rotation_vector,translation_vector,rvec_matrix):
 
 def draw_show_on_image(frame,axi_imgpts,corners,ret,line_width=2):
     # We can now plot limes on the 3D image using the cv2.line function,numpy.ravel-->Return a contiguous flattened array.
-    cv2.drawChessboardCorners(frame, (7,9), corners, ret)#column and rows 7x9 after the calibration i do not need anymore
+    #cv2.drawChessboardCorners(frame, (7,9), corners, ret)#column and rows 7x9 after the calibration i do not need anymore
     cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
     cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
     cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
@@ -181,7 +181,7 @@ def draw_show_on_image(frame,axi_imgpts,corners,ret,line_width=2):
     #     cv2.putText(frame, idx_as_str, tuple(text_pos),cv2.FONT_HERSHEY_PLAIN, 1, (0, 0,255))
 
     # Display the resulting frame
-    cv2.imshow('frame',frame)
+    cv2.imshow('Target locator',frame)
     cv2.imwrite('test.jpg', frame)
 
 def locate_target_orientation(frame,ret, corners):
@@ -242,9 +242,9 @@ def main():
 
         # Capture frame-by-frame
 
-        #frame=cv2.imread('temp2.jpg')  	
+        frame=cv2.imread('temp2.jpg')
 
-        frame=camObj.get_image()
+        #frame=camObj.get_image()
         #frame = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
         #print(type(frame))
@@ -270,7 +270,7 @@ def main():
             print(ex)
             print('-------------------------------------------------')
             continue
-            
+
 
         # Extrinsic calibration!!!
         axis_imgpts,corners,ret,rvec_matrix,translation_vector,rotation_vector= locate_target_orientation(frame,ret, corners)
@@ -294,14 +294,14 @@ def main():
 
         # publish pose of the camera frame
         pub_pose.publish(pose)
-        
+
         # we should expect to go through the loop 10 times per second
         rate.sleep()
 
         # publish transform for the following coordinate frames: target, camera and world
         publish_transforms(br)
 
-        
+
         print('\ncounter:',counter,'\n')
 
 

@@ -13,13 +13,24 @@
 
 import numpy as np
 from open3d import *
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+import numpy as np
 
-if __name__ == "__main__":
+
+render_frame='render_cloud/'
+
+
+path_object_pc='end_cloud_pc/'
+path_object_rgbd='end_cloud_rgbd/'
+
+
+def main():
 
    print("Load a ply point cloud, print it, and render it")
-   pcd = read_point_cloud("objects_name0.pcd")
+   pcd = read_point_cloud(path_object_rgbd+"objects_name0.pcd")
 
-   print("Downsample the point cloud with a voxel of 0.05")
+   #print("Downsample the point cloud with a voxel of 0.05")
    #downpcd = voxel_down_sample(pcd, voxel_size = 0.05)
    #draw_geometries([downpcd])
 
@@ -37,24 +48,21 @@ if __name__ == "__main__":
    draw_geometries([pcd, mesh_frame])
 
 
-   from mpl_toolkits.mplot3d import Axes3D
-   import matplotlib.pyplot as plt
-   import numpy as np
+
+   write_point_cloud("copy_of_fragment.pcd", pcd)
+
+
+   #plotting the point cloud in the camera frame
    fig = plt.figure()
    ax = fig.add_subplot(111, projection='3d')
-
-
    ax.scatter(tmp[:,0], tmp[:,1], tmp[:,2], marker="D")
-
    ax.set_xlabel('X Label')
    ax.set_ylabel('Y Label')
    ax.set_zlabel('Z Label')
-
    plt.show()
 
-
-
-
+if __name__ == "__main__":
+    main()
    # pcd.paint_uniform_color([0.5, 0.5, 0.5])
    # pcd_tree = KDTreeFlann(pcd)
 
@@ -92,7 +100,7 @@ if __name__ == "__main__":
    # 		print(tmp[i])
    # 		print('done!!!')
    # 		break
-   # #print('hi',aux)  
+   # #print('hi',aux)
 
 
 
@@ -142,6 +150,3 @@ if __name__ == "__main__":
 	   #  print("Visualize the point cloud.")
 	   #  draw_geometries([pcd])
 	   #  print("")
-
-
-

@@ -103,8 +103,8 @@ def main():
     path_cloud='end_cloud/'
 
 
-    path_in='end_cloud/'
-    path_out='end_out/'
+    path_in='end_cloud_rgbd/'
+    path_out='end_registration/'
     objects_name='objects_name'
     outliars_name='outliars_name'
 
@@ -138,9 +138,9 @@ def main():
         #-------------------
         ransac_output=do_ransac_registration(source_down, target_down, source_fpfh, target_fpfh )
 
-        do_drawing_registration(source, target, ransac_output.transformation)
-        print('RANSAC')
-        print(ransac_output.transformation)
+        # do_drawing_registration(source, target, ransac_output.transformation)
+        # print('RANSAC')
+        # print(ransac_output.transformation)
 
 
         #ICP REGISTRATION -->>local registration, point to plane approach
@@ -151,12 +151,23 @@ def main():
         print(icp_output.transformation)
 
 
-        # multiway registration
 
-
+        print("Make a combined point cloud")
+        pcd_combined = PointCloud()
+        target_copy=copy.deepcopy(target)
+        source_copy=copy.deepcopy(source)
+        pcd_combined=target_copy
+        source_copy.transform(icp_output.transformation)
+        pcd_combined +=source_copy
+        #pcd_combined_down = voxel_down_sample(pcd_combined, voxel_size = voxel_size)
+        write_point_cloud(path_out+"multiway_registration.pcd", pcd_combined)
+        draw_geometries([pcd_combined])
 
         #cv2.imshow('frame',frame)
         print('counter:',counter1)
+
+        
+
 
     # When everything done, release the capture
     cv2.destroyAllWindows()
