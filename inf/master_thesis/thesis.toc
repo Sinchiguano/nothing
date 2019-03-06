@@ -24,7 +24,5 @@
 \contentsline {section}{\numberline {1.2}Goal}{1}{section.1.2}
 \contentsline {section}{\numberline {1.3}Thesis structure}{2}{section.1.3}
 \contentsline {chapter}{\numberline {2}Background}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}something1}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}something2}{4}{section.2.2}
-\contentsline {section}{\numberline {2.3}something3}{5}{section.2.3}
-\contentsline {chapter}{Bibliography}{7}{chapter*.5}
+\contentsline {section}{\numberline {2.1}ROS: Robotic Operating System}{3}{section.2.1}
+\contentsline {chapter}{Bibliography}{5}{chapter*.5}
