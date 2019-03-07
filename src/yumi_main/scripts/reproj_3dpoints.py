@@ -102,20 +102,27 @@ def locate_target_orientation(frame,ret, corners):
     return axis_imgpts,corners,ret,rvec_matrix,translation_vector,rotation_vector,reprojection_imgpts
 
 def clean_reprojection_error(name_path):
-    #data cleaning
-    new_list=list()
     with open(name_path, 'r') as file:
-        error_repro=file.readline()
-        mylist = error_repro.split(',')
-        print(type(mylist))
-        for i in mylist:
-            print(i)
-        for i in range(0,len(mylist)):
-            print(mylist[i])
-            new_list.append(float(mylist[i]))
-        exit(0)
-    return new_list
+        array_ = []
+        for line in file:
+            array_.append(float(line.rstrip()))
+    return array_
 
+def plotting_error(clean_list):
+    print(np.sum(clean_list))
+    print(len(clean_list))
+    mean_error=np.sum(clean_list)/len(clean_list)
+    print(mean_error)
+
+    import matplotlib.pyplot as plt
+    # red dashes, blue squares and green triangles
+    plt.plot(np.arange(len(clean_list)), clean_list, 'ro')
+    plt.xlabel('Images')
+    plt.ylabel('Mean Error in Pixels')
+    plt.title('Reprojection Errors')
+    plt.text(10, 0.1, 'Overal mean error='+str(mean_error))
+    plt.grid(True)
+    plt.show()
 
 def main():
 
@@ -187,13 +194,9 @@ def main():
         error_=draw_show_on_image(frame,axis_imgpts,corners,ret,reprojection_imgpts)
 
         #reprojection_error
-        new_list=clean_reprojection_error(path_error_images+'projection_error.txt')
-        print(new_list)
-        print(type(new_list))
-        print(len(new_list))
+        clean_list=clean_reprojection_error(path_error_images+'projection_error.txt')
 
-
-
+        plotting_error(clean_list)
         # we should expect to go through the loop 10 times per second
         rate.sleep()
 
@@ -208,3 +211,15 @@ def main():
 if __name__ == '__main__':
     camObj=camera()
     main()
+
+
+
+#
+# mylist = error_repro.split(',')
+# print(type(mylist))
+# for i in mylist:
+#     print(i)
+# for i in range(0,len(mylist)):
+#     print(mylist[i])
+#     new_list.append(float(mylist[i]))
+# exit(0)
