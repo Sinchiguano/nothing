@@ -7,17 +7,6 @@
 # Distributed under terms of the MIT License license.
 
 """
-
-"""
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-# vim:fenc=utf-8
-#
-# Copyright © 2019 Cesar Sinchiguano <cesarsinchiguano@hotmail.es>
-#
-# Distributed under terms of the MIT License license.
-
-"""
 Finally I got in xyz coordinates according to ROS
 """
 
@@ -26,51 +15,14 @@ import sys
 sys.path.insert(0, '/home/sinchiguano/yumi_depends_ws/src/yumi_main/scripts/project')
 from thesis_library import *
 
-
-
-euler_angles_=[0,0,0]
-position_=[0.0,0.0,0.0]
-
-##convert a rot and trans matrix to a 4x4 matrix
-def data_to_transform(r_matrix,t_position):
-    mat =np.hstack((r_matrix,t_position))
-    mat=np.vstack((mat,[0.0,0.0,0.0,1.0]))
-    return mat
-
-#convert a 4x4 matrix to a Pose message
-def transform_to_pose(mat):
-    pose = Pose()
-    pose.position.x = mat[0,3]
-    pose.position.y = mat[1,3]
-    pose.position.z = mat[2,3]
-    quat = tf.transformations.quaternion_from_matrix(mat)
-    pose.orientation.x = quat[0]
-    pose.orientation.y = quat[1]
-    pose.orientation.z = quat[2]
-    pose.orientation.w = quat[3]
-    return pose
-
-def pose_camera_callback(msg):
-
-    global euler_angles_
-    global position_
-
-    position_=[msg.position.x,msg.position.y,msg.position.z]
-    quaternion_=msg.orientation
-
-    quaternion_tmp=[quaternion_.x,quaternion_.y,quaternion_.z,quaternion_.w]
-    roll_, pitch_, yaw_=tf.transformations.euler_from_quaternion(quaternion_tmp)
-    euler_angles_=[roll_,pitch_,yaw_]
-
-
 def draw_show_on_image(frame,axi_imgpts,corners,ret,reprojection_imgpts,line_width=2):
 
-    print(corners.shape)
-    print(type(corners))
-    print(reprojection_imgpts.shape)
-    print(type(reprojection_imgpts))
+    # print(corners.shape)
+    # print(type(corners))
+    # print(reprojection_imgpts.shape)
+    # print(type(reprojection_imgpts))
     aux_reprojection=reprojection_imgpts.reshape(-1,2)
-    print(aux_reprojection.shape)
+    # print(aux_reprojection.shape)
     euclidean_distances=np.sqrt(np.sum((corners-aux_reprojection)**2, axis=1))
 
     '''
@@ -79,45 +31,41 @@ def draw_show_on_image(frame,axi_imgpts,corners,ret,reprojection_imgpts,line_wid
     This should be as close to zero as possible. Given the intrinsic, distortion, rotation and translation matrices,
     we first transform the object point to image point using cv2.projectPoints(). Then we calculate the absolute norm between what we got with our transformation and the corner finding algorithm. To find the average error we calculate the arithmetical mean of the errors calculate for all the calibration images.
     '''
-    print('len(euclidean distance): \n', len(euclidean_distances))
-    print('len(aux_reprojection): \n', len(aux_reprojection))
-    print('euclidean distance: \n',euclidean_distances)
-    print('mean(euclidean distance): \n', euclidean_distances.mean())
-    #print('euclidean distance: \n',np.sqrt(np.sum((corners-aux_reprojection)**2)))
-    error = cv2.norm(corners,aux_reprojection, cv2.NORM_L2)/len(aux_reprojection)
-    print('Re-projection Error: ',error)
+    # print('len(euclidean distance): \n', len(euclidean_distances))
+    # print('len(aux_reprojection): \n', len(aux_reprojection))
+    # print('euclidean distance: \n',euclidean_distances[:5])
+    # print('mean(euclidean distance): \n', euclidean_distances.mean())
+    # #print('euclidean distance: \n',np.sqrt(np.sum((corners-aux_reprojection)**2)))
+    # error = cv2.norm(corners,aux_reprojection, cv2.NORM_L2)/len(aux_reprojection)
+    # print('Re-projection Error: ',error)
 
-    # # We can now plot limes on the 3D image using the cv2.line function,numpy.ravel-->Return a contiguous flattened array.
-    # #cv2.drawChessboardCorners(frame, (7,9), reprojection_imgpts, ret)#column and rows 7x9 after the calibration i do not need anymore
-    # cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
-    # cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
-    # cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
-    #
-    #
-    # cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
-    # cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
-    # cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
-    # cv2.imshow('projection',frame)
+    # We can now plot limes on the 3D image using the cv2.line function,numpy.ravel-->Return a contiguous flattened array.
+    #cv2.drawChessboardCorners(frame, (7,9), reprojection_imgpts, ret)#column and rows 7x9 after the calibration i do not need anymore
+    cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
+    cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
+    cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
 
-    frame1=copy.deepcopy(frame)
+
+    cv2.line(frame, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
+    cv2.line(frame, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
+    cv2.line(frame, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
+    cv2.imshow('projection',frame)
+
+    # frame1=copy.deepcopy(frame)
     # for idx, corner in enumerate(corners):
     #     idx_as_str = '{}'.format(idx)
     #     text_pos = (corner + np.array([3.5,-7])).astype(int)
     #     cv2.putText(frame, idx_as_str, tuple(text_pos),cv2.FONT_HERSHEY_PLAIN, 1, (0, 0,255))
+    #
+    # # Display the resulting frame
+    # cv2.drawChessboardCorners(frame1, (7,9), reprojection_imgpts, ret)
+    # cv2.line(frame1, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
+    # cv2.line(frame1, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
+    # cv2.line(frame1, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
+    # cv2.imshow('Re-projection',frame1)
+    # cv2.imwrite('test.jpg', frame)
 
-    # Display the resulting frame
-    cv2.drawChessboardCorners(frame1, (7,9), reprojection_imgpts, ret)
-    cv2.line(frame1, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
-    cv2.line(frame1, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
-    cv2.line(frame1, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
-
-    cv2.line(frame1, tuple(axi_imgpts[3].ravel()), tuple(axi_imgpts[1].ravel()), (0,255,0), line_width) #GREEN Y
-    cv2.line(frame1, tuple(axi_imgpts[3][0]), tuple(axi_imgpts[2].ravel()), (255,0,0), line_width) #BLUE Z
-    cv2.line(frame1, tuple(axi_imgpts[3,0]), tuple(axi_imgpts[0].ravel()), (0,0,255), line_width) #RED x
-    cv2.imshow('Re-projection',frame1)
-    cv2.imwrite('test.jpg', frame)
-
-
+    return euclidean_distances.mean()
 
 def locate_target_orientation(frame,ret, corners):
 
@@ -153,40 +101,67 @@ def locate_target_orientation(frame,ret, corners):
 
     return axis_imgpts,corners,ret,rvec_matrix,translation_vector,rotation_vector,reprojection_imgpts
 
+def clean_reprojection_error(name_path):
+    #data cleaning
+    new_list=list()
+    with open(name_path, 'r') as file:
+        error_repro=file.readline()
+        mylist = error_repro.split(',')
+        print(type(mylist))
+        for i in mylist:
+            print(i)
+        for i in range(0,len(mylist)):
+            print(mylist[i])
+            new_list.append(float(mylist[i]))
+        exit(0)
+    return new_list
+
+
 def main():
 
     counter=0
     tmpNamec='temp2.jpg'
-
-    pub_pose = rospy.Publisher('pose_camera_topic', Pose, queue_size=10)
-    sub_pose = rospy.Subscriber('/pose_camera_topic', Pose, pose_camera_callback)
-    br = tf2_ros.TransformBroadcaster()
 
     rate = rospy.Rate(10) # 10hz
 
     import sys
     print "This is the name of the script: ", sys.argv[0]
     #flag=sys.argv[1]
+    path_error_images='images_error/'
 
+    projection_error=list()
+    counter2=0
     while not rospy.is_shutdown():
 
         counter+=1
 
         # Capture frame-by-frame
-
-        #frame=cv2.imread('temp2.jpg')
-
         frame=camObj.get_image()
-        #frame = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
 
         #print(type(frame))
         if frame is None:
             print('no image!!!')
             continue
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            cv2.imwrite('temp2.jpg', frame)
+        command=cv2.waitKey(1) & 0xFF
+
+        if command == ord('p'):
+            counter2+=1
+            cv2.imwrite(path_error_images+'img'+str(counter2)+'.jpg', frame)
+            projection_error.append(error_)
+            print('next!')
+        elif command==ord('r'):
+            with open(path_error_images+'projection_error.txt', 'w') as f:
+                for i in range(len(projection_error)):
+                    print(projection_error[i])
+                    print('here')
+                    f.write("%s\r\n" % projection_error[i])
+                    print('done!')
+                    #exit(0)
+        if command == ord('q'):
             break
+        print(projection_error)
 
         try:
             # 2D image points
@@ -208,31 +183,19 @@ def main():
         axis_imgpts,corners,ret,rvec_matrix,translation_vector,rotation_vector,reprojection_imgpts= locate_target_orientation(frame,ret, corners)
 
 
-        # print information about rotation and translation for the camera and world frame
-        #print_information(rotation_vector,translation_vector,rvec_matrix)
-
-
         #draw and display lines and text on the image
-        draw_show_on_image(frame,axis_imgpts,corners,ret,reprojection_imgpts)
+        error_=draw_show_on_image(frame,axis_imgpts,corners,ret,reprojection_imgpts)
+
+        #reprojection_error
+        new_list=clean_reprojection_error(path_error_images+'projection_error.txt')
+        print(new_list)
+        print(type(new_list))
+        print(len(new_list))
 
 
-        # get transform matrix from rotation and translation of the camera frame relative to the world frame
-        #mat=data_to_transform(rvec_matrix.T,-np.dot(rvec_matrix.T, translation_vector))
-        #print(mat)
-
-        # get the pose of the camera frame relative to the world frame
-        #pose=transform_to_pose(mat)
-        #print(pose)
-
-        # publish pose of the camera frame
-        #pub_pose.publish(pose)
 
         # we should expect to go through the loop 10 times per second
         rate.sleep()
-
-        # publish transform for the following coordinate frames: target, camera and world
-        #publish_transforms(br)
-
 
         print('\ncounter:',counter,'\n')
 

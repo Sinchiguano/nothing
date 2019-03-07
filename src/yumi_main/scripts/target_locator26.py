@@ -57,26 +57,27 @@ def publish_transforms(br):
     global position_
 
 
-    t0 = geometry_msgs.msg.TransformStamped()
-    t0.header.stamp = rospy.Time.now()
-    t0.header.frame_id = "world"
-    t0.child_frame_id = "panda_link0"
-    t0.transform.translation.x = 0.0
-    t0.transform.translation.y = 0.0
-    t0.transform.translation.z = 0.0
-
-    tmp_rot=np.array([[1,0, 0], [0, 1, 0],[0, 0, 1]])
-    tmp_trans=np.array([[0.30],[0],[0] ])
-    myrot =np.hstack((tmp_rot,tmp_trans))
-    myrot=np.vstack((myrot,[0.0,0.0,0.0,1.0]))
-    #print('my rotation: \n {}'.format(myrot) )
-
-    q0 = tf.transformations.quaternion_from_matrix(myrot)
-    t0.transform.rotation.x = q0[0]
-    t0.transform.rotation.y = q0[1]
-    t0.transform.rotation.z = q0[2]
-    t0.transform.rotation.w = q0[3]
-    br.sendTransform(t0)
+    # t0 = geometry_msgs.msg.TransformStamped()
+    # t0.header.stamp = rospy.Time.now()
+    # t0.header.frame_id = "world"
+    # #t0.child_frame_id = "panda_link0"
+    # t0.child_frame_id = "base_link"
+    # t0.transform.translation.x = 0.0
+    # t0.transform.translation.y = 0.0
+    # t0.transform.translation.z = 0.0
+    #
+    # tmp_rot=np.array([[1,0, 0], [0, 1, 0],[0, 0, 1]])
+    # tmp_trans=np.array([[0.30],[0],[0] ])
+    # myrot =np.hstack((tmp_rot,tmp_trans))
+    # myrot=np.vstack((myrot,[0.0,0.0,0.0,1.0]))
+    # #print('my rotation: \n {}'.format(myrot) )
+    #
+    # q0 = tf.transformations.quaternion_from_matrix(myrot)
+    # t0.transform.rotation.x = q0[0]
+    # t0.transform.rotation.y = q0[1]
+    # t0.transform.rotation.z = q0[2]
+    # t0.transform.rotation.w = q0[3]
+    # br.sendTransform(t0)
 
 
     # t1 = geometry_msgs.msg.TransformStamped()
@@ -122,7 +123,7 @@ def publish_transforms(br):
     t2.child_frame_id = "camera_link"
     t2.transform.translation.x = 1.0*position_[0]
     t2.transform.translation.y = 1.0*position_[1]
-    t2.transform.translation.z = 0.80*position_[2]
+    t2.transform.translation.z = 0.85*position_[2]
     #orientation according to openCV
     q3 = tf.transformations.quaternion_from_euler(euler_angles_[0],euler_angles_[1],euler_angles_[2])
     #orientation of camera link. which is parallel to world frame
@@ -179,6 +180,18 @@ def draw_show_on_image(frame,axi_imgpts,corners,ret,line_width=2):
     #     idx_as_str = '{}'.format(idx)
     #     text_pos = (corner + np.array([3.5,-7])).astype(int)
     #     cv2.putText(frame, idx_as_str, tuple(text_pos),cv2.FONT_HERSHEY_PLAIN, 1, (0, 0,255))
+    print(axi_imgpts)
+    print()
+
+    text_pos = (axi_imgpts[0].ravel() + np.array([3.5,-7])).astype(int)
+    cv2.putText(frame,'X', tuple(text_pos),cv2.FONT_HERSHEY_PLAIN, 1, (0, 0,255))
+    text_pos = (axi_imgpts[1].ravel() + np.array([3.5,-7])).astype(int)
+    cv2.putText(frame,'Y', tuple(text_pos),cv2.FONT_HERSHEY_PLAIN, 1, (0, 0,255))
+    text_pos = (axi_imgpts[2].ravel() + np.array([3.5,-7])).astype(int)
+    cv2.putText(frame,'Z', tuple(text_pos),cv2.FONT_HERSHEY_PLAIN, 1, (0, 0,255))
+
+    text_pos = (axi_imgpts[3].ravel() + np.array([0,-100])).astype(int)
+    cv2.putText(frame,'1unit=2cm', tuple(text_pos),cv2.FONT_HERSHEY_PLAIN, 1, (0, 0,255))
 
     # Display the resulting frame
     cv2.imshow('Target locator',frame)
@@ -212,9 +225,11 @@ def locate_target_orientation(frame,ret, corners):
 
 
     # World coordinates system
-    axis = np.float32([[0.07,0,0],[0,0.07,0],[0,0,0.07],[0,0,0]])
+    axis = np.float32([[0.10,0,0],[0,0.10,0],[0,0,0.10],[0,0,0]])
     axis_imgpts, jacobian = cv2.projectPoints(axis, rotation_vector, translation_vector,cameraMatrix_ar, distCoef_ar)
-
+    print('coordinates syste in camera image')
+    print('axi_imgpts: ',axis_imgpts)
+    print('\n')
     # Rotation_vector into rotation_matrix
     rvec_matrix = cv2.Rodrigues(rotation_vector)[0]
 
@@ -242,9 +257,9 @@ def main():
 
         # Capture frame-by-frame
 
-        frame=cv2.imread('temp2.jpg')
+        #frame=cv2.imread('temp2.jpg')
 
-        #frame=camObj.get_image()
+        frame=camObj.get_image()
         #frame = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
         #print(type(frame))
