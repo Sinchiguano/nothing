@@ -123,7 +123,7 @@ def publish_transforms(br):
     t2.child_frame_id = "camera_link"
     t2.transform.translation.x = 1.0*position_[0]
     t2.transform.translation.y = 1.0*position_[1]
-    t2.transform.translation.z = 0.85*position_[2]
+    t2.transform.translation.z = 1.0*position_[2]
     #orientation according to openCV
     q3 = tf.transformations.quaternion_from_euler(euler_angles_[0],euler_angles_[1],euler_angles_[2])
     #orientation of camera link. which is parallel to world frame
@@ -257,9 +257,8 @@ def main():
 
         # Capture frame-by-frame
 
-        #frame=cv2.imread('temp2.jpg')
-
-        frame=camObj.get_image()
+        frame=cv2.imread('temp2.jpg')
+        #frame=camObj.get_image()
         #frame = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
         #print(type(frame))
