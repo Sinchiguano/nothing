@@ -259,7 +259,6 @@ def main():
 
         frame=cv2.imread('temp2.jpg')
         #frame=camObj.get_image()
-        #frame = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
         #print(type(frame))
         if frame is None:

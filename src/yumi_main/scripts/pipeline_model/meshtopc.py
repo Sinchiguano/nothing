@@ -27,6 +27,10 @@ from pyntcloud import PyntCloud
 meshtopcd="rightFace_m.ply"
 output_="rightFace_m_down"
 
+meshtopcd="relay_m.ply"
+output_="relay_m_down"
+
+
 # meshtopcd="rightFace45position_m.ply"
 # output_="rightFace45position_render"
 

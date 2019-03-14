@@ -37,16 +37,16 @@ def do_pointcloud(frame,pc,counter):
     write_point_cloud(tmp+'.ply', pcd)
     cv2.imwrite(tmp+'.jpg', frame)
 
-    t_ = np.asarray([[0.01329691,  0.81253459, -0.5827613, 0.52167439],
-                    [0.9992968,  -0.03123286, -0.02074644, 0.08662894],
-                    [-0.0350585,  -0.58207564, -0.81237852, 0.63682005],
-                    [0.0, 0.0, 0.0, 1.0]])
-    target = read_point_cloud(tmp+'.pcd')
-    #draw_geometries([target])
-    target.transform(t_)
-    write_point_cloud(tmp+'base_link'+'.pcd', pcd)
-    write_point_cloud(tmp+'base_link'+'.ply', pcd)
-    #draw_geometries([target])
+    # t_ = np.asarray([[0.01329691,  0.81253459, -0.5827613, 0.52167439],
+    #                 [0.9992968,  -0.03123286, -0.02074644, 0.08662894],
+    #                 [-0.0350585,  -0.58207564, -0.81237852, 0.63682005],
+    #                 [0.0, 0.0, 0.0, 1.0]])
+    # target = read_point_cloud(tmp+'.pcd')
+    # target.transform(t_)
+
+    # write_point_cloud(tmp+'base_link'+'.pcd', pcd)
+    # write_point_cloud(tmp+'base_link'+'.ply', pcd)
+    # draw_geometries([target])
 
 
     return pcl.load(tmp+'base_link'+'.pcd')
@@ -74,12 +74,12 @@ def do_vector3d(pc):
 def do_dataset(source,target):
     '''Preprocessing step'''
     print("Downsample the point cloud and get features with FPFH")
-    source_down, source_fpfh = do_preprocessing_pcd(source, 0.008)#in mm
+    source_down, source_fpfh = do_preprocessing_pcd(source, 0.02)#in mm
     tmp_source=np.asarray(source_down.points)
     print('shape:',tmp_source.shape)
 
     print("Downsample the point cloud and get features with FPFH")
-    target_down, target_fpfh = do_preprocessing_pcd(target, 0.002)#good tunning
+    target_down, target_fpfh = do_preprocessing_pcd(target, 0.02)#good tunning
     tmp_target=np.asarray(target_down.points)
     print('shape:',tmp_target.shape)
 
@@ -90,11 +90,11 @@ def do_preprocessing_pcd(pcd, voxel_size):
     pcd_down = voxel_down_sample(pcd, voxel_size)
 
     '''Estimate normals'''
-    radius_normal = voxel_size * 5
+    radius_normal = voxel_size * 6
     estimate_normals(pcd_down, KDTreeSearchParamHybrid(radius = radius_normal, max_nn = 30))
 
     '''Fast Point Feature Histograms'''
-    radius_feature = voxel_size * 5
+    radius_feature = voxel_size * 6
     pcd_fpfh = compute_fpfh_feature(pcd_down,KDTreeSearchParamHybrid(radius = radius_feature, max_nn = 100))
 
     return pcd_down, pcd_fpfh
@@ -118,12 +118,12 @@ def do_icp_registration(source, target, transformation):
 
 
     '''Point-to-plane ICP registration is applied on original points'''
-    # estimate_normals(source, KDTreeSearchParamHybrid(radius = 0.01, max_nn = 20))
-    # estimate_normals(target, KDTreeSearchParamHybrid(radius = 0.01, max_nn = 20))
+    estimate_normals(source, KDTreeSearchParamHybrid(radius = 0.01, max_nn = 20))
+    estimate_normals(target, KDTreeSearchParamHybrid(radius = 0.01, max_nn = 20))
     threshold = 0.005
-    #result = registration_icp(source, target, threshold,transformation,TransformationEstimationPointToPlane())
+    result = registration_icp(source, target, threshold,transformation,TransformationEstimationPointToPlane())
     #point to point registration!!!
-    result = registration_icp(source, target, threshold, transformation,TransformationEstimationPointToPoint())
+    #result = registration_icp(source, target, threshold, transformation,TransformationEstimationPointToPoint())
 
     return result
 
@@ -244,7 +244,7 @@ def main():
 
 
             #The source is my CAD model that already mathed into the world coordinate system
-            source=read_point_cloud(model_path+'rightFace_m_down.pcd')
+            source=read_point_cloud(model_path+'relay_m_down.pcd')
             #The target cloud is in camera frame, so we do have to map into the world frame by using the T: W -> C
             target=read_point_cloud(cloud_path+'objects_'+str(counter2)+'.pcd')
             draw_geometries([source,target])

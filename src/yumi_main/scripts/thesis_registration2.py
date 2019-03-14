@@ -28,7 +28,7 @@ def do_dataset(source,target):
     global voxel_size
 
     print("Downsample the point cloud and get features with FPFH")
-    source_down, source_fpfh = do_preprocessing_pcd(source, 0.005)#1mm
+    source_down, source_fpfh = do_preprocessing_pcd(source, 0.05)#1mm
     tmp_source=np.asarray(source_down.points)
     print('shape:',tmp_source.shape)
 
@@ -131,6 +131,8 @@ def main():
         #     draw_geometries([viewpoint_cloud])
         #exit(0)
         #LOADING A PAIR OF POINT CLOUD
+        
+        #tmp1=read_point_cloud('pipeline_model/rightFace_m_down.pcd')
         tmp1=pcd_[0]
         tmp2=pcd_[1]
         #draw_geometries([tmp1,tmp2])
