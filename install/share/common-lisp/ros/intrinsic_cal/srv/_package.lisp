@@ -1,0 +1,15 @@
+(cl:defpackage intrinsic_cal-srv
+  (:use )
+  (:export
+   "RAIL_ICAL_RUN"
+   "<RAIL_ICAL_RUN-REQUEST>"
+   "RAIL_ICAL_RUN-REQUEST"
+   "<RAIL_ICAL_RUN-RESPONSE>"
+   "RAIL_ICAL_RUN-RESPONSE"
+   "RAIL_SCAL_RUN"
+   "<RAIL_SCAL_RUN-REQUEST>"
+   "RAIL_SCAL_RUN-REQUEST"
+   "<RAIL_SCAL_RUN-RESPONSE>"
+   "RAIL_SCAL_RUN-RESPONSE"
+  ))
+

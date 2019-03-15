@@ -1,0 +1,8 @@
+prefix=/home/sinchiguano/yumi_depends_ws/install
+
+Name: rgbd_depth_correction
+Description: Description of rgbd_depth_correction
+Version: 0.1.0
+Cflags: -I/usr/include -I/usr/include/eigen3
+Libs: -L/home/sinchiguano/yumi_depends_ws/install/lib /usr/lib/x86_64-linux-gnu/libboost_thread.so /usr/lib/x86_64-linux-gnu/libboost_chrono.so /usr/lib/x86_64-linux-gnu/libboost_system.so /usr/lib/x86_64-linux-gnu/libboost_date_time.so /usr/lib/x86_64-linux-gnu/libboost_atomic.so /usr/lib/x86_64-linux-gnu/libpthread.so /usr/lib/libceres.so.1.12.0
+Requires: cv_bridge geometry_msgs industrial_extrinsic_cal message_filters nodelet pcl_conversions pcl_msgs pcl_ros pluginlib roscpp sensor_msgs std_srvs target_finder tf tf_conversions

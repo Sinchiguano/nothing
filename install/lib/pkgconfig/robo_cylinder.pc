@@ -1,0 +1,8 @@
+prefix=/home/sinchiguano/yumi_depends_ws/install
+
+Name: robo_cylinder
+Description: Description of robo_cylinder
+Version: 0.0.0
+Cflags: -I/home/sinchiguano/yumi_depends_ws/install/include
+Libs: -L/home/sinchiguano/yumi_depends_ws/install/lib 
+Requires: roscpp rospy std_msgs message_runtime

@@ -1,0 +1,8 @@
+prefix=/home/sinchiguano/yumi_depends_ws/install
+
+Name: calibration_guis
+Description: Description of calibration_guis
+Version: 0.1.0
+Cflags: 
+Libs: -L/home/sinchiguano/yumi_depends_ws/install/lib 
+Requires: 

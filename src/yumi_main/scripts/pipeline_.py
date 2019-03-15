@@ -32,22 +32,10 @@ def do_pointcloud(frame,pc,counter):
 
     #we save the pcd in the following formats pcd and ply, and we save a rgb image for visualization purpose
     tmp=cloud_path+'pointcloud'+str(counter)
-
-    write_point_cloud(tmp+'.pcd', pcd)
-    write_point_cloud(tmp+'.ply', pcd)
     cv2.imwrite(tmp+'.jpg', frame)
 
-    # t_ = np.asarray([[0.01329691,  0.81253459, -0.5827613, 0.52167439],
-    #                 [0.9992968,  -0.03123286, -0.02074644, 0.08662894],
-    #                 [-0.0350585,  -0.58207564, -0.81237852, 0.63682005],
-    #                 [0.0, 0.0, 0.0, 1.0]])
-    # target = read_point_cloud(tmp+'.pcd')
-    # target.transform(t_)
-
-    # write_point_cloud(tmp+'base_link'+'.pcd', pcd)
-    # write_point_cloud(tmp+'base_link'+'.ply', pcd)
-    # draw_geometries([target])
-
+    write_point_cloud(tmp+'base_link'+'.pcd', pcd)
+    write_point_cloud(tmp+'base_link'+'.ply', pcd)
 
     return pcl.load(tmp+'base_link'+'.pcd')
 
@@ -64,12 +52,20 @@ def do_vector3d(pc):
     start_timer=time.time()
     pcd.points = Vector3dVector(pc)
     # Flip it, otherwise the pointcloud will be upside down
-    #print("Load a pcd point cloud, and flip it!!!")
-    #pcd.transform([[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]])
+    # print("Load a pcd point cloud, and flip it!!!")
+    # pcd.transform([[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]])
+    # pcd.transform([[-0.02009931,  0.80922057, -0.58716104,  0.52340881],
+    #                 [ 0.99936467, -0.00102757, -0.03562578,  0.07618997],
+    #                 [-0.02943246, -0.58750405, -0.8086858,   0.64177633],
+    #                 [0.0, 0.0, 0.0, 1.0]])
+    pcd.transform([[-0.02009931,  0.80922057, -0.58716104,  0.52340881],
+                    [ 0.99936467, -0.00102757, -0.03562578,  0.07618997],
+                    [-0.02943246, -0.58750405, -0.8086858,  0.64177633],
+                    [0.0, 0.0, 0.0, 1.0]])
+
     #print('elapsed time:',time.time()-start_timer)
 
     return pcd
-
 
 def do_dataset(source,target):
     '''Preprocessing step'''

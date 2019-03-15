@@ -6,6 +6,7 @@
 #
 # Distributed under terms of the BSD license.
 
+
 from thesis_library import *
 import pcl
 
@@ -14,14 +15,23 @@ class camera(object):
     def __init__(self):
         # In ROS, nodes are uniquely named.
         rospy.init_node('camera', anonymous=True)
-        #Subscriber to the rgb, rgbd, point cloud data and informations of the first two of them...
-        rospy.Subscriber('/camera/rgb/image_raw', Image, self.callback_rgb)
-        rospy.Subscriber('/camera/depth/image_raw', Image, self.callback_depth)
 
+        #Astra camera
+        # #Subscriber to the rgb, rgbd, point cloud data and informations of the first two of them...
+        # rospy.Subscriber('/camera/rgb/image_raw', Image, self.callback_rgb)
+        # rospy.Subscriber('/camera/depth/image_raw', Image, self.callback_depth)
+        # #rospy.Subscriber('/camera/depth/camera_info', CameraInfo,self.infoDepthCallback)
+        # #rospy.Subscriber('/camera/rgb/camera_info', CameraInfo,self.infoColorCallback)
+        # rospy.Subscriber('/camera/depth_registered/points', PointCloud2, self.callback_pointCloud)
+
+        #Real sense camera
+        #Subscriber to the rgb, rgbd, point cloud data and informations of the first two of them...
+        rospy.Subscriber('/camera/color/image_raw', Image, self.callback_rgb)
+        rospy.Subscriber('/camera/depth/image_rect_raw', Image, self.callback_depth)
         #rospy.Subscriber('/camera/depth/camera_info', CameraInfo,self.infoDepthCallback)
         #rospy.Subscriber('/camera/rgb/camera_info', CameraInfo,self.infoColorCallback)
+        rospy.Subscriber('/camera/depth/color/points', PointCloud2, self.callback_pointCloud)
 
-        rospy.Subscriber('/camera/depth_registered/points', PointCloud2, self.callback_pointCloud)
 
         self.cv_image1=None
         self.cv_image2=None
@@ -76,4 +86,3 @@ class camera(object):
         return self.cv_image2
     def get_point_cloud(self):
         return self.pc
-

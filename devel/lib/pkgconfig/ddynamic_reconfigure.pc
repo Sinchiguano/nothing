@@ -1,0 +1,8 @@
+prefix=/home/sinchiguano/yumi_depends_ws/devel
+
+Name: ddynamic_reconfigure
+Description: Description of ddynamic_reconfigure
+Version: 0.0.6
+Cflags: -I/home/sinchiguano/yumi_depends_ws/devel/include -I/home/sinchiguano/yumi_depends_ws/src/realsense-2.2.0/ddynamic_reconfigure/include
+Libs: -L/home/sinchiguano/yumi_depends_ws/devel/lib -lddynamic_reconfigure
+Requires: 

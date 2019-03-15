@@ -163,8 +163,15 @@ def print_information(rotation_vector,translation_vector,rvec_matrix):
     print(rvec_matrix.T)
     print("===camera translation_vector:")
     print(-np.dot(rvec_matrix.T, translation_vector))
+
+    r_matrix=rvec_matrix.T
+    t_position=-np.dot(rvec_matrix.T, translation_vector)
     print('euler_angles inv roll_,pitch_,yaw:  \n',euler_angles_)
     print(euler_angles_[0]* 180 / math.pi,euler_angles_[1]* 180 / math.pi,euler_angles_[2]* 180 / math.pi)
+    mat =np.hstack((r_matrix,t_position))
+    mat=np.vstack((mat,[0.0,0.0,0.0,1.0]))
+    print('transform world->camera:')
+    print(mat)
 
 
     print('\n\n-----------------------------------------------------')

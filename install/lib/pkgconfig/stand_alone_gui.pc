@@ -1,0 +1,8 @@
+prefix=/home/sinchiguano/yumi_depends_ws/install
+
+Name: stand_alone_gui
+Description: Description of stand_alone_gui
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/sinchiguano/yumi_depends_ws/install/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/sinchiguano/yumi_depends_ws/install
+
+Name: ur_e_description
+Description: Description of ur_e_description
+Version: 1.2.1
+Cflags: 
+Libs: -L/home/sinchiguano/yumi_depends_ws/install/lib 
+Requires: 

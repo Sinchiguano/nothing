@@ -1,0 +1,39 @@
+---
+reference_frame: world_frame
+scenes:
+-
+     scene_id: 0
+     trigger_type: 1
+     #trigger: NO_WAIT_TRIGGER
+     observations:
+     -
+          camera: astra1
+          target: CircleGrid
+          roi_x_min: 0
+          roi_x_max: 640
+          roi_y_min: 0
+          roi_y_max: 480
+          cost_type: FixedCircleTargetCameraReprjErrorPK
+
+-
+     scene_id: 1
+     trigger_type: 1
+     #trigger: NO_WAIT_TRIGGER
+     observations:
+     -
+          camera: astra2
+          target: CircleGrid
+          roi_x_min: 0
+          roi_x_max: 640
+          roi_y_min: 0
+          roi_y_max: 480
+          cost_type: FixedCircleTargetCameraReprjErrorPK
+
+
+optimization_parameters: xx
+#cost_type: FixedCircleTargetCameraReprjErrorPK
+#Each observation in our scene consists of one camera, one target, and a region of interest.
+
+#The selection of the appropriate cost type
+#is the most difficult concept contained in this tutorial.
+#In this case, we have a circle target in a fixed location who's points are in known locations relative to the target frame, and we are projecting the points into the camera's frame without a distortion model.
