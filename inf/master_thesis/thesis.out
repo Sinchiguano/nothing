@@ -3,12 +3,31 @@
 \BOOKMARK [1][-]{section.1.2}{Goal}{chapter.1}% 3
 \BOOKMARK [1][-]{section.1.3}{Thesis structure}{chapter.1}% 4
 \BOOKMARK [0][-]{chapter.2}{Background}{}% 5
-\BOOKMARK [1][-]{section.2.1}{ Camera Pinhole Model}{chapter.2}% 6
-\BOOKMARK [2][-]{subsection.2.1.1}{Parameters of camera model}{section.2.1}% 7
-\BOOKMARK [2][-]{subsection.2.1.2}{Camera's Intrinsic Parameters}{section.2.1}% 8
-\BOOKMARK [2][-]{subsection.2.1.3}{Camera's Extrinsic Parameters}{section.2.1}% 9
-\BOOKMARK [1][-]{section.2.2}{Point Cloud}{chapter.2}% 10
-\BOOKMARK [1][-]{section.2.3}{Robotic Operating System}{chapter.2}% 11
-\BOOKMARK [1][-]{section.2.4}{PCL}{chapter.2}% 12
-\BOOKMARK [1][-]{section.2.5}{Open3D}{chapter.2}% 13
-\BOOKMARK [0][-]{chapter*.5}{Bibliography}{}% 14
+\BOOKMARK [1][-]{section.2.1}{ RGB-D sensors}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.2}{ Camera Pinhole Model}{chapter.2}% 7
+\BOOKMARK [2][-]{subsection.2.2.1}{Parameters of camera model}{section.2.2}% 8
+\BOOKMARK [2][-]{subsection.2.2.2}{Camera's Intrinsic Parameters}{section.2.2}% 9
+\BOOKMARK [2][-]{subsection.2.2.3}{Camera's Extrinsic Parameters}{section.2.2}% 10
+\BOOKMARK [1][-]{section.2.3}{Point Cloud}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.4}{Robotic Operating System}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.5}{PCL}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.6}{Open3D}{chapter.2}% 14
+\BOOKMARK [1][-]{section.2.7}{Tools for 3D data}{chapter.2}% 15
+\BOOKMARK [2][-]{subsection.2.7.1}{CloudCompare}{section.2.7}% 16
+\BOOKMARK [2][-]{subsection.2.7.2}{MeshLab}{section.2.7}% 17
+\BOOKMARK [2][-]{subsection.2.7.3}{FreeCAD}{section.2.7}% 18
+\BOOKMARK [0][-]{chapter.3}{Theory}{}% 19
+\BOOKMARK [1][-]{section.3.1}{ RGB-D sensors}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.2}{ Camera Pinhole Model}{chapter.3}% 21
+\BOOKMARK [2][-]{subsection.3.2.1}{Parameters of camera model}{section.3.2}% 22
+\BOOKMARK [2][-]{subsection.3.2.2}{Camera's Intrinsic Parameters}{section.3.2}% 23
+\BOOKMARK [2][-]{subsection.3.2.3}{Camera's Extrinsic Parameters}{section.3.2}% 24
+\BOOKMARK [1][-]{section.3.3}{Point Cloud}{chapter.3}% 25
+\BOOKMARK [1][-]{section.3.4}{Robotic Operating System}{chapter.3}% 26
+\BOOKMARK [1][-]{section.3.5}{PCL}{chapter.3}% 27
+\BOOKMARK [1][-]{section.3.6}{Open3D}{chapter.3}% 28
+\BOOKMARK [1][-]{section.3.7}{Tools for 3D data}{chapter.3}% 29
+\BOOKMARK [2][-]{subsection.3.7.1}{CloudCompare}{section.3.7}% 30
+\BOOKMARK [2][-]{subsection.3.7.2}{MeshLab}{section.3.7}% 31
+\BOOKMARK [2][-]{subsection.3.7.3}{FreeCAD}{section.3.7}% 32
+\BOOKMARK [0][-]{chapter*.5}{Bibliography}{}% 33

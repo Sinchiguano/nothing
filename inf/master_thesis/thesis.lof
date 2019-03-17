@@ -17,9 +17,24 @@
 \select@language {english}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Overview of a Pinhole camera geometry (from Camera Calibration and 3D Reconstruction, openCV)\relax }}{3}{figure.2.1}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Overview of the transformation between the focal plane and the image plane\relax }}{4}{figure.2.2}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Overview of a world coordinate system and camera coordinate system\relax }}{5}{figure.2.3}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Overview of a point cloud (from MathWorks documentation)\relax }}{5}{figure.2.4}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces A ROS Overview\relax }}{6}{figure.2.5}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces An example of the PCL implementation pipeline for Fast Point Feature Histogram (FPFH) \cite {fpfh} estimation.\relax }}{7}{figure.2.6}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces RGB-D sensor(from Astra Orbbec documentation))\relax }}{3}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces View of a Pinhole camera geometry (from Camera Calibration and 3D Reconstruction, openCV)\relax }}{4}{figure.2.2}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Overview of the transformation between the focal plane and the image plane\relax }}{5}{figure.2.3}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Overview of a world coordinate system and camera coordinate system\relax }}{5}{figure.2.4}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Overview of a point cloud (from MathWorks documentation)\relax }}{6}{figure.2.5}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces A ROS Overview\relax }}{6}{figure.2.6}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces An example of the PCL implementation pipeline for Fast Point Feature Histogram (FPFH) \cite {fpfh} estimation.\relax }}{7}{figure.2.7}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces CloudCompare (view, edit and process).\relax }}{8}{figure.2.8}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces MeshLab (view, edit and process).\relax }}{9}{figure.2.9}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces A view of the FreeCAD interface.\relax }}{9}{figure.2.10}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces RGB-D sensor(from Astra Orbbec documentation))\relax }}{11}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces View of a Pinhole camera geometry (from Camera Calibration and 3D Reconstruction, openCV)\relax }}{12}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Overview of the transformation between the focal plane and the image plane\relax }}{13}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Overview of a world coordinate system and camera coordinate system\relax }}{13}{figure.3.4}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Overview of a point cloud (from MathWorks documentation)\relax }}{14}{figure.3.5}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces A ROS Overview\relax }}{14}{figure.3.6}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces An example of the PCL implementation pipeline for Fast Point Feature Histogram (FPFH) \cite {fpfh} estimation.\relax }}{15}{figure.3.7}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces CloudCompare (view, edit and process).\relax }}{16}{figure.3.8}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces MeshLab (view, edit and process).\relax }}{17}{figure.3.9}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces A view of the FreeCAD interface.\relax }}{17}{figure.3.10}

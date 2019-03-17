@@ -1,0 +1,10 @@
+\begin{comment}
+\begin{figure}
+    \centering
+    \subfloat[Astra Orbbec]{{\includegraphics[width=5cm]{figures02/astraorbbec.jpg}}}%
+    \qquad
+    \subfloat[Real Sense]{{\includegraphics[width=5cm]{figures02/realsense.jpeg} }}%
+    \caption{View of both RGB-D sensors}%
+    %\label{fig:example}%
+\end{figure}
+\end{comment}

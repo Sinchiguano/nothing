@@ -24,12 +24,31 @@
 \contentsline {section}{\numberline {1.2}Goal}{1}{section.1.2}
 \contentsline {section}{\numberline {1.3}Thesis structure}{2}{section.1.3}
 \contentsline {chapter}{\numberline {2}Background}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1} Camera Pinhole Model}{3}{section.2.1}
-\contentsline {subsection}{\numberline {2.1.1}Parameters of camera model}{3}{subsection.2.1.1}
-\contentsline {subsection}{\numberline {2.1.2}Camera's Intrinsic Parameters}{4}{subsection.2.1.2}
-\contentsline {subsection}{\numberline {2.1.3}Camera's Extrinsic Parameters}{4}{subsection.2.1.3}
-\contentsline {section}{\numberline {2.2}Point Cloud}{5}{section.2.2}
-\contentsline {section}{\numberline {2.3}Robotic Operating System}{5}{section.2.3}
-\contentsline {section}{\numberline {2.4}PCL}{6}{section.2.4}
-\contentsline {section}{\numberline {2.5}Open3D}{7}{section.2.5}
-\contentsline {chapter}{Bibliography}{9}{chapter*.5}
+\contentsline {section}{\numberline {2.1} RGB-D sensors}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2} Camera Pinhole Model}{3}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Parameters of camera model}{4}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Camera's Intrinsic Parameters}{4}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Camera's Extrinsic Parameters}{4}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Point Cloud}{5}{section.2.3}
+\contentsline {section}{\numberline {2.4}Robotic Operating System}{6}{section.2.4}
+\contentsline {section}{\numberline {2.5}PCL}{6}{section.2.5}
+\contentsline {section}{\numberline {2.6}Open3D}{7}{section.2.6}
+\contentsline {section}{\numberline {2.7}Tools for 3D data}{8}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}CloudCompare}{8}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}MeshLab}{8}{subsection.2.7.2}
+\contentsline {subsection}{\numberline {2.7.3}FreeCAD}{8}{subsection.2.7.3}
+\contentsline {chapter}{\numberline {3}Theory}{11}{chapter.3}
+\contentsline {section}{\numberline {3.1} RGB-D sensors}{11}{section.3.1}
+\contentsline {section}{\numberline {3.2} Camera Pinhole Model}{11}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Parameters of camera model}{12}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Camera's Intrinsic Parameters}{12}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Camera's Extrinsic Parameters}{12}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Point Cloud}{13}{section.3.3}
+\contentsline {section}{\numberline {3.4}Robotic Operating System}{14}{section.3.4}
+\contentsline {section}{\numberline {3.5}PCL}{14}{section.3.5}
+\contentsline {section}{\numberline {3.6}Open3D}{15}{section.3.6}
+\contentsline {section}{\numberline {3.7}Tools for 3D data}{16}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}CloudCompare}{16}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}MeshLab}{16}{subsection.3.7.2}
+\contentsline {subsection}{\numberline {3.7.3}FreeCAD}{16}{subsection.3.7.3}
+\contentsline {chapter}{Bibliography}{19}{chapter*.5}
