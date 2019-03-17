@@ -17,4 +17,9 @@
 \select@language {english}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces A ROS Overview\relax }}{3}{figure.2.1}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Overview of a Pinhole camera geometry (from Camera Calibration and 3D Reconstruction, openCV)\relax }}{3}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Overview of the transformation between the focal plane and the image plane\relax }}{4}{figure.2.2}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Overview of a world coordinate system and camera coordinate system\relax }}{5}{figure.2.3}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Overview of a point cloud (from MathWorks documentation)\relax }}{5}{figure.2.4}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces A ROS Overview\relax }}{6}{figure.2.5}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces An example of the PCL implementation pipeline for Fast Point Feature Histogram (FPFH) \cite {fpfh} estimation.\relax }}{7}{figure.2.6}

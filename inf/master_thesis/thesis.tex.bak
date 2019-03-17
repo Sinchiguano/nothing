@@ -55,7 +55,8 @@ Práce je zaměřena na implementaci algoritmu pro lokalizaci známých částí
 \usepackage{import}
 %\usepackage{biblatex}
 %\addbibresource{mybib.bib}
-
+%for graphics
+\usepackage{graphicx}
 
 
 %//////////////_START BODY_////////////////////////

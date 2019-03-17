@@ -12,7 +12,7 @@ There are many lens models but Pinhole camera is used in this thesis. Pinhole ca
  
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=2in]{figures02/pinhole_camera_model.png}
+\includegraphics[width=2in]{figure02/pinhole_camera_model.png}
 \caption{Overview of a Pinhole camera geometry (from Camera Calibration and 3D Reconstruction, openCV)}%\cite{temp2}}
 \end{center}
 %\label{fig2:mypicture3}
@@ -62,7 +62,7 @@ the points in the image plane into pixels, see Figure \cite{mypicture3}.
 
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=2in]{figures02/intrinsic.png}
+\includegraphics[width=2in]{figure02/intrinsic.png}
 \caption{Overview of the transformation between the focal plane and the image plane}%\cite{temp2}}
 \end{center}
 \label{fig2:mypicture3}
@@ -82,7 +82,7 @@ Where I is the identity matrix. The matrix \textbf{R} and the vector \textbf{t} 
 
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=2in]{figures02/extrinsic.png}
+\includegraphics[width=2in]{figure02/extrinsic.png}
 \caption{Overview of a world coordinate system and camera coordinate system}%\cite{temp2}}
 \end{center}
 %\label{fig2:mypicture3}
@@ -103,7 +103,7 @@ $$ P_{c}=\left[\textbf{R} \textbf{t}\right]\left[\frac{P_{w}}{1}\right]$$
 
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=2in]{figures02/pcd.png}
+\includegraphics[width=2in]{figure02/pcd.png}
 \caption{Overview of a point cloud (from MathWorks documentation)}%\cite{temp2}}
 \end{center}
 \label{fig2:mypicture3}
@@ -117,7 +117,7 @@ For this thesis The Robotic Operating System (ROS) is used as main platform. In 
 
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=2in]{figures02/ros_workflows.png}
+\includegraphics[width=2in]{figure02/ros_workflows.png}
 \caption{A ROS Overview}%\cite{temp2}}
 \end{center}
 %\label{fig2:mypicture3}
@@ -146,7 +146,7 @@ For different processing steps, a Python bindings for the Point Cloud Library (P
 
 \begin{figure}[!h]
 \begin{center}
-\includegraphics[width=2in]{figures02/pcl1.png}
+\includegraphics[width=2in]{figure02/pcl1.png}
 \caption{An  example  of  the  PCL  implementation  pipeline  for  Fast  Point Feature Histogram (FPFH) \cite{fpfh} estimation.}
 \end{center}
 %\label{fig2:mypicture3}

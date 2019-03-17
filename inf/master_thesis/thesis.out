@@ -3,5 +3,12 @@
 \BOOKMARK [1][-]{section.1.2}{Goal}{chapter.1}% 3
 \BOOKMARK [1][-]{section.1.3}{Thesis structure}{chapter.1}% 4
 \BOOKMARK [0][-]{chapter.2}{Background}{}% 5
-\BOOKMARK [1][-]{section.2.1}{ROS: Robotic Operating System}{chapter.2}% 6
-\BOOKMARK [0][-]{chapter*.5}{Bibliography}{}% 7
+\BOOKMARK [1][-]{section.2.1}{ Camera Pinhole Model}{chapter.2}% 6
+\BOOKMARK [2][-]{subsection.2.1.1}{Parameters of camera model}{section.2.1}% 7
+\BOOKMARK [2][-]{subsection.2.1.2}{Camera's Intrinsic Parameters}{section.2.1}% 8
+\BOOKMARK [2][-]{subsection.2.1.3}{Camera's Extrinsic Parameters}{section.2.1}% 9
+\BOOKMARK [1][-]{section.2.2}{Point Cloud}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.3}{Robotic Operating System}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.4}{PCL}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.5}{Open3D}{chapter.2}% 13
+\BOOKMARK [0][-]{chapter*.5}{Bibliography}{}% 14
