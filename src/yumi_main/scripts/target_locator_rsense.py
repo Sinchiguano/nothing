@@ -188,8 +188,8 @@ def draw_show_on_image(frame,axi_imgpts,corners,ret,line_width=2):
     #     idx_as_str = '{}'.format(idx)
     #     text_pos = (corner + np.array([3.5,-7])).astype(int)
     #     cv2.putText(frame, idx_as_str, tuple(text_pos),cv2.FONT_HERSHEY_PLAIN, 1, (0, 0,255))
-    print(axi_imgpts)
-    print()
+    #print(axi_imgpts)
+    #print()
 
     text_pos = (axi_imgpts[0].ravel() + np.array([3.5,-7])).astype(int)
     cv2.putText(frame,'X', tuple(text_pos),cv2.FONT_HERSHEY_PLAIN, 1, (0, 0,255))
@@ -216,12 +216,15 @@ def locate_target_orientation(frame,ret, corners):
 
     # Camera internals
     #Intrinsic parameters===>>> from the intrinsic calibration!!!!
-    list_matrix=[529.3652640113527, 0, 310.3141830332983, 0, 540.6164768242445, 220.3657848482968, 0, 0, 1]
+    list_matrix=[616.5322265625, 0, 323.4304504394531, 0, 616.58984375, 233.87391662597656, 0, 0, 1]
     cameraMatrix_ar=np.asarray(list_matrix).reshape(3,3)
     # print(cameraMatrix_ar.shape)
     # print(cameraMatrix_ar)
     # print(cameraMatrix_ar[1,:])
 
+
+
+    #distCoef=[0.0, 0.0, 0.0, 0.0, 0,0]
     distCoef=[0.1852661379687586, -0.264551739977949, -0.03684812841833995, 0.0009882520270208214, 0]
     distCoef_ar=np.asarray(distCoef).reshape(len(distCoef),1)
     # print(distCoef_ar)
@@ -265,8 +268,8 @@ def main():
 
         # Capture frame-by-frame
 
-        frame=cv2.imread('temp3.jpg')
-        #frame=camObj.get_image()
+        #frame=cv2.imread('temp3.jpg')
+        frame=camObj.get_image()
 
         #print(type(frame))
         if frame is None:
