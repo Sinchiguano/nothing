@@ -30,6 +30,18 @@ import glob
 
 path_images='images_realsense/'
 
+calibration_data = np.load('images_realsense/calibration.npy')
+mtx = calibration_data[0]
+dist = calibration_data[1]
+rvecs = calibration_data[2][1]
+tvecs = calibration_data[3][1]
+
+print(mtx)
+#print(dist)
+print(rvecs)
+print(tvecs)
+exit(0)
+
 
 def main():
 	# termination criteria

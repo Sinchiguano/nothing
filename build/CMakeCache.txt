@@ -155,6 +155,9 @@ CATKIN_DEVEL_PREFIX:PATH=/home/sinchiguano/yumi_depends_ws/devel
 //Catkin enable testing
 CATKIN_ENABLE_TESTING:BOOL=1
 
+//Prefix to apply to package generated via gendebian
+CATKIN_PACKAGE_PREFIX:STRING=
+
 //Catkin skip testing
 CATKIN_SKIP_TESTING:BOOL=OFF
 
@@ -501,6 +504,12 @@ GTK2_PANGO_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libpango-1.0.so
 
 //Path to a file.
 GTK2_X11_INCLUDE_DIR:PATH=/usr/include
+
+//The directory containing a CMake configuration file for Gflags.
+Gflags_DIR:PATH=/usr/local/lib/cmake/gflags
+
+//The directory containing a CMake configuration file for Glog.
+Glog_DIR:PATH=Glog_DIR-NOTFOUND
 
 //Path to a library.
 LAPACK_Accelerate_LIBRARY:FILEPATH=LAPACK_Accelerate_LIBRARY-NOTFOUND
@@ -1405,6 +1414,9 @@ geometric_shapes_DIR:PATH=/opt/ros/kinetic/share/geometric_shapes/cmake
 //The directory containing a CMake configuration file for geometry_msgs.
 geometry_msgs_DIR:PATH=/opt/ros/kinetic/share/geometry_msgs/cmake
 
+//The directory containing a CMake configuration file for gflags.
+gflags_DIR:PATH=gflags_DIR-NOTFOUND
+
 //Value Computed by CMake
 gmock_BINARY_DIR:STATIC=/home/sinchiguano/yumi_depends_ws/build/gtest
 
@@ -1444,6 +1456,12 @@ gtest_force_shared_crt:BOOL=OFF
 
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
+
+//Value Computed by CMake
+handeye_calib_camodocal_BINARY_DIR:STATIC=/home/sinchiguano/yumi_depends_ws/build/handeye_calib_camodocal
+
+//Value Computed by CMake
+handeye_calib_camodocal_SOURCE_DIR:STATIC=/home/sinchiguano/yumi_depends_ws/src/handeye_calib_camodocal
 
 //The directory containing a CMake configuration file for hardware_interface.
 hardware_interface_DIR:PATH=/opt/ros/kinetic/share/hardware_interface/cmake
@@ -2210,6 +2228,8 @@ CMAKE_C_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
 CMAKE_C_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_C_FLAGS_RELWITHDEBINFO
 CMAKE_C_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+//Path to cache edit program executable.
+CMAKE_EDIT_COMMAND:INTERNAL=/usr/bin/ccmake
 //Executable file format
 CMAKE_EXECUTABLE_FORMAT:INTERNAL=ELF
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS
@@ -2301,6 +2321,10 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Test COMPILER_SUPPORTS_CXX0X
+COMPILER_SUPPORTS_CXX0X:INTERNAL=1
+//Test COMPILER_SUPPORTS_CXX11
+COMPILER_SUPPORTS_CXX11:INTERNAL=1
 //ADVANCED property for variable: EIGEN_INCLUDE_DIR
 EIGEN_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //Details about finding Eigen
@@ -3028,6 +3052,8 @@ __pkg_config_checked_PC_OPENNI:INTERNAL=1
 __pkg_config_checked_PC_OPENNI2:INTERNAL=1
 __pkg_config_checked_PC_USB_10:INTERNAL=1
 __pkg_config_checked_yaml_cpp:INTERNAL=1
+//ADVANCED property for variable: gflags_DIR
+gflags_DIR-ADVANCED:INTERNAL=1
 prefix_result:INTERNAL=/usr/lib
 yaml_cpp_CFLAGS:INTERNAL=
 yaml_cpp_CFLAGS_I:INTERNAL=

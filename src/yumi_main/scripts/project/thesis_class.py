@@ -29,7 +29,7 @@ class camera(object):
         rospy.Subscriber('/camera/color/image_raw', Image, self.callback_rgb)
         rospy.Subscriber('/camera/depth/image_rect_raw', Image, self.callback_depth)
         #rospy.Subscriber('/camera/depth/camera_info', CameraInfo,self.infoDepthCallback)
-        #rospy.Subscriber('/camera/rgb/camera_info', CameraInfo,self.infoColorCallback)
+        #rospy.Subscriber('/camera/color/camera_info', CameraInfo,self.infoColorCallback)
         rospy.Subscriber('/camera/depth/color/points', PointCloud2, self.callback_pointCloud)
 
 
