@@ -16,22 +16,20 @@ class camera(object):
         # In ROS, nodes are uniquely named.
         rospy.init_node('camera', anonymous=True)
 
-        #Astra camera
-        # #Subscriber to the rgb, rgbd, point cloud data and informations of the first two of them...
+        # #Astra camera
         # rospy.Subscriber('/camera/rgb/image_raw', Image, self.callback_rgb)
         # rospy.Subscriber('/camera/depth/image_raw', Image, self.callback_depth)
         # #rospy.Subscriber('/camera/depth/camera_info', CameraInfo,self.infoDepthCallback)
         # #rospy.Subscriber('/camera/rgb/camera_info', CameraInfo,self.infoColorCallback)
         # rospy.Subscriber('/camera/depth_registered/points', PointCloud2, self.callback_pointCloud)
 
-        #Real sense camera
-        #Subscriber to the rgb, rgbd, point cloud data and informations of the first two of them...
-        rospy.Subscriber('/camera/color/image_raw', Image, self.callback_rgb)
-        rospy.Subscriber('/camera/depth/image_rect_raw', Image, self.callback_depth)
-        #rospy.Subscriber('/camera/depth/camera_info', CameraInfo,self.infoDepthCallback)
-        #rospy.Subscriber('/camera/color/camera_info', CameraInfo,self.infoColorCallback)
-        rospy.Subscriber('/camera/depth/color/points', PointCloud2, self.callback_pointCloud)
 
+        # #Real sense camera
+        rospy.Subscriber('/camera/color/image_raw', Image, self.callback_rgb)
+        rospy.Subscriber('/camera/aligned_depth_to_color/image_raw', Image, self.callback_depth)
+        rospy.Subscriber('/camera/depth/color/points', PointCloud2, self.callback_pointCloud)
+        #rospy.Subscriber('/camera/color/camera_info', CameraInfo,self.infoColorCallback)
+        #rospy.Subscriber('/camera/depth/image_rect_raw', CameraInfo, self.callback_depth)
 
         self.cv_image1=None
         self.cv_image2=None
@@ -65,15 +63,21 @@ class camera(object):
         if data is not None:
             #print('there is something at least!!!')
             pts = list(pc2.read_points(data, skip_nans=False, field_names=("x", "y", "z")))
-            #temp = pc2.read_points(data, skip_nans=False, field_names=("x", "y", "z"))
             #print('temp',type(temp))
+            #astra camera
             if len(pts) == 307200:
                 self.pc = np.array(list(pts)).reshape((480,640,3))
-            elif len(pts) == 172800:
-                self.pc = np.array(list(pts)).reshape((360,480,3))
+            else:
+                #just for realsense camera
+                points_list = []
+                for data in pc2.read_points(data, skip_nans=False, field_names=("x", "y", "z")):
+                    points_list.append([data[0], data[1], data[2]])
+
+                pcl_data = pcl.PointCloud_PointXYZ()
+                pcl_data.from_list(points_list)
+                self.pc=pcl_data
         else:
             rospy.logerr("No point cloud image, did you initialize Turtlebot(pc=True)")
-        #print(type(self.pc))
 
     def infoDepthCallback(self,msg):
         print('received info from depth camera!!!',msg)
@@ -86,3 +90,4 @@ class camera(object):
         return self.cv_image2
     def get_point_cloud(self):
         return self.pc
+

@@ -198,6 +198,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/sinchiguano/yumi_depends_ws/build/yumi/yumi_support/cmake_install.cmake")
   include("/home/sinchiguano/yumi_depends_ws/build/yumi/yumi_launch/cmake_install.cmake")
   include("/home/sinchiguano/yumi_depends_ws/build/yumi/yumi_test_controllers/cmake_install.cmake")
+  include("/home/sinchiguano/yumi_depends_ws/build/yumipy/cmake_install.cmake")
 
 endif()
 

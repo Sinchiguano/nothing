@@ -323,7 +323,10 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 Ceres_DIR:PATH=/usr/lib/cmake/ceres
 
 //Path to a program.
-DOXYGEN_EXECUTABLE:FILEPATH=DOXYGEN_EXECUTABLE-NOTFOUND
+DOXYGEN_EXECUTABLE:FILEPATH=/usr/bin/doxygen
+
+//Doxygen found
+DOXYGEN_FOUND:BOOL=TRUE
 
 //Path to a file.
 EIGEN_INCLUDE_DIR:PATH=/usr/include/eigen3
@@ -1620,7 +1623,7 @@ kdl_parser_DIR:PATH=/opt/ros/kinetic/share/kdl_parser/cmake
 laser_geometry_DIR:PATH=/opt/ros/kinetic/share/laser_geometry/cmake
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/kinetic/lib/librospack.so
+lib:FILEPATH=/opt/ros/kinetic/lib/librostime.so
 
 //The directory containing a CMake configuration file for map_msgs.
 map_msgs_DIR:PATH=/opt/ros/kinetic/share/map_msgs/cmake
@@ -2090,6 +2093,12 @@ yumi_test_controllers_BINARY_DIR:STATIC=/home/sinchiguano/yumi_depends_ws/build/
 //Value Computed by CMake
 yumi_test_controllers_SOURCE_DIR:STATIC=/home/sinchiguano/yumi_depends_ws/src/yumi/yumi_test_controllers
 
+//Value Computed by CMake
+yumipy_BINARY_DIR:STATIC=/home/sinchiguano/yumi_depends_ws/build/yumipy
+
+//Value Computed by CMake
+yumipy_SOURCE_DIR:STATIC=/home/sinchiguano/yumi_depends_ws/src/yumipy
+
 
 ########################
 # INTERNAL cache entries
@@ -2282,7 +2291,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=86
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=87
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

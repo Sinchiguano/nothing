@@ -9187,6 +9187,162 @@ test_vel_control/fast:
 	$(MAKE) -f yumi/yumi_test_controllers/CMakeFiles/test_vel_control.dir/build.make yumi/yumi_test_controllers/CMakeFiles/test_vel_control.dir/build
 .PHONY : test_vel_control/fast
 
+#=============================================================================
+# Target rules for targets named yumipy_genpy
+
+# Build rule for target.
+yumipy_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 yumipy_genpy
+.PHONY : yumipy_genpy
+
+# fast build rule for target.
+yumipy_genpy/fast:
+	$(MAKE) -f yumipy/CMakeFiles/yumipy_genpy.dir/build.make yumipy/CMakeFiles/yumipy_genpy.dir/build
+.PHONY : yumipy_genpy/fast
+
+#=============================================================================
+# Target rules for targets named yumipy_generate_messages_py
+
+# Build rule for target.
+yumipy_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 yumipy_generate_messages_py
+.PHONY : yumipy_generate_messages_py
+
+# fast build rule for target.
+yumipy_generate_messages_py/fast:
+	$(MAKE) -f yumipy/CMakeFiles/yumipy_generate_messages_py.dir/build.make yumipy/CMakeFiles/yumipy_generate_messages_py.dir/build
+.PHONY : yumipy_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named yumipy_gencpp
+
+# Build rule for target.
+yumipy_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 yumipy_gencpp
+.PHONY : yumipy_gencpp
+
+# fast build rule for target.
+yumipy_gencpp/fast:
+	$(MAKE) -f yumipy/CMakeFiles/yumipy_gencpp.dir/build.make yumipy/CMakeFiles/yumipy_gencpp.dir/build
+.PHONY : yumipy_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named yumipy_generate_messages_lisp
+
+# Build rule for target.
+yumipy_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 yumipy_generate_messages_lisp
+.PHONY : yumipy_generate_messages_lisp
+
+# fast build rule for target.
+yumipy_generate_messages_lisp/fast:
+	$(MAKE) -f yumipy/CMakeFiles/yumipy_generate_messages_lisp.dir/build.make yumipy/CMakeFiles/yumipy_generate_messages_lisp.dir/build
+.PHONY : yumipy_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named yumipy_generate_messages_cpp
+
+# Build rule for target.
+yumipy_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 yumipy_generate_messages_cpp
+.PHONY : yumipy_generate_messages_cpp
+
+# fast build rule for target.
+yumipy_generate_messages_cpp/fast:
+	$(MAKE) -f yumipy/CMakeFiles/yumipy_generate_messages_cpp.dir/build.make yumipy/CMakeFiles/yumipy_generate_messages_cpp.dir/build
+.PHONY : yumipy_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named yumipy_genlisp
+
+# Build rule for target.
+yumipy_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 yumipy_genlisp
+.PHONY : yumipy_genlisp
+
+# fast build rule for target.
+yumipy_genlisp/fast:
+	$(MAKE) -f yumipy/CMakeFiles/yumipy_genlisp.dir/build.make yumipy/CMakeFiles/yumipy_genlisp.dir/build
+.PHONY : yumipy_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named yumipy_gennodejs
+
+# Build rule for target.
+yumipy_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 yumipy_gennodejs
+.PHONY : yumipy_gennodejs
+
+# fast build rule for target.
+yumipy_gennodejs/fast:
+	$(MAKE) -f yumipy/CMakeFiles/yumipy_gennodejs.dir/build.make yumipy/CMakeFiles/yumipy_gennodejs.dir/build
+.PHONY : yumipy_gennodejs/fast
+
+#=============================================================================
+# Target rules for targets named _yumipy_generate_messages_check_deps_ROSYumiArm
+
+# Build rule for target.
+_yumipy_generate_messages_check_deps_ROSYumiArm: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _yumipy_generate_messages_check_deps_ROSYumiArm
+.PHONY : _yumipy_generate_messages_check_deps_ROSYumiArm
+
+# fast build rule for target.
+_yumipy_generate_messages_check_deps_ROSYumiArm/fast:
+	$(MAKE) -f yumipy/CMakeFiles/_yumipy_generate_messages_check_deps_ROSYumiArm.dir/build.make yumipy/CMakeFiles/_yumipy_generate_messages_check_deps_ROSYumiArm.dir/build
+.PHONY : _yumipy_generate_messages_check_deps_ROSYumiArm/fast
+
+#=============================================================================
+# Target rules for targets named yumipy_generate_messages
+
+# Build rule for target.
+yumipy_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 yumipy_generate_messages
+.PHONY : yumipy_generate_messages
+
+# fast build rule for target.
+yumipy_generate_messages/fast:
+	$(MAKE) -f yumipy/CMakeFiles/yumipy_generate_messages.dir/build.make yumipy/CMakeFiles/yumipy_generate_messages.dir/build
+.PHONY : yumipy_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named yumipy_generate_messages_eus
+
+# Build rule for target.
+yumipy_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 yumipy_generate_messages_eus
+.PHONY : yumipy_generate_messages_eus
+
+# fast build rule for target.
+yumipy_generate_messages_eus/fast:
+	$(MAKE) -f yumipy/CMakeFiles/yumipy_generate_messages_eus.dir/build.make yumipy/CMakeFiles/yumipy_generate_messages_eus.dir/build
+.PHONY : yumipy_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named yumipy_geneus
+
+# Build rule for target.
+yumipy_geneus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 yumipy_geneus
+.PHONY : yumipy_geneus
+
+# fast build rule for target.
+yumipy_geneus/fast:
+	$(MAKE) -f yumipy/CMakeFiles/yumipy_geneus.dir/build.make yumipy/CMakeFiles/yumipy_geneus.dir/build
+.PHONY : yumipy_geneus/fast
+
+#=============================================================================
+# Target rules for targets named yumipy_generate_messages_nodejs
+
+# Build rule for target.
+yumipy_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 yumipy_generate_messages_nodejs
+.PHONY : yumipy_generate_messages_nodejs
+
+# fast build rule for target.
+yumipy_generate_messages_nodejs/fast:
+	$(MAKE) -f yumipy/CMakeFiles/yumipy_generate_messages_nodejs.dir/build.make yumipy/CMakeFiles/yumipy_generate_messages_nodejs.dir/build
+.PHONY : yumipy_generate_messages_nodejs/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -9894,6 +10050,18 @@ help:
 	@echo "... yumi_hw_genlisp"
 	@echo "... test_traj_vel_control"
 	@echo "... test_vel_control"
+	@echo "... yumipy_genpy"
+	@echo "... yumipy_generate_messages_py"
+	@echo "... yumipy_gencpp"
+	@echo "... yumipy_generate_messages_lisp"
+	@echo "... yumipy_generate_messages_cpp"
+	@echo "... yumipy_genlisp"
+	@echo "... yumipy_gennodejs"
+	@echo "... _yumipy_generate_messages_check_deps_ROSYumiArm"
+	@echo "... yumipy_generate_messages"
+	@echo "... yumipy_generate_messages_eus"
+	@echo "... yumipy_geneus"
+	@echo "... yumipy_generate_messages_nodejs"
 .PHONY : help
 
 

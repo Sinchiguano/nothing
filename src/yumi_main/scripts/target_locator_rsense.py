@@ -100,7 +100,7 @@ def publish_transforms(br):
     t1.header.stamp = rospy.Time.now()
     t1.header.frame_id = "world"
     t1.child_frame_id = "target"
-    t1.transform.translation.x = 0.50
+    t1.transform.translation.x = 0.30
     t1.transform.translation.y = 0.0
     t1.transform.translation.z = 0.0
 
@@ -268,8 +268,8 @@ def main():
 
         # Capture frame-by-frame
 
-        #frame=cv2.imread('temp3.jpg')
-        frame=camObj.get_image()
+        frame=cv2.imread('temp3.jpg')
+        #frame=camObj.get_image()
 
         #print(type(frame))
         if frame is None:

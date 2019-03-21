@@ -19,8 +19,6 @@ import numpy as np
 
 
 render_frame='render_cloud/'
-
-
 path_object_pc='end_cloud_pc/'
 path_object_rgbd='end_cloud_rgbd/'
 
